@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    tools:context=".Activity.Main"
+    tools:ignore="SpeakableTextPresentCheck">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/logo"
+                android:contentDescription="@string/icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/ic_search"
+                android:contentDescription="@string/icon"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/logo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/ic_hamburger_menu"
+                android:contentDescription="@string/icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/scroll_newSelected"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:scrollbarSize="0.01dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo"
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:layout_marginStart="42dp">
+                <!--<LinearLayout
+                    android:id="@+id/scroll_newSelectedItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageButton
+                        android:layout_width="342dp"
+                        android:layout_height="192dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@drawable/pbg"
+                        tools:ignore="SpeakableTextPresentCheck">
+
+                    </ImageButton>
+
+                    <ImageButton
+                        android:layout_width="342dp"
+                        android:layout_height="192dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@drawable/pbg"
+                        android:paddingHorizontal="20dp"/>
+                    <ImageButton
+                        android:layout_width="342dp"
+                        android:layout_height="192dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@drawable/pbg" />
+                    <ImageButton
+                        android:layout_width="342dp"
+                        android:layout_height="192dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@drawable/pbg" />
+                </LinearLayout>-->
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvListenPodcast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listen_podcast"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintStart_toStartOf="parent" />
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvListenPodcast"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/tvRecent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:text="@string/recent" />
+
+                <TextView
+                    android:id="@+id/tvTopics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:text="@string/topics" />
+
+                <TextView
+                    android:id="@+id/tvAuthors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:text="@string/authors" />
+
+                <TextView
+                    android:id="@+id/tvEpisodes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:text="@string/episodes" />
+
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/itemPodcast"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@id/content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="20dp"
+                app:layout_constraintVertical_bias="0"
+                android:orientation="horizontal"
+                android:layout_marginStart="42dp"
+                />
+            <RelativeLayout
+                android:id="@+id/crossbar"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/grey"
+                app:layout_constraintTop_toBottomOf="@id/itemPodcast"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.2"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/podcasts_authors"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/crossbar"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintVertical_bias="0.1"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:id="@+id/lvAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tvAuthor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/tvRecentAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:text="@string/recent" />
+
+                <TextView
+                    android:id="@+id/tvMostPodcasts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:text="@string/most_podcast" />
+
+                <TextView
+                    android:id="@+id/tvMostFollow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:text="@string/most_follow" />
+
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/lvAuthor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</ScrollView>

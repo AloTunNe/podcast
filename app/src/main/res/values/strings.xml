@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Podcast</string>
+    <string name="login">Login</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="register">Register new account</string>
+    <string name="logo">LOGO</string>
+    <string name="browse">Browse</string>
+    <string name="robert">Robert</string>
+    <string name="categories">Categories</string>
+    <string name="pcast">Pcast</string>
+    <string name="robert_dugoni">Robert Dugoni</string>
+    <string name="j.k.rowling">J.K.Rowling</string>
+    <string name="mary_beth_keane">Mary Beth Keane</string>
+    <string name="textpod1">Tincidunt facilisis fermentum nec sed</string>
+    <string name="textpod2">Nulla leo dictum pharetra ultricies</string>
+    <string name="textopic1">Positive psychology and our motivations</string>
+    <string name="textopic2">At massa nulla ultricies aliquam aenean lacus</string>
+    <string name="textopic3">Eget suspendisse sem posuere mauris ligula</string>
+    <string name="textopic4">Id sed urna cursus sed felis lacus gravida</string>
+    <string name="topic4">Topics(4)</string>
+    <string name="author">Authors: 124</string>
+    <string name="pod">Podcasts: 7 286</string>
+    <string name="episodic_series_of_digital_audio">Episodic series of digital audio.</string>
+    <string name="email_hint">E-mail address</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_passwd"><u>Forgot password?</u></string>
+    <string name="icon_email">icon email</string>
+    <string name="icon_key">icon key</string>
+    <string name="user_avt">user_avt</string>
+    <string name="icon">icon</string>
+    <string name="listen_podcast">Listen Podcast</string>
+    <string name="recent">Recent</string>
+    <string name="topics">Topics</string>
+    <string name="authors">Authors</string>
+    <string name="episodes">Episodes</string>
+    <string name="podcasts_authors">Podcasts authors</string>
+    <string name="most_podcast">Most Podcast</string>
+    <string name="most_follow">Most Follow</string>
+    <string-array name="hamburger_menu_setting">
+        <item>Browse</item>
+        <item>Subscribed</item>
+        <item>Favorites</item>
+        <item>History</item>
+        <item>Payment</item>
+        <item>Account settings</item>
+
+    </string-array>
+</resources>
