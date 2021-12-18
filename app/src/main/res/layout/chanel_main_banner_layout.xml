@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rcv_Chanel_Main_Banner"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginStart="42dp"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical"
+    android:scrollbarSize="0.01dp"
+    android:background="@color/purple_700"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toEndOf="@id/logo"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/logo"
+    app:layout_constraintVertical_bias="0.0"
+    tools:ignore="SpeakableTextPresentCheck">
+
+
+    <TextView
+        android:id="@+id/tv_Chanel_Main_Banner_Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Name Of Episode"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/tv_Chanel_Main_Banner_Avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp" />
+
+    <TextView
+        android:id="@+id/tv_Chanel_Main_Banner_Author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_Chanel_Main_Banner_Avatar"
+        android:layout_marginLeft="70dp"
+        android:layout_marginBottom="-147dp"
+        android:layout_toRightOf="@id/tv_Chanel_Main_Banner_Avatar"
+        android:text="Tran Quoc Cuong"
+        android:textColor="@color/white" />
+
+    <ImageButton
+        android:id="@+id/imb_Chanel_Main_Banner_Avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="300dp"
+        android:layout_marginBottom="7dp" />
+
+
+</RelativeLayout>

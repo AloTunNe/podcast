@@ -147,13 +147,13 @@
                 >
 
                 <TextView
-                    android:id="@+id/tvRecent"
+                    android:id="@+id/tvPlaylist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:text="@string/recent" />
+                    android:text="Playlist" />
 
                 <TextView
                     android:id="@+id/tvTopics"
@@ -165,38 +165,31 @@
                     android:text="@string/topics" />
 
                 <TextView
-                    android:id="@+id/tvAuthors"
+                    android:id="@+id/tvChanels"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:text="@string/authors" />
-
-                <TextView
-                    android:id="@+id/tvEpisodes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:text="@string/episodes" />
+                    android:text="Chanel" />
 
             </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/itemPodcast"
+                android:id="@+id/rcv_Multi_Main_Banner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:layout_constraintTop_toBottomOf="@id/content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="20dp"
-                app:layout_constraintVertical_bias="0"
-                android:orientation="horizontal"
                 android:layout_marginStart="42dp"
-                />
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/content"
+                app:layout_constraintVertical_bias="1.0" />
+
             <RelativeLayout
                 android:id="@+id/crossbar"
                 android:layout_width="match_parent"
@@ -204,7 +197,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/grey"
-                app:layout_constraintTop_toBottomOf="@id/itemPodcast"
+                app:layout_constraintTop_toBottomOf="@id/rcv_Multi_Main_Banner"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintVertical_bias="0.2"

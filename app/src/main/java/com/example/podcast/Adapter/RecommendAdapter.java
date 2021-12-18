@@ -3,6 +3,8 @@ package com.example.podcast.Adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
 import com.example.podcast.Service.DataService;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.w3c.dom.Text;
 
@@ -74,7 +77,23 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
         EpisodeOnMainBanner ep = reList.get(position);
         holder.tvEpisodeMainBannerName.setText(ep.getName());
         holder.tvEpisodeMainBannerAuthor.setText(ep.getAuthor());
-        Picasso.with(context).load(ep.getAvatar()).into(holder.imgEpisodeMainBannerAvatar);
+        holder.tvEpisodeMainBannerViews.setText("Views: " + ep.getListens());
+        Picasso.with(context).load(ep.getAuthorAVT()).into(holder.imgEpisodeMainBannerAvatar);
+        Picasso.with(context).load(ep.getAvatar()).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+               holder.rcvMainBanner.setBackground(new BitmapDrawable(bitmap));
+            }
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
     }
 
 

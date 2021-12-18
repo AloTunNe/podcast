@@ -23,6 +23,18 @@ public class EpisodeOnMainBanner implements Parcelable {
     @SerializedName("Author")
     @Expose
     private String author;
+    @SerializedName("AuthorAVT")
+    @Expose
+    private String authorAVT;
+
+    public EpisodeOnMainBanner(String name, String avatar, String link, String listens, String author, String authorAVT) {
+        this.name = name;
+        this.avatar = avatar;
+        this.link = link;
+        this.listens = listens;
+        this.author = author;
+        this.authorAVT = authorAVT;
+    }
 
     protected EpisodeOnMainBanner(Parcel in) {
         name = in.readString();
@@ -30,14 +42,7 @@ public class EpisodeOnMainBanner implements Parcelable {
         link = in.readString();
         listens = in.readString();
         author = in.readString();
-    }
-
-    public EpisodeOnMainBanner(String name, String avatar, String link, String listens, String author) {
-        this.name = name;
-        this.avatar = avatar;
-        this.link = link;
-        this.listens = listens;
-        this.author = author;
+        authorAVT = in.readString();
     }
 
     public static final Creator<EpisodeOnMainBanner> CREATOR = new Creator<EpisodeOnMainBanner>() {
@@ -51,8 +56,6 @@ public class EpisodeOnMainBanner implements Parcelable {
             return new EpisodeOnMainBanner[size];
         }
     };
-
-
 
     public String getName() {
         return name;
@@ -94,6 +97,14 @@ public class EpisodeOnMainBanner implements Parcelable {
         this.author = author;
     }
 
+    public String getAuthorAVT() {
+        return authorAVT;
+    }
+
+    public void setAuthorAVT(String authorAVT) {
+        this.authorAVT = authorAVT;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -106,5 +117,6 @@ public class EpisodeOnMainBanner implements Parcelable {
         parcel.writeString(link);
         parcel.writeString(listens);
         parcel.writeString(author);
+        parcel.writeString(authorAVT);
     }
 }
