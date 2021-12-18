@@ -1,5 +1,6 @@
 package com.example.podcast.Service;
 
+import com.example.podcast.Model.CatogoryOnMainBanner;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.EpisodeOnMainBanner;
 import com.example.podcast.Model.PlaylistOnMainBanner;
@@ -19,4 +20,6 @@ public interface DataService {
     Call<List<PlaylistOnMainBanner>> getDataPlaylistMainBanner();
     @GET("RandomChanelOnMainBanner.php")
     Call<List<ChanelOnMainBanner>> getDataChanelMainBanner();
+    @GET("RandomCatogoryMainBanner.php")
+    Call<List<CatogoryOnMainBanner>> getDataCatagoryMainBanner();
 }

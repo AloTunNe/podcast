@@ -7,26 +7,21 @@
     android:layout_height="200dp"
     android:layout_marginStart="42dp"
     android:layout_marginTop="16dp"
+    android:background="@color/teal_200"
     android:orientation="vertical"
     android:scrollbarSize="0.01dp"
-    android:background="@drawable/episode_layout"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toEndOf="@id/logo"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/logo"
-    app:layout_constraintVertical_bias="0.0"
-    tools:ignore="SpeakableTextPresentCheck">
-
-
+    app:circularflow_defaultRadius="10dp"
+    app:circularflow_radiusInDP="100dp"
+    app:layout_constraintCircleRadius="20dp">
     <TextView
         android:id="@+id/tv_Episode_Main_Banner_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_gravity="top"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
         android:text="Name Of Episode"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -35,18 +30,21 @@
     <ImageView
         android:layout_width="60dp"
         android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="88dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/tv_Episode_Main_Banner_Name"
+        android:layout_marginEnd="22dp"
         android:background="@drawable/ic_label_new" />
 
     <TextView
         android:id="@+id/tv_Episode_Main_Banner_Views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_Episode_Main_Banner_Name"
-        android:layout_alignLeft="@id/tv_Episode_Main_Banner_Name"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="42dp"
         android:text="Views: "
         android:textColor="@color/white"
         android:textSize="15dp" />
@@ -55,7 +53,6 @@
         android:id="@+id/tv_Episode_Main_Banner_Avatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_Episode_Main_Banner_Views"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp" />
 
@@ -63,10 +60,11 @@
         android:id="@+id/tv_Episode_Main_Banner_Author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_Episode_Main_Banner_Avatar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="85dp"
         android:layout_marginLeft="68dp"
-        android:layout_marginBottom="-81dp"
-        android:layout_toRightOf="@id/tv_Episode_Main_Banner_Avatar"
+        android:layout_marginBottom="51dp"
         android:text="Tran Quoc Cuong"
         android:textColor="@color/white" />
 
@@ -74,24 +72,26 @@
         android:id="@+id/imb_Episode_Main_Banner_Avatar"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignBottom="@+id/tv_Episode_Main_Banner_Views"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="300dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginRight="288dp"
+        android:layout_marginBottom="15dp"
+        android:scaleType="fitXY"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/btn_play"
         android:layout_width="109dp"
         android:layout_height="104dp"
-        android:layout_below="@+id/tv_Episode_Main_Banner_Name"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="47dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="35dp"
-        android:layout_toEndOf="@+id/tv_Episode_Main_Banner_Author"
+        android:layout_marginEnd="-6dp"
+        android:layout_marginBottom="-13dp"
         android:background="@drawable/ic_play"
+        android:scaleType="fitXY"
         tools:ignore="SpeakableTextPresentCheck" />
 
 </RelativeLayout>

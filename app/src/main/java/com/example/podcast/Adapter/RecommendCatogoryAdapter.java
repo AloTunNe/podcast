@@ -10,36 +10,34 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.podcast.Model.EpisodeOnMainBanner;
+import com.example.podcast.Model.CatogoryOnMainBanner;
+import com.example.podcast.Model.ChanelOnMainBanner;
+import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.R;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
 import java.util.List;
 
-public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.ViewHolder>{
-    private List<EpisodeOnMainBanner> reList;
+public class RecommendCatogoryAdapter extends RecyclerView.Adapter<RecommendCatogoryAdapter.ViewHolder>{
+    private List<CatogoryOnMainBanner> reList;
     private Context context;
-    public RecommendAdapter(Context context, List<EpisodeOnMainBanner> reList) {
+    public RecommendCatogoryAdapter(Context context, List<CatogoryOnMainBanner> reList) {
         this.context = context;
         this.reList = reList;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-         TextView tvEpisodeMainBannerName;
-         TextView tvEpisodeMainBannerAuthor;
-         TextView tvEpisodeMainBannerViews;
-         ImageButton imgEpisodeMainBannerAvatar;
-         RelativeLayout rcvMainBanner;
+        TextView tvCatogoryMainBanner;
+        RelativeLayout rcvCatogoryMainBanner;
         public ViewHolder(View view) {
             super(view);
-            tvEpisodeMainBannerName = (TextView) view.findViewById(R.id.tv_Episode_Main_Banner_Name);
-            tvEpisodeMainBannerAuthor= (TextView) view.findViewById(R.id.tv_Episode_Main_Banner_Author);
-            tvEpisodeMainBannerViews = (TextView) view.findViewById(R.id.tv_Episode_Main_Banner_Views);
-            imgEpisodeMainBannerAvatar = (ImageButton)view.findViewById(R.id.imb_Episode_Main_Banner_Avatar);
-            rcvMainBanner = (RelativeLayout)  view.findViewById(R.id.rcv_Episode_Main_Banner);
+            tvCatogoryMainBanner = (TextView) view.findViewById(R.id.tv_Catogory_Main_Banner_Name);
+            rcvCatogoryMainBanner = (RelativeLayout) view.findViewById(R.id.rcv_Catogory_Main_Banner);
             // Define click listener for the ViewHolder's View
 
         }
@@ -50,21 +48,18 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.episode_main_banner_layout, parent, false);
+                .inflate(R.layout.catogory_main_banner_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        EpisodeOnMainBanner ep = reList.get(position);
-        holder.tvEpisodeMainBannerName.setText(ep.getName());
-        holder.tvEpisodeMainBannerAuthor.setText(ep.getAuthor());
-        holder.tvEpisodeMainBannerViews.setText("Views: " + ep.getListens());
-        Picasso.with(context).load(ep.getAuthorAVT()).into(holder.imgEpisodeMainBannerAvatar);
-        Picasso.with(context).load(ep.getAvatar()).into(new Target() {
+        CatogoryOnMainBanner catogoryOnMainBanner = reList.get(position);
+        holder.tvCatogoryMainBanner.setText(catogoryOnMainBanner.getName());
+        Picasso.with(context).load(catogoryOnMainBanner.getPicture()).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-               holder.rcvMainBanner.setBackground(new BitmapDrawable(bitmap));
+                holder.rcvCatogoryMainBanner.setBackground(new BitmapDrawable(bitmap));
             }
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {

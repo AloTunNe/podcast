@@ -156,13 +156,13 @@
                     android:text="Playlist" />
 
                 <TextView
-                    android:id="@+id/tvTopics"
+                    android:id="@+id/tvCatogory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:text="@string/topics" />
+                    android:text="Catogories" />
 
                 <TextView
                     android:id="@+id/tvChanels"

@@ -3,13 +3,9 @@ package com.example.podcast.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.podcast.Adapter.RecommendAdapter;
+import com.example.podcast.Adapter.RecommendCatogoryAdapter;
 import com.example.podcast.Adapter.RecommendChanelAdapter;
 import com.example.podcast.Adapter.RecommendPlaylistAdapter;
+import com.example.podcast.Model.CatogoryOnMainBanner;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.EpisodeOnMainBanner;
 import com.example.podcast.Model.PlaylistOnMainBanner;
@@ -37,20 +35,22 @@ import retrofit2.Response;
 public class Main extends AppCompatActivity {
     TextView tvChanels;
     TextView tvPlaylists;
+    TextView tvCatogories;
     ImageView img_Humburger_Menu;
     User user;
     Context context;
     ArrayList<EpisodeOnMainBanner> episodeOnMainBannerList;
     ArrayList<PlaylistOnMainBanner> playlistOnMainBannerArrayList;
     ArrayList<ChanelOnMainBanner> chanelOnMainBannerArrayList;
+    ArrayList<CatogoryOnMainBanner> catogoryOnMainBannerArrayList;
 
     RecommendAdapter recommendAdapter;
     RecommendPlaylistAdapter recommendPlaylistAdapter;
     RecommendChanelAdapter recommendChanelAdapter;
+    RecommendCatogoryAdapter recommendCatogoryAdapter;
 
     LinearLayoutManager linearLayoutManager;
     LinearLayoutManager linearLayoutManagerPlaylistMainBanner;
-    LinearLayoutManager linearLayoutManagerChanelMainBanner;
 
     RecyclerView recyclerView;
     RecyclerView rcv_Multi_Main_Banner;
@@ -63,31 +63,34 @@ public class Main extends AppCompatActivity {
 
         getDataEpisodeBanner();
         getDataPlaylistBanner();
-        /*getDataChanelBanner();*/
+        getDataChanelBanner();
+        getDataCatogoryBanner();
 
         SetUI();
 
-        /*tvChanels.setOnClickListener(new View.OnClickListener() {
+        tvChanels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDataChanelBanner();
-                recommendChanelAdapter = new RecommendChanelAdapter(context, chanelOnMainBannerArrayList);
-                rcv_Multi_Main_Banner.setLayoutManager(linearLayoutManagerChanelMainBanner);
-                rcv_Multi_Main_Banner.setAdapter(recommendChanelAdapter);
                 recommendChanelAdapter.notifyDataSetChanged();
-
-
+                rcv_Multi_Main_Banner.setAdapter(recommendChanelAdapter);
             }
-        });*/
-        /*tvPlaylists.setOnClickListener(new View.OnClickListener() {
+        });
+
+        tvPlaylists.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDataPlaylistBanner();
-                recommendPlaylistAdapter = new RecommendPlaylistAdapter(context, playlistOnMainBannerArrayList);
-                rcv_Multi_Main_Banner.setLayoutManager(linearLayoutManagerPlaylistMainBanner);
+                recommendPlaylistAdapter.notifyDataSetChanged();
                 rcv_Multi_Main_Banner.setAdapter(recommendPlaylistAdapter);
             }
-        });*/
+        });
+
+        tvCatogories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recommendCatogoryAdapter.notifyDataSetChanged();
+                rcv_Multi_Main_Banner.setAdapter(recommendCatogoryAdapter);
+            }
+        });
 
         img_Humburger_Menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +109,13 @@ public class Main extends AppCompatActivity {
         recyclerView.setAdapter(recommendAdapter);
 
         recommendPlaylistAdapter = new RecommendPlaylistAdapter(this, playlistOnMainBannerArrayList);
+        recommendChanelAdapter = new RecommendChanelAdapter(context, chanelOnMainBannerArrayList);
+        recommendCatogoryAdapter = new RecommendCatogoryAdapter(context, catogoryOnMainBannerArrayList);
+
         rcv_Multi_Main_Banner.setLayoutManager(linearLayoutManagerPlaylistMainBanner);
+
         rcv_Multi_Main_Banner.setAdapter(recommendPlaylistAdapter);
+
 
     }
 
@@ -115,11 +123,13 @@ public class Main extends AppCompatActivity {
         context = this;
         tvChanels = (TextView) findViewById(R.id.tvChanels);
         tvPlaylists = (TextView) findViewById(R.id.tvPlaylist);
+        tvCatogories = (TextView) findViewById(R.id.tvCatogory);
         img_Humburger_Menu = (ImageView) findViewById(R.id.img_Humbuger_Menu);
 
         episodeOnMainBannerList = new ArrayList<>();
         playlistOnMainBannerArrayList = new ArrayList<>();
         chanelOnMainBannerArrayList = new ArrayList<>();
+        catogoryOnMainBannerArrayList = new ArrayList<>();
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         linearLayoutManagerPlaylistMainBanner = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -176,13 +186,32 @@ public class Main extends AppCompatActivity {
             public void onResponse(Call<List<ChanelOnMainBanner>> call, Response<List<ChanelOnMainBanner>> response) {
                 ArrayList<ChanelOnMainBanner> chanels = (ArrayList<ChanelOnMainBanner>) response.body();
                 for(int i = 0; i <chanels.size(); i++) {
-                   chanelOnMainBannerArrayList.add(new ChanelOnMainBanner(chanels.get(i).getId(), chanels.get(i).getChanelName(), chanels.get(i).getPicture(), chanels.get(i).getUserName(), chanels.get(i).getUserAvatar()));
+                    chanelOnMainBannerArrayList.add(new ChanelOnMainBanner(chanels.get(i).getId(), chanels.get(i).getChanelName(), chanels.get(i).getPicture(), chanels.get(i).getUserName(), chanels.get(i).getUserAvatar()));
+                    recommendChanelAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ChanelOnMainBanner>> call, Throwable t) {
+
+            }
+        });
+    }
+    private void getDataCatogoryBanner() {
+        DataService dataService = APIService.getService();
+        Call<List<CatogoryOnMainBanner>> callback = dataService.getDataCatagoryMainBanner();
+        callback.enqueue(new Callback<List<CatogoryOnMainBanner>>() {
+            @Override
+            public void onResponse(Call<List<CatogoryOnMainBanner>> call, Response<List<CatogoryOnMainBanner>> response) {
+                ArrayList<CatogoryOnMainBanner> catogories = (ArrayList<CatogoryOnMainBanner>) response.body();
+                for(int i = 0; i <catogories.size(); i++) {
+                    catogoryOnMainBannerArrayList.add(new CatogoryOnMainBanner(catogories.get(i).getId(), catogories.get(i).getName(), catogories.get(i).getPicture()));
                 }
                 recommendChanelAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<ChanelOnMainBanner>> call, Throwable t) {
+            public void onFailure(Call<List<CatogoryOnMainBanner>> call, Throwable t) {
 
             }
         });
