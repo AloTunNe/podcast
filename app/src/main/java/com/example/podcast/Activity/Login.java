@@ -2,7 +2,6 @@ package com.example.podcast.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +26,8 @@ public class Login extends AppCompatActivity {
     Button btnLogin;
     EditText edtInputEmail;
     EditText edtInputPassword;
+    User user;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class Login extends AppCompatActivity {
                 checkData();
             }
         });
+
     }
 
     private void Init() {
@@ -60,15 +62,17 @@ public class Login extends AppCompatActivity {
                 inputEmail = edtInputEmail.getText().toString();
                 inputPassword = edtInputPassword.getText().toString();
                 for(int i = 0; i < users.size(); i++) {
-                    if (users.get(i).getUserEmail().compareTo(inputEmail) == 0 && users.get(i).getUserPassword().compareTo(inputPassword) == 0) check = true;
+                    if (users.get(i).getUserEmail().compareTo(inputEmail) == 0 && users.get(i).getUserPassword().compareTo(inputPassword) == 0) {
+                        check = true;
+                        user = new User(users.get(i).getId(), users.get(i).getUserName(), users.get(i).getUserEmail(), users.get(i).getUserPassword(), users.get(i).getUserAvatar(), users.get(i).getUserOwner());
+                    }
                 }
                 if (check) {
                     Toast.makeText(getApplicationContext(), "Login success!", Toast.LENGTH_SHORT).show();
                     Intent iNewActivity = new Intent(Login.this, Main.class);
+                    iNewActivity.putExtra("User_Login", user);
                     startActivity(iNewActivity);
                     overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
-
-
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Email or Password Incorrect!", Toast.LENGTH_SHORT).show();

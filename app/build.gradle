@@ -38,5 +38,23 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'de.hdodenhof:circleimageview:1.2.1'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:27.0.2'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.android.support:support-v13:+'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    dependencies {
+        implementation 'me.relex:circleindicator:1.2.2@aar'
+    }
+    dependencies {
+        implementation 'com.eftimoff:android-viewpager-transformers:1.0.1@aar'
+    }
 }

@@ -45,8 +45,9 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/img_Humbuger_Menu"
+                android:layout_width="14dp"
+                android:layout_height="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="60dp"
                 android:background="@drawable/ic_hamburger_menu"
@@ -56,58 +57,61 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/scroll_newSelected"
+                android:id="@+id/rcv_Episode_Main_Banner"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="42dp"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:scrollbarSize="0.01dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.997"
                 app:layout_constraintStart_toEndOf="@id/logo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/logo"
                 app:layout_constraintVertical_bias="1.0"
-                tools:ignore="SpeakableTextPresentCheck"
-                android:layout_marginStart="42dp">
-                <!--<LinearLayout
-                    android:id="@+id/scroll_newSelectedItem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    >
+                tools:ignore="SpeakableTextPresentCheck">
 
-                    <ImageButton
-                        android:layout_width="342dp"
-                        android:layout_height="192dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:background="@drawable/pbg"
-                        tools:ignore="SpeakableTextPresentCheck">
-
-                    </ImageButton>
-
-                    <ImageButton
-                        android:layout_width="342dp"
-                        android:layout_height="192dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:background="@drawable/pbg"
-                        android:paddingHorizontal="20dp"/>
-                    <ImageButton
-                        android:layout_width="342dp"
-                        android:layout_height="192dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:background="@drawable/pbg" />
-                    <ImageButton
-                        android:layout_width="342dp"
-                        android:layout_height="192dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:background="@drawable/pbg" />
-                </LinearLayout>-->
             </androidx.recyclerview.widget.RecyclerView>
+            <!--<LinearLayout
+                android:id="@+id/scroll_newSelectedItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                >
+
+                <ImageButton
+                    android:layout_width="342dp"
+                    android:layout_height="192dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/pbg"
+                    tools:ignore="SpeakableTextPresentCheck">
+
+                </ImageButton>
+
+                <ImageButton
+                    android:layout_width="342dp"
+                    android:layout_height="192dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/pbg"
+                    android:paddingHorizontal="20dp"/>
+                <ImageButton
+                    android:layout_width="342dp"
+                    android:layout_height="192dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/pbg" />
+                <ImageButton
+                    android:layout_width="342dp"
+                    android:layout_height="192dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/pbg" />
+            </LinearLayout>-->
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -121,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/listen_podcast"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -147,6 +152,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:text="@string/recent" />
 
                 <TextView
@@ -155,6 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:text="@string/topics" />
 
                 <TextView
@@ -163,6 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:text="@string/authors" />
 
                 <TextView
@@ -171,6 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:text="@string/episodes" />
 
             </LinearLayout>

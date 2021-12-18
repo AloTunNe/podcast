@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Hamburger_menu">
+    tools:context=".Activity.Hamburger_Menu">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,10 +25,11 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="30dp">
                     <TextView
+                        android:id="@+id/tv_Hello_User"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hello,\nLemon!"
-                        android:textSize="32sp"
+                        android:textSize="22sp"
                         android:textColor="@color/white"
                         android:layout_marginStart="50dp" />
 
@@ -47,7 +48,7 @@
                             android:layout_marginTop="-5dp"/>
 
                         <ImageView
-
+                            android:id="@+id/img_Closebtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_close"
@@ -70,10 +71,12 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="30dp">
                 <ImageView
+                    android:id="@+id/img_Avatar_User"
                     android:contentDescription="@string/user_avt"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@mipmap/ic_avt_user_round"
+
+                    android:background="@color/white"
                     android:layout_marginStart="50dp" />
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -81,19 +84,6 @@
                     android:orientation="vertical"
                     android:layout_marginStart="10dp"
                     android:gravity="center">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Listened time:"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="24:10:05"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -104,7 +94,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Playlists:"
+                        android:text="Playlists"
                         android:textColor="@color/white"
                         android:textSize="16sp"/>
                     <TextView
@@ -122,12 +112,14 @@
                     android:layout_marginStart="10dp"
                     android:gravity="center">
                     <TextView
+                        android:id="@+id/tv_Follows"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Followed:"
+                        android:text="Followed"
                         android:textColor="@color/white"
                         android:textSize="16sp"/>
                     <TextView
+                        android:id="@+id/tv_Follows_Number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="179"
@@ -170,6 +162,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Browse"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="18sp"
                         android:layout_marginStart="50dp"/>
                 </LinearLayout>
@@ -187,6 +181,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Subscribed"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="18sp"
                         android:layout_marginStart="50dp"/>
                 </LinearLayout>
@@ -204,6 +200,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Favorites"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="18sp"
                         android:layout_marginStart="50dp"/>
                 </LinearLayout>
@@ -221,6 +219,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="History"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="18sp"
                         android:layout_marginStart="50dp"/>
                 </LinearLayout>
@@ -238,6 +238,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Payments"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="18sp"
                         android:layout_marginStart="50dp"/>
                 </LinearLayout>
@@ -255,6 +257,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Setting"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="18sp"
                         android:layout_marginStart="50dp"/>
                 </LinearLayout>
@@ -262,20 +266,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="65dp"
+                    android:layout_marginTop="55dp"
                     android:gravity="center"
                     >
                     <Button
+                        android:id="@+id/btn_logout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/btn_logout"
                         android:text="Logout"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="16sp"
                         android:textAllCaps="false"
                         android:drawableEnd="@drawable/ic_logout"
                         android:gravity="center"
-                        android:paddingLeft="20dp"
-                        />
+                        android:paddingLeft="20dp">
+                    </Button>
 
                 </LinearLayout>
             </LinearLayout>
