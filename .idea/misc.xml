@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyFolder/MobileApp/MobileApp/podcast/app/src/main/res/drawable/btn_register_shape.xml" value="0.26615384615384613" />
+        <entry key="..\:/MyFolder/MobileApp/MobileApp/podcast/app/src/main/res/drawable/episode_layout.xml" value="0.26615384615384613" />
+        <entry key="..\:/MyFolder/MobileApp/MobileApp/podcast/app/src/main/res/drawable/hamburger_menu_top.xml" value="0.26615384615384613" />
+        <entry key="..\:/MyFolder/MobileApp/MobileApp/podcast/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/MyFolder/MobileApp/MobileApp/podcast/app/src/main/res/layout/episode_main_banner_layout.xml" value="0.4" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/avt_user.xml" value="0.23489583333333333" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/bnt_search.xml" value="0.23489583333333333" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/btn_fb_shape.xml" value="0.23489583333333333" />
