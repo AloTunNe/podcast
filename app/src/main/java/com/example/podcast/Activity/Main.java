@@ -92,7 +92,7 @@ public class Main extends AppCompatActivity {
                 for(int i = 0; i <episodes.size(); i++) {
                     episodeOnMainBannerList.add(new EpisodeOnMainBanner(episodes.get(i).getName(), episodes.get(i).getAvatar(), episodes.get(i).getLink(), episodes.get(i).getListens(), episodes.get(i).getAuthor()));
                 }
-
+                recommendAdapter.notifyDataSetChanged();
             }
 
             @Override
