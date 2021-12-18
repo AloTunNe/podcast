@@ -91,6 +91,7 @@ public class Main extends AppCompatActivity {
                 ArrayList<EpisodeOnMainBanner> episodes = (ArrayList<EpisodeOnMainBanner>) response.body();
                 for(int i = 0; i <episodes.size(); i++) {
                     episodeOnMainBannerList.add(new EpisodeOnMainBanner(episodes.get(i).getName(), episodes.get(i).getAvatar(), episodes.get(i).getLink(), episodes.get(i).getListens(), episodes.get(i).getAuthor()));
+                    recommendAdapter.notifyDataSetChanged();
                 }
 
             }

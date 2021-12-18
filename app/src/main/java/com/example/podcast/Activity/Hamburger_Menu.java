@@ -39,6 +39,7 @@ public class Hamburger_Menu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent iNewActivity = new Intent(Hamburger_Menu.this, Main.class);
+                iNewActivity.putExtra("User_Login", user);
                 startActivity(iNewActivity);
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }

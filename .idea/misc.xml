@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android_Project/Podcast/podcast/app/src/main/res/layout/activity_main.xml" value="0.14375" />
+        <entry key="..\:/Android_Project/Podcast/podcast/app/src/main/res/layout/episode_main_banner_layout.xml" value="0.14375" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/avt_user.xml" value="0.23489583333333333" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/bnt_search.xml" value="0.23489583333333333" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/btn_fb_shape.xml" value="0.23489583333333333" />
