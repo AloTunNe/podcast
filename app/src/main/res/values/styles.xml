@@ -13,5 +13,9 @@
         <item name="cornerFamily">rounded</item>
         <!--<item name="cornerSize">10dp</item>-->
     </style>
-
+    <style name="myseekbar" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressBackgroundTint">#ffffff</item>
+        <item name="android:progressTint">#FF334B</item>
+        <item name="android:thumbTint">#FF334B</item>
+    </style>
 </resources>
