@@ -32,7 +32,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
          TextView tvEpisodeMainBannerName;
          TextView tvEpisodeMainBannerAuthor;
          TextView tvEpisodeMainBannerViews;
-         ImageButton imgEpisodeMainBannerAvatar;
+         ShapeableImageView imgEpisodeMainBannerAvatar;
          ShapeableImageView saiEpisodeBackgroundMainBanner;
          RelativeLayout rcvMainBanner;
         public ViewHolder(View view) {
@@ -40,7 +40,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
             tvEpisodeMainBannerName = (TextView) view.findViewById(R.id.tv_Episode_Main_Banner_Name);
             tvEpisodeMainBannerAuthor= (TextView) view.findViewById(R.id.tv_Episode_Main_Banner_Author);
             tvEpisodeMainBannerViews = (TextView) view.findViewById(R.id.tv_Episode_Main_Banner_Views);
-            imgEpisodeMainBannerAvatar = (ImageButton)view.findViewById(R.id.imb_Episode_Main_Banner_Avatar);
+            imgEpisodeMainBannerAvatar = (ShapeableImageView) view.findViewById(R.id.imb_Episode_Main_Banner_Avatar);
             rcvMainBanner = (RelativeLayout)  view.findViewById(R.id.rcv_Episode_Main_Banner);
             saiEpisodeBackgroundMainBanner = (ShapeableImageView)  view.findViewById(R.id.imgEpisodeBackgroundBanner);
             // Define click listener for the ViewHolder's View
