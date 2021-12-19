@@ -1,13 +1,17 @@
 package com.example.podcast.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Main extends AppCompatActivity {
+public class Main extends AppCompatActivity implements RecommendAdapter.OnRecommendEpClick, RecommendCatogoryAdapter.OnCategoryClick, RecommendChanelAdapter.OnReChannelClick, RecommendPlaylistAdapter.OnRePlaylistClick{
     TextView tvChanels;
     TextView tvPlaylists;
     TextView tvCatogories;
@@ -118,13 +122,13 @@ public class Main extends AppCompatActivity {
     }
 
     private void SetUI() {
-        recommendAdapter = new RecommendAdapter(this, episodeOnMainBannerList);
+        recommendAdapter = new RecommendAdapter(this, episodeOnMainBannerList, this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(recommendAdapter);
 
-        recommendPlaylistAdapter = new RecommendPlaylistAdapter(this, playlistOnMainBannerArrayList);
-        recommendChanelAdapter = new RecommendChanelAdapter(context, chanelOnMainBannerArrayList);
-        recommendCatogoryAdapter = new RecommendCatogoryAdapter(context, catogoryOnMainBannerArrayList);
+        recommendPlaylistAdapter = new RecommendPlaylistAdapter(this, playlistOnMainBannerArrayList, this);
+        recommendChanelAdapter = new RecommendChanelAdapter(context, chanelOnMainBannerArrayList, this);
+        recommendCatogoryAdapter = new RecommendCatogoryAdapter(context, catogoryOnMainBannerArrayList, this);
 
        /* final int speedScroll = 15000;
         final Handler handler = new Handler();
@@ -246,5 +250,28 @@ public class Main extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onRecommendEpClick(int position) {
+        Log.d(TAG, "onRecommendEpClick: click on item " + position);
+        Toast.makeText(this, "onRecommendEpClick: click on item " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCategoryClick(int position) {
+        Log.d(TAG, "onCategoryClick: click on item " + position);
+        Toast.makeText(this, "onCategoryClick: click on item " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onReChannelClick(int position) {
+        Log.d(TAG, "onReChannelClick: click on item " + position);
+        Toast.makeText(this, "onReChannelClick: click on item " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRePlaylistClick(int position) {
+        Toast.makeText(this, "onRePlaylistClick: click on item" + position, Toast.LENGTH_SHORT).show();
     }
 }

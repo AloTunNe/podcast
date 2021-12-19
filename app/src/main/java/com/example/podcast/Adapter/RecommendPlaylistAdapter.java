@@ -24,32 +24,42 @@ import java.util.List;
 public class RecommendPlaylistAdapter extends RecyclerView.Adapter<RecommendPlaylistAdapter.ViewHolder>{
     private List<PlaylistOnMainBanner> reList;
     private Context context;
-    public RecommendPlaylistAdapter(Context context, List<PlaylistOnMainBanner> reList) {
+    private OnRePlaylistClick mOnRePlaylistClick;
+    public RecommendPlaylistAdapter(Context context, List<PlaylistOnMainBanner> reList, OnRePlaylistClick onRePlaylistClick) {
         this.context = context;
         this.reList = reList;
+        this.mOnRePlaylistClick = onRePlaylistClick;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvPlaylistMainBannerName;
         TextView tvPlaylistMainBannerChanel;
         RelativeLayout rcvPlaylistMainBanner;
-        public ViewHolder(View view) {
+        OnRePlaylistClick onRePlaylistClick;
+        public ViewHolder(View view, OnRePlaylistClick onRePlaylistClick) {
             super(view);
             tvPlaylistMainBannerName = (TextView) view.findViewById(R.id.tv_Playlist_Main_Banner_Name);
             tvPlaylistMainBannerChanel = (TextView) view.findViewById(R.id.tv_Playlist_Main_Banner_Chanel);
             rcvPlaylistMainBanner = (RelativeLayout) view.findViewById(R.id.rcv_Playlist_Main_Banner);
             // Define click listener for the ViewHolder's View
+            this.onRePlaylistClick = onRePlaylistClick;
+            view.setOnClickListener(this);
+
 
         }
 
 
+        @Override
+        public void onClick(View v) {
+            onRePlaylistClick.onRePlaylistClick(getAdapterPosition());
+        }
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.playlist_main_banner_layout, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnRePlaylistClick);
     }
 
     @Override
@@ -78,5 +88,9 @@ public class RecommendPlaylistAdapter extends RecyclerView.Adapter<RecommendPlay
     @Override
     public int getItemCount() {
         return (reList != null ? reList.size():0);
+    }
+
+    public interface OnRePlaylistClick{
+        void onRePlaylistClick(int position);
     }
 }

@@ -25,34 +25,43 @@ import java.util.List;
 public class RecommendChanelAdapter extends RecyclerView.Adapter<RecommendChanelAdapter.ViewHolder>{
     private List<ChanelOnMainBanner> reList;
     private Context context;
-    public RecommendChanelAdapter(Context context, List<ChanelOnMainBanner> reList) {
+    private OnReChannelClick mOnReChannelClick;
+    public RecommendChanelAdapter(Context context, List<ChanelOnMainBanner> reList, OnReChannelClick onReChannelClick) {
         this.context = context;
         this.reList = reList;
+        this.mOnReChannelClick = onReChannelClick;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvChanelMainBannerName;
         TextView tvChanelMainBannerUser;
         ImageButton tvChanelMainBannerUserAvatar;
         RelativeLayout rcvChanelMainBanner;
-        public ViewHolder(View view) {
+        OnReChannelClick onReChannelClick;
+        public ViewHolder(View view, OnReChannelClick onReChannelClick) {
             super(view);
             tvChanelMainBannerName = (TextView) view.findViewById(R.id.tv_Chanel_Main_Banner_Name);
             tvChanelMainBannerUser = (TextView) view.findViewById(R.id.tv_Chanel_Main_Banner_Author);
             tvChanelMainBannerUserAvatar = (ImageButton) view.findViewById(R.id.imb_Chanel_Main_Banner_Avatar);
             rcvChanelMainBanner = (RelativeLayout) view.findViewById(R.id.rcv_Chanel_Main_Banner);
             // Define click listener for the ViewHolder's View
+            this.onReChannelClick = onReChannelClick;
+            view.setOnClickListener(this);
 
         }
 
 
+        @Override
+        public void onClick(View v) {
+            onReChannelClick.onReChannelClick(getAdapterPosition());
+        }
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.chanel_main_banner_layout, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnReChannelClick);
     }
 
     @Override
@@ -82,5 +91,9 @@ public class RecommendChanelAdapter extends RecyclerView.Adapter<RecommendChanel
     @Override
     public int getItemCount() {
         return (reList != null ? reList.size():0);
+    }
+
+    public interface OnReChannelClick{
+        void onReChannelClick(int position);
     }
 }
