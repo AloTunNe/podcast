@@ -23,19 +23,22 @@ import java.util.List;
 public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.ViewHolder>{
     private List<EpisodeOnMainBanner> reList;
     private Context context;
-    public RecommendAdapter(Context context, List<EpisodeOnMainBanner> reList) {
+    private OnRecommendEpClick mOnRecommendEpClick;
+    public RecommendAdapter(Context context, List<EpisodeOnMainBanner> reList, OnRecommendEpClick onRecommendEpClick) {
         this.context = context;
         this.reList = reList;
+        this.mOnRecommendEpClick = onRecommendEpClick;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
          TextView tvEpisodeMainBannerName;
          TextView tvEpisodeMainBannerAuthor;
          TextView tvEpisodeMainBannerViews;
          ShapeableImageView imgEpisodeMainBannerAvatar;
          ShapeableImageView saiEpisodeBackgroundMainBanner;
          RelativeLayout rcvMainBanner;
-        public ViewHolder(View view) {
+         OnRecommendEpClick onRecommendEpClick;
+        public ViewHolder(View view, OnRecommendEpClick onRecommendEpClick) {
             super(view);
             tvEpisodeMainBannerName = (TextView) view.findViewById(R.id.tv_Episode_Main_Banner_Name);
             tvEpisodeMainBannerAuthor= (TextView) view.findViewById(R.id.tv_Episode_Main_Banner_Author);
@@ -44,17 +47,23 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
             rcvMainBanner = (RelativeLayout)  view.findViewById(R.id.rcv_Episode_Main_Banner);
             saiEpisodeBackgroundMainBanner = (ShapeableImageView)  view.findViewById(R.id.imgEpisodeBackgroundBanner);
             // Define click listener for the ViewHolder's View
+            this.onRecommendEpClick = onRecommendEpClick;
+            view.setOnClickListener(this);
 
         }
 
 
+        @Override
+        public void onClick(View v) {
+            onRecommendEpClick.onRecommendEpClick(getAdapterPosition());
+        }
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.episode_main_banner_layout, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnRecommendEpClick);
     }
 
     @Override
@@ -85,5 +94,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
     @Override
     public int getItemCount() {
         return (reList != null ? reList.size():0);
+    }
+
+    public interface OnRecommendEpClick{
+        void onRecommendEpClick(int position);
     }
 }

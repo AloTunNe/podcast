@@ -26,30 +26,40 @@ import java.util.List;
 public class RecommendCatogoryAdapter extends RecyclerView.Adapter<RecommendCatogoryAdapter.ViewHolder>{
     private List<CatogoryOnMainBanner> reList;
     private Context context;
-    public RecommendCatogoryAdapter(Context context, List<CatogoryOnMainBanner> reList) {
+    private OnCategoryClick mOnCategoryClick;
+    public RecommendCatogoryAdapter(Context context, List<CatogoryOnMainBanner> reList, OnCategoryClick onCategoryClick) {
         this.context = context;
         this.reList = reList;
+        this.mOnCategoryClick = onCategoryClick;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvCatogoryMainBanner;
         RelativeLayout rcvCatogoryMainBanner;
-        public ViewHolder(View view) {
+        OnCategoryClick onCategoryClick;
+        public ViewHolder(View view, OnCategoryClick onCategoryClick) {
             super(view);
             tvCatogoryMainBanner = (TextView) view.findViewById(R.id.tv_Catogory_Main_Banner_Name);
             rcvCatogoryMainBanner = (RelativeLayout) view.findViewById(R.id.rcv_Catogory_Main_Banner);
             // Define click listener for the ViewHolder's View
+            this.onCategoryClick = onCategoryClick;
+            view.setOnClickListener(this);
 
         }
 
 
+        @Override
+        public void onClick(View v) {
+            onCategoryClick.onCategoryClick(getAdapterPosition());
+
+        }
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.catogory_main_banner_layout, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnCategoryClick);
     }
 
     @Override
@@ -77,5 +87,9 @@ public class RecommendCatogoryAdapter extends RecyclerView.Adapter<RecommendCato
     @Override
     public int getItemCount() {
         return (reList != null ? reList.size():0);
+    }
+
+    public interface OnCategoryClick{
+        void onCategoryClick(int position);
     }
 }
