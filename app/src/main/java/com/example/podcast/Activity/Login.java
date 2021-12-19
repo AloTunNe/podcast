@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
     EditText edtInputEmail;
     EditText edtInputPassword;
     User user;
-
+    Button btnRegister;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +40,14 @@ public class Login extends AppCompatActivity {
                 checkData();
             }
         });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
 
     }
 
@@ -47,6 +55,7 @@ public class Login extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btn_login);
         edtInputEmail  = (EditText) findViewById(R.id.email_input);
         edtInputPassword = (EditText) findViewById(R.id.password_input);
+        btnRegister = (Button) findViewById(R.id.btn_register);
     }
 
     private void checkData() {

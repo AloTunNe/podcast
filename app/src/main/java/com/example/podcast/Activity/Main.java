@@ -1,13 +1,17 @@
 package com.example.podcast.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +22,7 @@ import com.example.podcast.Adapter.RecommendAdapter;
 import com.example.podcast.Adapter.RecommendCatogoryAdapter;
 import com.example.podcast.Adapter.RecommendChanelAdapter;
 import com.example.podcast.Adapter.RecommendPlaylistAdapter;
+import com.example.podcast.Model.AsyncTaskDownloadReEp;
 import com.example.podcast.Model.CatogoryOnMainBanner;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.EpisodeOnMainBanner;
@@ -34,7 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Main extends AppCompatActivity {
+public class Main extends AppCompatActivity implements RecommendAdapter.OnRecommendEpClick, RecommendCatogoryAdapter.OnCategoryClick, RecommendChanelAdapter.OnReChannelClick, RecommendPlaylistAdapter.OnRePlaylistClick{
     TextView tvChanels;
     TextView tvPlaylists;
     TextView tvCatogories;
@@ -65,13 +70,9 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Init();
-
-        getDataEpisodeBanner();
-        getDataPlaylistBanner();
-        getDataChanelBanner();
-        getDataCatogoryBanner();
-
         SetUI();
+        new AsyncTaskDownloadReEp(episodeOnMainBannerList, playlistOnMainBannerArrayList, chanelOnMainBannerArrayList, catogoryOnMainBannerArrayList, recommendAdapter, recommendPlaylistAdapter,recommendChanelAdapter,  recommendCatogoryAdapter).execute();
+
 
         tvChanels.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,13 +119,13 @@ public class Main extends AppCompatActivity {
     }
 
     private void SetUI() {
-        recommendAdapter = new RecommendAdapter(this, episodeOnMainBannerList);
+        recommendAdapter = new RecommendAdapter(this, episodeOnMainBannerList, this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(recommendAdapter);
-
-        recommendPlaylistAdapter = new RecommendPlaylistAdapter(this, playlistOnMainBannerArrayList);
-        recommendChanelAdapter = new RecommendChanelAdapter(context, chanelOnMainBannerArrayList);
-        recommendCatogoryAdapter = new RecommendCatogoryAdapter(context, catogoryOnMainBannerArrayList);
+        recommendAdapter.notifyDataSetChanged();
+        recommendPlaylistAdapter = new RecommendPlaylistAdapter(this, playlistOnMainBannerArrayList, this);
+        recommendChanelAdapter = new RecommendChanelAdapter(context, chanelOnMainBannerArrayList, this);
+        recommendCatogoryAdapter = new RecommendCatogoryAdapter(context, catogoryOnMainBannerArrayList, this);
 
        /* final int speedScroll = 15000;
         final Handler handler = new Handler();
@@ -171,80 +172,27 @@ public class Main extends AppCompatActivity {
         user = (User) getIntent().getParcelableExtra("User_Login");
 
     }
-    private void getDataEpisodeBanner() {
-        DataService dataService = APIService.getService();
-        Call<List<EpisodeOnMainBanner>> callback = dataService.getDataEpisodeMainBanner();
-        callback.enqueue(new Callback<List<EpisodeOnMainBanner>>() {
-            @Override
-            public void onResponse(Call<List<EpisodeOnMainBanner>> call, Response<List<EpisodeOnMainBanner>> response) {
-                ArrayList<EpisodeOnMainBanner> episodes = (ArrayList<EpisodeOnMainBanner>) response.body();
-                for(int i = 0; i <episodes.size(); i++) {
-                    episodeOnMainBannerList.add(new EpisodeOnMainBanner(episodes.get(i).getName(), episodes.get(i).getAvatar(), episodes.get(i).getLink(), episodes.get(i).getListens(), episodes.get(i).getAuthor(), episodes.get(i).getAuthorAVT()));
-                }
-                recommendAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailure(Call<List<EpisodeOnMainBanner>> call, Throwable t) {
-
-            }
-        });
+    @Override
+    public void onRecommendEpClick(int position) {
+        Log.d(TAG, "onRecommendEpClick: click on item " + position);
+        Toast.makeText(this, "onRecommendEpClick: click on item " + position, Toast.LENGTH_SHORT).show();
     }
-    private void getDataPlaylistBanner() {
-        DataService dataService = APIService.getService();
-        Call<List<PlaylistOnMainBanner>> callback = dataService.getDataPlaylistMainBanner();
-        callback.enqueue(new Callback<List<PlaylistOnMainBanner>>() {
-            @Override
-            public void onResponse(Call<List<PlaylistOnMainBanner>> call, Response<List<PlaylistOnMainBanner>> response) {
-                ArrayList<PlaylistOnMainBanner> playlists = (ArrayList<PlaylistOnMainBanner>) response.body();
-                for(int i = 0; i <playlists.size(); i++) {
-                    playlistOnMainBannerArrayList.add(new PlaylistOnMainBanner(playlists.get(i).getId(), playlists.get(i).getChanel(), playlists.get(i).getPicture(), playlists.get(i).getName()));
-                }
-                recommendPlaylistAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailure(Call<List<PlaylistOnMainBanner>> call, Throwable t) {
-
-            }
-        });
+    @Override
+    public void onCategoryClick(int position) {
+        Log.d(TAG, "onCategoryClick: click on item " + position);
+        Toast.makeText(this, "onCategoryClick: click on item " + position, Toast.LENGTH_SHORT).show();
     }
-    private void getDataChanelBanner() {
-        DataService dataService = APIService.getService();
-        Call<List<ChanelOnMainBanner>> callback = dataService.getDataChanelMainBanner();
-        callback.enqueue(new Callback<List<ChanelOnMainBanner>>() {
-            @Override
-            public void onResponse(Call<List<ChanelOnMainBanner>> call, Response<List<ChanelOnMainBanner>> response) {
-                ArrayList<ChanelOnMainBanner> chanels = (ArrayList<ChanelOnMainBanner>) response.body();
-                for(int i = 0; i <chanels.size(); i++) {
-                    chanelOnMainBannerArrayList.add(new ChanelOnMainBanner(chanels.get(i).getId(), chanels.get(i).getChanelName(), chanels.get(i).getPicture(), chanels.get(i).getUserName(), chanels.get(i).getUserAvatar()));
-                    recommendChanelAdapter.notifyDataSetChanged();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<ChanelOnMainBanner>> call, Throwable t) {
-
-            }
-        });
+    @Override
+    public void onReChannelClick(int position) {
+        Log.d(TAG, "onReChannelClick: click on item " + position);
+        Toast.makeText(this, "onReChannelClick: click on item " + position, Toast.LENGTH_SHORT).show();
     }
-    private void getDataCatogoryBanner() {
-        DataService dataService = APIService.getService();
-        Call<List<CatogoryOnMainBanner>> callback = dataService.getDataCatagoryMainBanner();
-        callback.enqueue(new Callback<List<CatogoryOnMainBanner>>() {
-            @Override
-            public void onResponse(Call<List<CatogoryOnMainBanner>> call, Response<List<CatogoryOnMainBanner>> response) {
-                ArrayList<CatogoryOnMainBanner> catogories = (ArrayList<CatogoryOnMainBanner>) response.body();
-                for(int i = 0; i <catogories.size(); i++) {
-                    catogoryOnMainBannerArrayList.add(new CatogoryOnMainBanner(catogories.get(i).getId(), catogories.get(i).getName(), catogories.get(i).getPicture()));
-                }
-                recommendChanelAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailure(Call<List<CatogoryOnMainBanner>> call, Throwable t) {
-
-            }
-        });
+    @Override
+    public void onRePlaylistClick(int position) {
+        Toast.makeText(this, "onRePlaylistClick: click on item" + position, Toast.LENGTH_SHORT).show();
     }
 }

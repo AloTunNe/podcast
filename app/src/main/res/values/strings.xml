@@ -36,6 +36,8 @@
     <string name="podcasts_authors">Podcasts authors</string>
     <string name="most_podcast">Most Podcast</string>
     <string name="most_follow">Most Follow</string>
+    <string name="password_confirm">Confirm password</string>
+    <string name="sign_in">Sign in</string>
     <string-array name="hamburger_menu_setting">
         <item>Browse</item>
         <item>Subscribed</item>
