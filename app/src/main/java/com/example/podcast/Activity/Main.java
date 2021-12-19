@@ -3,6 +3,8 @@ package com.example.podcast.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +39,7 @@ public class Main extends AppCompatActivity {
     TextView tvPlaylists;
     TextView tvCatogories;
     ImageView img_Humburger_Menu;
+    ImageView imgIconSearch;
     User user;
     Context context;
     ArrayList<EpisodeOnMainBanner> episodeOnMainBannerList;
@@ -54,6 +57,8 @@ public class Main extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView rcv_Multi_Main_Banner;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +106,15 @@ public class Main extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
+        imgIconSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iNewActivity = new Intent(Main.this, Browse_Podcast.class);
+                iNewActivity.putExtra("User_Login", user);
+                startActivity(iNewActivity);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
     }
 
     private void SetUI() {
@@ -111,6 +125,22 @@ public class Main extends AppCompatActivity {
         recommendPlaylistAdapter = new RecommendPlaylistAdapter(this, playlistOnMainBannerArrayList);
         recommendChanelAdapter = new RecommendChanelAdapter(context, chanelOnMainBannerArrayList);
         recommendCatogoryAdapter = new RecommendCatogoryAdapter(context, catogoryOnMainBannerArrayList);
+
+       /* final int speedScroll = 15000;
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            int count = 0;
+            @Override
+            public void run() {
+                if(count < recommendAdapter.getItemCount()){
+                    recyclerView.scrollToPosition(count++);
+                    handler.postDelayed(this,speedScroll);
+                }
+
+
+            }
+        };
+        handler.postDelayed(runnable,speedScroll);*/
 
         rcv_Multi_Main_Banner.setLayoutManager(linearLayoutManagerPlaylistMainBanner);
 
@@ -125,6 +155,7 @@ public class Main extends AppCompatActivity {
         tvPlaylists = (TextView) findViewById(R.id.tvPlaylist);
         tvCatogories = (TextView) findViewById(R.id.tvCatogory);
         img_Humburger_Menu = (ImageView) findViewById(R.id.img_Humbuger_Menu);
+        imgIconSearch = (ImageView) findViewById(R.id.imgsearch);
 
         episodeOnMainBannerList = new ArrayList<>();
         playlistOnMainBannerArrayList = new ArrayList<>();

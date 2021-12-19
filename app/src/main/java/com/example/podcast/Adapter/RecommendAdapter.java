@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.podcast.Model.EpisodeOnMainBanner;
 import com.example.podcast.R;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import java.util.List;
@@ -32,6 +33,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
          TextView tvEpisodeMainBannerAuthor;
          TextView tvEpisodeMainBannerViews;
          ImageButton imgEpisodeMainBannerAvatar;
+         ShapeableImageView saiEpisodeBackgroundMainBanner;
          RelativeLayout rcvMainBanner;
         public ViewHolder(View view) {
             super(view);
@@ -40,6 +42,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
             tvEpisodeMainBannerViews = (TextView) view.findViewById(R.id.tv_Episode_Main_Banner_Views);
             imgEpisodeMainBannerAvatar = (ImageButton)view.findViewById(R.id.imb_Episode_Main_Banner_Avatar);
             rcvMainBanner = (RelativeLayout)  view.findViewById(R.id.rcv_Episode_Main_Banner);
+            saiEpisodeBackgroundMainBanner = (ShapeableImageView)  view.findViewById(R.id.imgEpisodeBackgroundBanner);
             // Define click listener for the ViewHolder's View
 
         }
@@ -64,7 +67,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
         Picasso.with(context).load(ep.getAvatar()).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-               holder.rcvMainBanner.setBackground(new BitmapDrawable(bitmap));
+               holder.saiEpisodeBackgroundMainBanner.setBackground(new BitmapDrawable(bitmap));
             }
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
