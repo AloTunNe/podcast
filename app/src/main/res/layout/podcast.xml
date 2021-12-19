@@ -45,10 +45,12 @@
             android:layout_height="151dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/ic_play"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_Episode"
             tools:ignore="SpeakableTextPresentCheck" />
+
 
         <ImageButton
             android:id="@+id/btn_prev"
