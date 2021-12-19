@@ -18,6 +18,7 @@ import com.example.podcast.Model.CatogoryOnMainBanner;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.R;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -36,11 +37,13 @@ public class RecommendCatogoryAdapter extends RecyclerView.Adapter<RecommendCato
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvCatogoryMainBanner;
         RelativeLayout rcvCatogoryMainBanner;
+        ShapeableImageView saiCatogoryMainBannerBackground;
         OnCategoryClick onCategoryClick;
         public ViewHolder(View view, OnCategoryClick onCategoryClick) {
             super(view);
             tvCatogoryMainBanner = (TextView) view.findViewById(R.id.tv_Catogory_Main_Banner_Name);
             rcvCatogoryMainBanner = (RelativeLayout) view.findViewById(R.id.rcv_Catogory_Main_Banner);
+            saiCatogoryMainBannerBackground = (ShapeableImageView) view.findViewById(R.id.imgCatogoryBackgroundBanner);
             // Define click listener for the ViewHolder's View
             this.onCategoryClick = onCategoryClick;
             view.setOnClickListener(this);
@@ -69,7 +72,7 @@ public class RecommendCatogoryAdapter extends RecyclerView.Adapter<RecommendCato
         Picasso.with(context).load(catogoryOnMainBanner.getPicture()).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                holder.rcvCatogoryMainBanner.setBackground(new BitmapDrawable(bitmap));
+                holder.saiCatogoryMainBannerBackground.setBackground(new BitmapDrawable(bitmap));
             }
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {

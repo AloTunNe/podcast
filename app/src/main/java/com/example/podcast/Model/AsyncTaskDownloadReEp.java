@@ -57,7 +57,7 @@ public class AsyncTaskDownloadReEp extends AsyncTask<String , Void, Boolean> {
             public void onResponse(Call<List<EpisodeOnMainBanner>> call, Response<List<EpisodeOnMainBanner>> response) {
                 ArrayList<EpisodeOnMainBanner> episodes = (ArrayList<EpisodeOnMainBanner>) response.body();
                 for(int i = 0; i <episodes.size(); i++) {
-                    episodeOnMainBannerList.add(new EpisodeOnMainBanner(episodes.get(i).getName(), episodes.get(i).getAvatar(), episodes.get(i).getLink(), episodes.get(i).getListens(), episodes.get(i).getAuthor(), episodes.get(i).getAuthorAVT()));
+                    episodeOnMainBannerList.add(new EpisodeOnMainBanner(episodes.get(i).getIdEpisode(),episodes.get(i).getName(), episodes.get(i).getAvatar(), episodes.get(i).getLink(), episodes.get(i).getListens(), episodes.get(i).getAuthor(), episodes.get(i).getAuthorAVT()));
                 }
 
                 recommendAdapter.notifyDataSetChanged();

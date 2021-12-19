@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.R;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -36,11 +37,13 @@ public class RecommendPlaylistAdapter extends RecyclerView.Adapter<RecommendPlay
         TextView tvPlaylistMainBannerChanel;
         RelativeLayout rcvPlaylistMainBanner;
         OnRePlaylistClick onRePlaylistClick;
+        ShapeableImageView saiPlaylistMainBannerBackground;
         public ViewHolder(View view, OnRePlaylistClick onRePlaylistClick) {
             super(view);
             tvPlaylistMainBannerName = (TextView) view.findViewById(R.id.tv_Playlist_Main_Banner_Name);
             tvPlaylistMainBannerChanel = (TextView) view.findViewById(R.id.tv_Playlist_Main_Banner_Chanel);
             rcvPlaylistMainBanner = (RelativeLayout) view.findViewById(R.id.rcv_Playlist_Main_Banner);
+            saiPlaylistMainBannerBackground = (ShapeableImageView) view.findViewById(R.id.imgPlaylistBackgroundBanner);
             // Define click listener for the ViewHolder's View
             this.onRePlaylistClick = onRePlaylistClick;
             view.setOnClickListener(this);
@@ -70,7 +73,7 @@ public class RecommendPlaylistAdapter extends RecyclerView.Adapter<RecommendPlay
         Picasso.with(context).load(pl.getPicture()).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                holder.rcvPlaylistMainBanner.setBackground(new BitmapDrawable(bitmap));
+                holder.saiPlaylistMainBannerBackground.setBackground(new BitmapDrawable(bitmap));
             }
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {

@@ -175,8 +175,11 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
     @Override
     public void onRecommendEpClick(int position) {
-        Log.d(TAG, "onRecommendEpClick: click on item " + position);
-        Toast.makeText(this, "onRecommendEpClick: click on item " + position, Toast.LENGTH_SHORT).show();
+        EpisodeOnMainBanner ep = episodeOnMainBannerList.get(position);
+        Intent iNewActivity = new Intent(Main.this, Podcast.class);
+        iNewActivity.putExtra("Episode", ep);
+        startActivity(iNewActivity);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 
     @Override

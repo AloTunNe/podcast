@@ -1,14 +1,15 @@
 package com.example.podcast.Model;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.podcast.Adapter.RecommendAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class EpisodeOnMainBanner implements Parcelable {
 
+    @SerializedName("IdEpisode")
+    @Expose
+    private String idEpisode;
     @SerializedName("Name")
     @Expose
     private String name;
@@ -28,7 +29,8 @@ public class EpisodeOnMainBanner implements Parcelable {
     @Expose
     private String authorAVT;
 
-    public EpisodeOnMainBanner(String name, String avatar, String link, String listens, String author, String authorAVT) {
+    public EpisodeOnMainBanner(String idEpisode, String name, String avatar, String link, String listens, String author, String authorAVT) {
+        this.idEpisode = idEpisode;
         this.name = name;
         this.avatar = avatar;
         this.link = link;
@@ -38,6 +40,7 @@ public class EpisodeOnMainBanner implements Parcelable {
     }
 
     protected EpisodeOnMainBanner(Parcel in) {
+        idEpisode = in.readString();
         name = in.readString();
         avatar = in.readString();
         link = in.readString();
@@ -57,6 +60,14 @@ public class EpisodeOnMainBanner implements Parcelable {
             return new EpisodeOnMainBanner[size];
         }
     };
+
+    public String getIdEpisode() {
+        return idEpisode;
+    }
+
+    public void setIdEpisode(String idEpisode) {
+        this.idEpisode = idEpisode;
+    }
 
     public String getName() {
         return name;
@@ -113,6 +124,7 @@ public class EpisodeOnMainBanner implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(idEpisode);
         parcel.writeString(name);
         parcel.writeString(avatar);
         parcel.writeString(link);

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.R;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -35,14 +36,16 @@ public class RecommendChanelAdapter extends RecyclerView.Adapter<RecommendChanel
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvChanelMainBannerName;
         TextView tvChanelMainBannerUser;
-        ImageButton tvChanelMainBannerUserAvatar;
+        ShapeableImageView saiChanelMainBannerUserAvatar;
+        ShapeableImageView saiChanelMainBannerBackground;
         RelativeLayout rcvChanelMainBanner;
         OnReChannelClick onReChannelClick;
         public ViewHolder(View view, OnReChannelClick onReChannelClick) {
             super(view);
             tvChanelMainBannerName = (TextView) view.findViewById(R.id.tv_Chanel_Main_Banner_Name);
             tvChanelMainBannerUser = (TextView) view.findViewById(R.id.tv_Chanel_Main_Banner_Author);
-            tvChanelMainBannerUserAvatar = (ImageButton) view.findViewById(R.id.imb_Chanel_Main_Banner_Avatar);
+            saiChanelMainBannerUserAvatar = (ShapeableImageView) view.findViewById(R.id.imb_Chanel_Main_Banner_Avatar);
+            saiChanelMainBannerBackground = (ShapeableImageView) view.findViewById(R.id.imgChanelBackgroundBanner);
             rcvChanelMainBanner = (RelativeLayout) view.findViewById(R.id.rcv_Chanel_Main_Banner);
             // Define click listener for the ViewHolder's View
             this.onReChannelClick = onReChannelClick;
@@ -69,11 +72,11 @@ public class RecommendChanelAdapter extends RecyclerView.Adapter<RecommendChanel
         ChanelOnMainBanner cn = reList.get(position);
         holder.tvChanelMainBannerName.setText(cn.getChanelName());
         holder.tvChanelMainBannerUser.setText(cn.getUserName());
-        Picasso.with(context).load(cn.getUserAvatar()).into(holder.tvChanelMainBannerUserAvatar);
+        Picasso.with(context).load(cn.getUserAvatar()).into(holder.saiChanelMainBannerUserAvatar);
         Picasso.with(context).load(cn.getPicture()).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                holder.rcvChanelMainBanner.setBackground(new BitmapDrawable(bitmap));
+                holder.saiChanelMainBannerBackground.setBackground(new BitmapDrawable(bitmap));
             }
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {

@@ -7,12 +7,15 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.podcast.Model.EpisodeOnMainBanner;
+import com.example.podcast.Model.User;
 import com.example.podcast.R;
 
 import java.text.SimpleDateFormat;
@@ -20,9 +23,11 @@ import java.util.ArrayList;
 
 public class Podcast extends AppCompatActivity {
     ImageButton btnPlayPodcast,  btnPrev, btnNext;
+    ImageView imvPocastBack;
     TextView tvTitlePodcast, tvTotalTime, tvCurrentTime;
     SeekBar skbar;
     ArrayList<Episode> listEpisode;
+    EpisodeOnMainBanner episodeOnMainBanner;
     int position = 0;
     MediaPlayer mediaPlayer;
 
@@ -36,6 +41,15 @@ public class Podcast extends AppCompatActivity {
         InitEpisode();
         SetTotalTime();
         UpdateTime();
+
+        imvPocastBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iNewActivity = new Intent(Podcast.this, Main.class);
+                startActivity(iNewActivity);
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+            }
+        });
         btnPlayPodcast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,5 +165,7 @@ public class Podcast extends AppCompatActivity {
         tvTotalTime = (TextView) findViewById(R.id.tv_totalTime);
         tvCurrentTime = (TextView) findViewById(R.id.tv_currentTime);
         skbar = (SeekBar) findViewById(R.id.skbar);
+        imvPocastBack = (ImageView) findViewById(R.id.img_Podcast_Back);
+        episodeOnMainBanner = (EpisodeOnMainBanner) getIntent().getParcelableExtra("Episode");
     }
 }
