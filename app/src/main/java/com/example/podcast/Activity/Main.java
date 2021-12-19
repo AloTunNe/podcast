@@ -22,6 +22,7 @@ import com.example.podcast.Adapter.RecommendAdapter;
 import com.example.podcast.Adapter.RecommendCatogoryAdapter;
 import com.example.podcast.Adapter.RecommendChanelAdapter;
 import com.example.podcast.Adapter.RecommendPlaylistAdapter;
+import com.example.podcast.Model.AsyncTaskDownloadReEp;
 import com.example.podcast.Model.CatogoryOnMainBanner;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.EpisodeOnMainBanner;
@@ -69,13 +70,9 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
         setContentView(R.layout.activity_main);
 
         Init();
-
-        getDataEpisodeBanner();
-        getDataPlaylistBanner();
-        getDataChanelBanner();
-        getDataCatogoryBanner();
-
         SetUI();
+        new AsyncTaskDownloadReEp(episodeOnMainBannerList, playlistOnMainBannerArrayList, chanelOnMainBannerArrayList, catogoryOnMainBannerArrayList, recommendAdapter, recommendPlaylistAdapter,recommendChanelAdapter,  recommendCatogoryAdapter).execute();
+
 
         tvChanels.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +122,7 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
         recommendAdapter = new RecommendAdapter(this, episodeOnMainBannerList, this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(recommendAdapter);
-
+        recommendAdapter.notifyDataSetChanged();
         recommendPlaylistAdapter = new RecommendPlaylistAdapter(this, playlistOnMainBannerArrayList, this);
         recommendChanelAdapter = new RecommendChanelAdapter(context, chanelOnMainBannerArrayList, this);
         recommendCatogoryAdapter = new RecommendCatogoryAdapter(context, catogoryOnMainBannerArrayList, this);
@@ -174,82 +171,6 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
         user = (User) getIntent().getParcelableExtra("User_Login");
 
-    }
-    private void getDataEpisodeBanner() {
-        DataService dataService = APIService.getService();
-        Call<List<EpisodeOnMainBanner>> callback = dataService.getDataEpisodeMainBanner();
-        callback.enqueue(new Callback<List<EpisodeOnMainBanner>>() {
-            @Override
-            public void onResponse(Call<List<EpisodeOnMainBanner>> call, Response<List<EpisodeOnMainBanner>> response) {
-                ArrayList<EpisodeOnMainBanner> episodes = (ArrayList<EpisodeOnMainBanner>) response.body();
-                for(int i = 0; i <episodes.size(); i++) {
-                    episodeOnMainBannerList.add(new EpisodeOnMainBanner(episodes.get(i).getName(), episodes.get(i).getAvatar(), episodes.get(i).getLink(), episodes.get(i).getListens(), episodes.get(i).getAuthor(), episodes.get(i).getAuthorAVT()));
-                }
-                recommendAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<EpisodeOnMainBanner>> call, Throwable t) {
-
-            }
-        });
-    }
-    private void getDataPlaylistBanner() {
-        DataService dataService = APIService.getService();
-        Call<List<PlaylistOnMainBanner>> callback = dataService.getDataPlaylistMainBanner();
-        callback.enqueue(new Callback<List<PlaylistOnMainBanner>>() {
-            @Override
-            public void onResponse(Call<List<PlaylistOnMainBanner>> call, Response<List<PlaylistOnMainBanner>> response) {
-                ArrayList<PlaylistOnMainBanner> playlists = (ArrayList<PlaylistOnMainBanner>) response.body();
-                for(int i = 0; i <playlists.size(); i++) {
-                    playlistOnMainBannerArrayList.add(new PlaylistOnMainBanner(playlists.get(i).getId(), playlists.get(i).getChanel(), playlists.get(i).getPicture(), playlists.get(i).getName()));
-                }
-                recommendPlaylistAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<PlaylistOnMainBanner>> call, Throwable t) {
-
-            }
-        });
-    }
-    private void getDataChanelBanner() {
-        DataService dataService = APIService.getService();
-        Call<List<ChanelOnMainBanner>> callback = dataService.getDataChanelMainBanner();
-        callback.enqueue(new Callback<List<ChanelOnMainBanner>>() {
-            @Override
-            public void onResponse(Call<List<ChanelOnMainBanner>> call, Response<List<ChanelOnMainBanner>> response) {
-                ArrayList<ChanelOnMainBanner> chanels = (ArrayList<ChanelOnMainBanner>) response.body();
-                for(int i = 0; i <chanels.size(); i++) {
-                    chanelOnMainBannerArrayList.add(new ChanelOnMainBanner(chanels.get(i).getId(), chanels.get(i).getChanelName(), chanels.get(i).getPicture(), chanels.get(i).getUserName(), chanels.get(i).getUserAvatar()));
-                    recommendChanelAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ChanelOnMainBanner>> call, Throwable t) {
-
-            }
-        });
-    }
-    private void getDataCatogoryBanner() {
-        DataService dataService = APIService.getService();
-        Call<List<CatogoryOnMainBanner>> callback = dataService.getDataCatagoryMainBanner();
-        callback.enqueue(new Callback<List<CatogoryOnMainBanner>>() {
-            @Override
-            public void onResponse(Call<List<CatogoryOnMainBanner>> call, Response<List<CatogoryOnMainBanner>> response) {
-                ArrayList<CatogoryOnMainBanner> catogories = (ArrayList<CatogoryOnMainBanner>) response.body();
-                for(int i = 0; i <catogories.size(); i++) {
-                    catogoryOnMainBannerArrayList.add(new CatogoryOnMainBanner(catogories.get(i).getId(), catogories.get(i).getName(), catogories.get(i).getPicture()));
-                }
-                recommendChanelAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<CatogoryOnMainBanner>> call, Throwable t) {
-
-            }
-        });
     }
 
     @Override

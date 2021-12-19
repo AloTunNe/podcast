@@ -3,6 +3,7 @@ package com.example.podcast.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.podcast.Adapter.RecommendAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
