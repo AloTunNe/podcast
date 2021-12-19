@@ -1,6 +1,9 @@
 package com.example.podcast.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,18 +16,26 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.podcast.Model.EpisodeOnMainBanner;
 import com.example.podcast.Model.User;
 import com.example.podcast.R;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Podcast extends AppCompatActivity {
     ImageButton btnPlayPodcast,  btnPrev, btnNext;
-    ImageView imvPocastBack;
+
     TextView tvTitlePodcast, tvTotalTime, tvCurrentTime;
+    ImageView imgPodcastBack;
+
+    ShapeableImageView simgPodcastLayoutTopBackground;
+
     SeekBar skbar;
     ArrayList<Episode> listEpisode;
     EpisodeOnMainBanner episodeOnMainBanner;
@@ -37,12 +48,13 @@ public class Podcast extends AppCompatActivity {
         setContentView(R.layout.podcast);
 
         Init();
+        SetUI();
         AddEpisode();
         InitEpisode();
         SetTotalTime();
         UpdateTime();
 
-        imvPocastBack.setOnClickListener(new View.OnClickListener() {
+        imgPodcastBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent iNewActivity = new Intent(Podcast.this, Main.class);
@@ -123,6 +135,7 @@ public class Podcast extends AppCompatActivity {
         });
     }
 
+
     private void UpdateTime() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -165,7 +178,27 @@ public class Podcast extends AppCompatActivity {
         tvTotalTime = (TextView) findViewById(R.id.tv_totalTime);
         tvCurrentTime = (TextView) findViewById(R.id.tv_currentTime);
         skbar = (SeekBar) findViewById(R.id.skbar);
-        imvPocastBack = (ImageView) findViewById(R.id.img_Podcast_Back);
+        imgPodcastBack = (ImageView) findViewById(R.id.img_Podcast_Back);
+
+        simgPodcastLayoutTopBackground = (ShapeableImageView) findViewById(R.id.simgTopBackground);
+
         episodeOnMainBanner = (EpisodeOnMainBanner) getIntent().getParcelableExtra("Episode");
+    }
+    private void SetUI() {
+        Picasso.with(this).load(episodeOnMainBanner.getAvatar()).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                simgPodcastLayoutTopBackground.setBackground(new BitmapDrawable(bitmap));
+            }
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
     }
 }

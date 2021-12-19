@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,155 +7,225 @@
     android:background="#19232F">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/podcast_layout_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/podcast_top_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/img_Podcast_Back"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/podcast_layout_top"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_back"
+            android:background="@drawable/podcast_top_layout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_Episode"
-            android:layout_width="wrap_content"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/simgTopBackground"
+                android:layout_width="match_parent"
+                android:layout_height="265dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitCenter"
+                app:shapeAppearanceOverlay="@style/borderradiusbuttom"
+                tools:ignore="MissingConstraints" />
+            <ImageView
+                android:id="@+id/img_Podcast_Back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_Episode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About flow and our motivation"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.28" />
+
+            <ImageButton
+                android:id="@+id/btn_play_pcast"
+                android:layout_width="151dp"
+                android:layout_height="151dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/ic_play"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_Episode"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+
+            <ImageButton
+                android:id="@+id/btn_prev"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="160dp"
+                android:background="@drawable/ic_baseline_skip_previous_24"
+                app:layout_constraintEnd_toStartOf="@+id/btn_play_pcast"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="160dp"
+                android:background="@drawable/ic_baseline_skip_next_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/btn_play_pcast"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/podcast_layout_bottom"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="About flow and our motivation"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="300dp"
+            android:background="@drawable/rcv_podcast_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.28" />
-
-        <ImageButton
-            android:id="@+id/btn_play_pcast"
-            android:layout_width="151dp"
-            android:layout_height="151dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/ic_play"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_Episode"
-            tools:ignore="SpeakableTextPresentCheck" />
+            >
+            <SeekBar
+                android:id="@+id/skbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/myseekbar"
+                />
+            <TextView
+                android:id="@+id/tv_currentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/skbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                android:text="00:00"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.1"
+                />
+            <TextView
+                android:id="@+id/tv_totalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/skbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                android:text="00:00"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.9"
+                />
 
+            <TextView
+                android:id="@+id/tv_Author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Author: "
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tv_Episode_Podcast"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_currentTime"
+                app:layout_constraintVertical_bias="0.2"
+                app:layout_constraintHorizontal_bias="0.1"/>
 
-        <ImageButton
-            android:id="@+id/btn_prev"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="160dp"
-            android:background="@drawable/ic_baseline_skip_previous_24"
-            app:layout_constraintEnd_toStartOf="@+id/btn_play_pcast"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <TextView
+                android:id="@+id/tv_AuthorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Lemon"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tv_Episode_Podcast"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.111"
+                app:layout_constraintStart_toEndOf="@id/tv_Author"
+                app:layout_constraintTop_toBottomOf="@+id/tv_currentTime"
+                app:layout_constraintVertical_bias="0.153" />
+            <TextView
+                android:id="@+id/tv_decription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Decription: "
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Author"
+                app:layout_constraintHorizontal_bias="0.1"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_decription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/skbar"
+                app:layout_constraintBottom_toTopOf="@+id/tv_Episode_Podcast"
+                app:layout_constraintVertical_bias="0.6"
+                app:layout_constraintHorizontal_bias="0.1"
+                />
 
-        <ImageButton
-            android:id="@+id/btn_next"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="160dp"
-            android:background="@drawable/ic_baseline_skip_next_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/btn_play_pcast"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <TextView
+                android:id="@+id/tv_Episode_Podcast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_totalTime"
+                android:layout_marginTop="200dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                android:text="Episodes"
+                android:textSize="25sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_Episode_Podcast"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Episode_Podcast"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                ></androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/podcast_layout_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="310dp"
-        android:background="@drawable/rcv_podcast_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
-        <SeekBar
-            android:id="@+id/skbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/myseekbar"
-            />
-        <TextView
-            android:id="@+id/tv_currentTime"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/skbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:text="00:00"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintHorizontal_bias="0.1"
-            />
-        <TextView
-            android:id="@+id/tv_totalTime"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/skbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:text="00:00"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintHorizontal_bias="0.9"
-            />
-        <TextView
-            android:id="@+id/tv_Episode_Podcast"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_totalTime"
-            android:layout_marginTop="50dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.15"
-            android:text="Episodes"
-            android:textSize="25sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_Episode_Podcast"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Episode_Podcast"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            ></androidx.recyclerview.widget.RecyclerView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -18,4 +18,11 @@
         <item name="android:progressTint">#FF334B</item>
         <item name="android:thumbTint">#FF334B</item>
     </style>
+    <style name="borderradiusbuttom" parent="">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+
+    </style>
 </resources>
