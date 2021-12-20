@@ -125,16 +125,18 @@
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="0dp"
                         android:src="@drawable/ic_categories_off" />
+
                     <ImageView
-                        android:id="@+id/topics"
+                        android:id="@+id/img_icon_playlist"
                         android:layout_width="85dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="0dp"
                         android:src="@drawable/ic_avt_topics" />
+
                     <ImageView
-                        android:id="@+id/authors"
+                        android:id="@+id/img_icon_chanel"
                         android:layout_width="85dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_vertical"
@@ -145,7 +147,7 @@
 
 
                     <ImageView
-                        android:id="@+id/podcasts"
+                        android:id="@+id/img_icon_pocast"
                         android:layout_width="85dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_vertical"

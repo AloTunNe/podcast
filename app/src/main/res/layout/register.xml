@@ -232,6 +232,7 @@
 
                         </LinearLayout>
 -->
+
                         <Button
                             android:id="@+id/btn_register"
                             android:layout_width="300dp"

@@ -48,7 +48,6 @@ public class Login extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
-
     }
 
     private void Init() {

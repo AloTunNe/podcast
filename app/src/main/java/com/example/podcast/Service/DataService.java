@@ -5,6 +5,7 @@ import com.example.podcast.Model.Chanel;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.EpisodeOnMainBanner;
+import com.example.podcast.Model.Playlist;
 import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.Model.User;
 
@@ -57,5 +58,9 @@ public interface DataService {
 
     @FormUrlEncoded
     @POST ("SearchChanel.php")
-    Call<List<Chanel>> getSearchChanelData(@Field("KeyWord") String Keyword);
+    Call<List<Chanel>> SearchChanelData(@Field("KeyWord") String Keyword);
+
+    @FormUrlEncoded
+    @POST ("SearchPlaylist.php")
+    Call<List<Playlist>> SearchPlaylistData(@Field("KeyWord") String keyword);
 }
