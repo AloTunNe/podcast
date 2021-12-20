@@ -9,14 +9,6 @@
         <item name="cornerSizeTopRight">30dp</item>
     </style>
     <style name="round_avatar">
-        <!--<item name="cornerFamilyBottomLeft">rounded</item>
-        <item name="cornerFamilyBottomRight">rounded</item>
-        <item name="cornerFamilyTopLeft">rounded</item>
-        <item name="cornerFamilyTopRight">rounded</item>
-        <item name="cornerSizeBottomLeft">45dp</item>
-        <item name="cornerSizeBottomRight">45dp</item>
-        <item name="cornerSizeTopLeft">45dp</item>
-        <item name="cornerSizeTopRight">45dp</item>-->
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">25dp</item>
     </style>
@@ -30,6 +22,9 @@
         <item name="cornerFamilyBottomRight">rounded</item>
         <item name="cornerSizeBottomLeft">30dp</item>
         <item name="cornerSizeBottomRight">30dp</item>
-
+    </style>
+    <style name="channel_layout" parent="" >
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
     </style>
 </resources>
