@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,8 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.podcast.Model.CatogoryOnMainBanner;
-import com.example.podcast.Model.ChanelOnMainBanner;
-import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.R;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
@@ -61,7 +58,7 @@ public class RecommendCatogoryAdapter extends RecyclerView.Adapter<RecommendCato
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.catogory_main_banner_layout, parent, false);
+                .inflate(R.layout.category_main_banner_layout, parent, false);
         return new ViewHolder(view, mOnCategoryClick);
     }
 

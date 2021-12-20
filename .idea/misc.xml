@@ -3,9 +3,44 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/background_round.xml" value="0.16197916666666667" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/btn_fb_shape.xml" value="0.14635416666666667" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/episode_layout.xml" value="0.2703125" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/hamburger_menu_bottom.xml" value="0.14739583333333334" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/ic_baseline_skip_previous_24.xml" value="0.14635416666666667" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/ic_categories_off.xml" value="0.2703125" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/ic_hamburger_menu.xml" value="0.16770833333333332" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/ic_heart.xml" value="0.16770833333333332" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/ic_pause.xml" value="0.14739583333333334" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/ic_play.xml" value="0.14635416666666667" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/main_new_selected.xml" value="0.2703125" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/podcast_top_layout.xml" value="0.14635416666666667" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/rcv_podcast_layout.xml" value="0.14444444444444443" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/red_scrubber_control.xml" value="0.14635416666666667" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/red_scrubber_progress.xml" value="0.14635416666666667" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/drawable/shadow_tv.xml" value="0.14635416666666667" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/activity_hamburger_menu.xml" value="0.2" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/activity_login.xml" value="0.13020833333333334" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/browse_authors.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/browse_podcasts.xml" value="0.13020833333333334" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/catogory_main_banner_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/chanel_main_banner_layout.xml" value="0.4" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/channel_item_layout.xml" value="0.13333333333333333" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/episode_main_banner_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/episode_podcast_item.xml" value="0.4" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/playlist_main_banner_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/podcast.xml" value="0.4" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/register.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2703125" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/mipmap-anydpi-v26/ic_logo_app.xml" value="0.2703125" />
+        <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/mipmap-anydpi-v26/ic_logo_app_round.xml" value="0.2703125" />
+=======
         <entry key="..\:/Android_Project/Podcast/podcast/app/src/main/res/layout/episode_podcast_item.xml" value="0.14375" />
         <entry key="..\:/Android_Project/Podcast/podcast/app/src/main/res/layout/podcast.xml" value="0.14375" />
         <entry key="..\:/DoAnCuoi/DoAn/app/src/main/res/layout/author.xml" value="0.1" />
+>>>>>>> 87ad9e6da7ff7568d921b89a1c03657a02e7993c
         <entry key="..\:/Podcast/app/src/main/res/drawable/avt_user.xml" value="0.23489583333333333" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/bnt_search.xml" value="0.23489583333333333" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/btn_fb_shape.xml" value="0.23489583333333333" />
@@ -20,12 +55,10 @@
         <entry key="..\:/Podcast/app/src/main/res/layout/catogory_main_banner_layout.xml" value="0.38697916666666665" />
         <entry key="..\:/Podcast/app/src/main/res/layout/chanel_main_banner_layout.xml" value="0.5" />
         <entry key="..\:/Podcast/app/src/main/res/layout/episode_main_banner_layout.xml" value="0.67" />
-        <entry key="..\:/Podcast/app/src/main/res/layout/episode_podcast_item.xml" value="0.25" />
         <entry key="..\:/Podcast/app/src/main/res/layout/item_recommend_epis.xml" value="0.38697916666666665" />
         <entry key="..\:/Podcast/app/src/main/res/layout/login.xml" value="0.28532608695652173" />
         <entry key="..\:/Podcast/app/src/main/res/layout/main.xml" value="0.28532608695652173" />
         <entry key="..\:/Podcast/app/src/main/res/layout/playlist_main_banner_layout.xml" value="0.67" />
-        <entry key="..\:/Podcast/app/src/main/res/layout/podcast.xml" value="0.33" />
         <entry key="..\:/Podcast/app/src/main/res/layout/podcast_mini.xml" value="0.38697916666666665" />
       </map>
     </option>
