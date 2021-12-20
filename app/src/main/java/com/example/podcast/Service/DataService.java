@@ -39,6 +39,10 @@ public interface DataService {
     Call<List<Episode>> GetEpisodePlaylist(@Field("IdPlaylist") String IdPlaylist);
 
     @FormUrlEncoded
+    @POST("GetAllEpisode.php")
+    Call<List<Episode>> GetEpisodeById(@Field("EpisodeId") String IdEpisode);
+
+    @FormUrlEncoded
     @POST("SearchEpisode.php")
     Call<List<Episode>> SearchEpisode(@Field("KeyWord") String KeyWord);
 

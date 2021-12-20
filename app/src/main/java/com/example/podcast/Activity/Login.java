@@ -70,7 +70,7 @@ public class Login extends AppCompatActivity {
                 String inputPassword;
                 inputEmail = edtInputEmail.getText().toString();
                 inputPassword = edtInputPassword.getText().toString();
-                for(int i = 0; i < users.size(); i++) {
+                    for(int i = 0; i < users.size(); i++) {
                     if (users.get(i).getUserEmail().compareTo(inputEmail) == 0 && users.get(i).getUserPassword().compareTo(inputPassword) == 0) {
                         check = true;
                         user = new User(users.get(i).getId(), users.get(i).getUserName(), users.get(i).getUserEmail(), users.get(i).getUserPassword(), users.get(i).getUserAvatar(), users.get(i).getUserOwner());
