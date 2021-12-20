@@ -51,6 +51,17 @@ public class Episode implements Parcelable {
         this.idPlaylistEpisode = idPlaylistEpisode;
         this.authorEpisode = authorEpisode;
     }
+    public Episode(Episode e) {
+        this.idEpisode = e.getIdEpisode();
+        this.chanelId = e.getChanelId();
+        this.nameEpisode = e.getNameEpisode();
+        this.discriptionEpisode = e.getDiscriptionEpisode();
+        this.linkEpisode = e.getLinkEpisode();
+        this.picEpisode = e.getPicEpisode();
+        this.viewsEpisode = e.getViewsEpisode();
+        this.idPlaylistEpisode = e.getIdPlaylistEpisode();
+        this.authorEpisode = e.getAuthorEpisode();
+    }
 
     protected Episode(Parcel in) {
         idEpisode = in.readString();

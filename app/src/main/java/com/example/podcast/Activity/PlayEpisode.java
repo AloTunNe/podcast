@@ -59,17 +59,18 @@ public class PlayEpisode extends AppCompatActivity {
 
         Init();
         getDataEpisodeId(episodeOnMainBanner.getIdEpisode());
+       /* getDataEpisodePlaylist(episode.getIdPlaylistEpisode());*/
         /*getDataEpisodePlaylist(episode.getIdPlaylistEpisode());*/
         setUI();
     }
 
     private void setUI() {
-        tvTopAuthorName.setText(episodeOnMainBanner.getName());
-        tvTopEpisodeName.setText(episodeOnMainBanner.getAuthor());
-        Picasso.with(context).load(episodeOnMainBanner.getAvatar()).into(new Target() {
+        tvTopAuthorName.setText(episodeArrayList.get(0).getNameEpisode());
+        tvTopEpisodeName.setText(episodeArrayList.get(0).getAuthorEpisode());
+        Picasso.with(context).load(episodeArrayList.get(0).getPicEpisode()).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-               recyclerView.setBackground(new BitmapDrawable(bitmap));
+               simgTopBackgroundEpisode.setBackground(new BitmapDrawable(bitmap));
             }
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
@@ -93,7 +94,7 @@ public class PlayEpisode extends AppCompatActivity {
 
         simgTopBackgroundEpisode = (ShapeableImageView) findViewById(R.id.simgTopBackground);
 
-        tvTopEpisodeName = (TextView) findViewById(R.id.tv_Episode_Name);
+        tvTopEpisodeName = (TextView) findViewById(R.id.tv_Episode);
         tvTopAuthorName = (TextView) findViewById(R.id.tv_AuthorName);
         tvTopDiscriotion = (TextView)findViewById(R.id.tv_Discription);
 
@@ -102,23 +103,15 @@ public class PlayEpisode extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rcv_Episode_Podcast);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-
-        episodeArrayList = new ArrayList<>();
-
     }
     private void getDataEpisodeId(String Id) {
         DataService dataService = APIService.getService();
-        Call<List<Episode>> callback = dataService.GetEpisodeById(Id);
+        Call<List<Episode>> callback = dataService.getAllDataEpisode();
         callback.enqueue(new Callback<List<Episode>>() {
             @Override
             public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
-                ArrayList<Episode> episodes = (ArrayList<Episode>) response.body();
-                for(int i = 0; i<episodes.size(); i++) {
-                    episode = new Episode(episodes.get(i).getIdEpisode(), episodes.get(i).getChanelId(), episodes.get(i).getNameEpisode(),
-                            episodes.get(i).getDiscriptionEpisode(), episodes.get(i).getLinkEpisode(), episodes.get(i).getPicEpisode(), episodes.get(i).getLikesEpisode(),
-                            episodes.get(i).getViewsEpisode(), episodes.get(i).getIdPlaylistEpisode(), episodes.get(i).getAuthorEpisode());
-                    Log.d("bbb: ", episode.getIdPlaylistEpisode());
-                }
+               episodeArrayList = (ArrayList<Episode>) response.body();
+                Log.d("bbb: ", episodeArrayList.get(0).getNameEpisode());
             }
             @Override
             public void onFailure(Call<List<Episode>> call, Throwable t) {
@@ -132,12 +125,7 @@ public class PlayEpisode extends AppCompatActivity {
         callback.enqueue(new Callback<List<Episode>>() {
             @Override
             public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
-                ArrayList<Episode> episodes = (ArrayList<Episode>) response.body();
-                for(int i = 0; i<episodes.size(); i++) {
-                    episodeArrayList.add(new Episode(episodes.get(i).getIdEpisode(), episodes.get(i).getChanelId(), episodes.get(i).getNameEpisode(),
-                            episodes.get(i).getDiscriptionEpisode(), episodes.get(i).getLinkEpisode(), episodes.get(i).getPicEpisode(), episodes.get(i).getLikesEpisode(),
-                            episodes.get(i).getViewsEpisode(), episodes.get(i).getIdPlaylistEpisode(), episodes.get(i).getAuthorEpisode()));
-                }
+                episodeArrayList = (ArrayList<Episode>) response.body();
             }
             @Override
             public void onFailure(Call<List<Episode>> call, Throwable t) {
