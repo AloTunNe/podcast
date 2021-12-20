@@ -65,9 +65,15 @@ public class PlayEpisode extends AppCompatActivity {
     }
 
     private void setUI() {
+<<<<<<< HEAD
         tvTopAuthorName.setText(episodeArrayList.get(0).getNameEpisode());
         tvTopEpisodeName.setText(episodeArrayList.get(0).getAuthorEpisode());
         Picasso.with(context).load(episodeArrayList.get(0).getPicEpisode()).into(new Target() {
+=======
+        tvTopAuthorName.setText(episodeOnMainBanner.getAuthor());
+        tvTopEpisodeName.setText(episodeOnMainBanner.getName());
+        Picasso.with(context).load(episodeOnMainBanner.getAvatar()).into(new Target() {
+>>>>>>> 51854a00ceec6fab2d8884dd1d907650c121379c
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                simgTopBackgroundEpisode.setBackground(new BitmapDrawable(bitmap));
