@@ -62,9 +62,11 @@ public class Podcast extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
         });
+
         btnPlayPodcast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SetTotalTime();
                 if (mediaPlayer.isPlaying())
                 {
                     mediaPlayer.pause();
@@ -76,7 +78,7 @@ public class Podcast extends AppCompatActivity {
                     btnPlayPodcast.setImageResource(R.drawable.ic_pause);
 
                 }
-                SetTotalTime();
+
                 UpdateTime();
             }
         });
@@ -94,6 +96,7 @@ public class Podcast extends AppCompatActivity {
                 }
                 InitEpisode();
                 mediaPlayer.start();
+                btnPlayPodcast.setImageResource(R.drawable.ic_pause);
                 SetTotalTime();
             }
         });
@@ -112,6 +115,7 @@ public class Podcast extends AppCompatActivity {
                 }
                 InitEpisode();
                 mediaPlayer.start();
+                btnPlayPodcast.setImageResource(R.drawable.ic_pause);
                 SetTotalTime();
             }
 
@@ -144,9 +148,27 @@ public class Podcast extends AppCompatActivity {
                 SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
                 tvCurrentTime.setText(timeFormat.format(mediaPlayer.getCurrentPosition()));
                 skbar.setProgress(mediaPlayer.getCurrentPosition());
-                handler.postDelayed(this, 500);
+                handler.postDelayed(this, 1000);
+
+                if (mediaPlayer.getCurrentPosition() == mediaPlayer.getDuration())
+                {
+                    btnPlayPodcast.setImageResource(R.drawable.ic_play);
+                    position++;
+                    InitEpisode();
+                    mediaPlayer.start();
+                    btnPlayPodcast.setImageResource(R.drawable.ic_pause);
+                }
+                if (mediaPlayer.isPlaying())
+                {
+                    btnPlayPodcast.setImageResource(R.drawable.ic_pause);
+                }
+                else
+                {
+                    btnPlayPodcast.setImageResource(R.drawable.ic_play);
+                }
+
             }
-        }, 100);
+        }, 1000);
     }
 
     private void SetTotalTime() {
@@ -163,10 +185,10 @@ public class Podcast extends AppCompatActivity {
 
     private void AddEpisode() {
         listEpisode = new ArrayList<>();
-        listEpisode.add(new Episode("NASCast", R.raw.nascast));
-        listEpisode.add(new Episode("Happy", R.raw.happy));
-        listEpisode.add(new Episode("Mắt nai", R.raw.mat_nai_autotune));
-        listEpisode.add(new Episode("Tell ur mom", R.raw.tell_ur_mom));
+        listEpisode.add(new Episode("NASCast | 'Reviewer' ăn tiền, không có chuyên môn ", R.raw.nascast));
+        listEpisode.add(new Episode("Wingman | Giao tiếp hướng cho người hướng nội", R.raw.wingman2));
+        listEpisode.add(new Episode("Tự Tình Lúc 0h | Còn thương người cũ", R.raw.tutinhluc0h));
+        listEpisode.add(new Episode("3D Easy | Trường học hay tự học", R.raw.truonghochaytuhoc));
 
     }
 
