@@ -1,6 +1,7 @@
 package com.example.podcast.Service;
 
 import com.example.podcast.Model.CatogoryOnMainBanner;
+import com.example.podcast.Model.Chanel;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.EpisodeOnMainBanner;
@@ -35,16 +36,16 @@ public interface DataService {
     Call<List<Episode>> getAllDataEpisode();
 
     @FormUrlEncoded
-    @POST("GetAllEpisode.php")
-    Call<List<Episode>> GetEpisodePlaylist(@Field("IdPlaylist") String IdPlaylist);
+    @POST("getEpisodeDataWithPlaylist.php")
+    Call<List<Episode>> GetEpisodePlaylist(@Field("KeyWord") String idPlaylist);
 
     @FormUrlEncoded
-    @POST("GetAllEpisode.php")
-    Call<List<Episode>> GetEpisodeById(@Field("EpisodeId") String IdEpisode);
+    @POST("getEpisodeDataWithId.php")
+    Call<List<Episode>> GetEpisodeById(@Field("KeyWord") String idEpisode);
 
     @FormUrlEncoded
     @POST("SearchEpisode.php")
-    Call<List<Episode>> SearchEpisode(@Field("KeyWord") String KeyWord);
+    Call<List<Episode>> SearchEpisode(@Field("KeyWord") String Keyword);
 
     @FormUrlEncoded
     @POST ("UpadateEpisodeLikes.php")
@@ -53,4 +54,8 @@ public interface DataService {
     @FormUrlEncoded
     @POST ("UpadateEpisodeListens.php")
     Call<String> UpdateEpisodeViews(@Field("Views") String View, @Field("IdEpisode") String IdEpisode);
+
+    @FormUrlEncoded
+    @POST ("SearchChanel.php")
+    Call<List<Chanel>> getSearchChanelData(@Field("KeyWord") String Keyword);
 }
