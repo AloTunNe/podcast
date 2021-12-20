@@ -42,10 +42,10 @@ public class AsyncTaskDownloadReEp extends AsyncTask<String , Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... strings) {
-        getDataEpisodeBanner();
-        getDataPlaylistBanner();
-        getDataChanelBanner();
-        getDataCatogoryBanner();
+            getDataEpisodeBanner();
+            getDataPlaylistBanner();
+            getDataChanelBanner();
+            getDataCatogoryBanner();
 
         return null;
     }
@@ -56,10 +56,9 @@ public class AsyncTaskDownloadReEp extends AsyncTask<String , Void, Boolean> {
             @Override
             public void onResponse(Call<List<EpisodeOnMainBanner>> call, Response<List<EpisodeOnMainBanner>> response) {
                 ArrayList<EpisodeOnMainBanner> episodes = (ArrayList<EpisodeOnMainBanner>) response.body();
-                for(int i = 0; i <episodes.size(); i++) {
-                    episodeOnMainBannerList.add(new EpisodeOnMainBanner(episodes.get(i).getIdEpisode(),episodes.get(i).getName(), episodes.get(i).getAvatar(), episodes.get(i).getLink(), episodes.get(i).getListens(), episodes.get(i).getAuthor(), episodes.get(i).getAuthorAVT()));
+                for (int i = 0; i < episodes.size(); i++) {
+                    episodeOnMainBannerList.add(new EpisodeOnMainBanner(episodes.get(i).getIdEpisode(), episodes.get(i).getName(), episodes.get(i).getAvatar(), episodes.get(i).getLink(), episodes.get(i).getListens(), episodes.get(i).getAuthor(), episodes.get(i).getAuthorAVT()));
                 }
-
                 recommendAdapter.notifyDataSetChanged();
             }
 
@@ -76,10 +75,10 @@ public class AsyncTaskDownloadReEp extends AsyncTask<String , Void, Boolean> {
             @Override
             public void onResponse(Call<List<PlaylistOnMainBanner>> call, Response<List<PlaylistOnMainBanner>> response) {
                 ArrayList<PlaylistOnMainBanner> playlists = (ArrayList<PlaylistOnMainBanner>) response.body();
-                for(int i = 0; i <playlists.size(); i++) {
-                    playlistOnMainBannerArrayList.add(new PlaylistOnMainBanner(playlists.get(i).getId(), playlists.get(i).getChanel(), playlists.get(i).getPicture(), playlists.get(i).getName()));
-                }
-                recommendPlaylistAdapter.notifyDataSetChanged();
+                    for (int i = 0; i < playlists.size(); i++) {
+                        playlistOnMainBannerArrayList.add(new PlaylistOnMainBanner(playlists.get(i).getId(), playlists.get(i).getChanel(), playlists.get(i).getPicture(), playlists.get(i).getName()));
+                    }
+                    recommendPlaylistAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -95,10 +94,10 @@ public class AsyncTaskDownloadReEp extends AsyncTask<String , Void, Boolean> {
             @Override
             public void onResponse(Call<List<ChanelOnMainBanner>> call, Response<List<ChanelOnMainBanner>> response) {
                 ArrayList<ChanelOnMainBanner> chanels = (ArrayList<ChanelOnMainBanner>) response.body();
-                for(int i = 0; i <chanels.size(); i++) {
-                    chanelOnMainBannerArrayList.add(new ChanelOnMainBanner(chanels.get(i).getId(), chanels.get(i).getChanelName(), chanels.get(i).getPicture(), chanels.get(i).getUserName(), chanels.get(i).getUserAvatar()));
-                    recommendChanelAdapter.notifyDataSetChanged();
-                }
+                    for (int i = 0; i < chanels.size(); i++) {
+                        chanelOnMainBannerArrayList.add(new ChanelOnMainBanner(chanels.get(i).getId(), chanels.get(i).getChanelName(), chanels.get(i).getPicture(), chanels.get(i).getUserName(), chanels.get(i).getUserAvatar()));
+                        recommendChanelAdapter.notifyDataSetChanged();
+                    }
             }
 
             @Override
@@ -114,11 +113,11 @@ public class AsyncTaskDownloadReEp extends AsyncTask<String , Void, Boolean> {
             @Override
             public void onResponse(Call<List<CatogoryOnMainBanner>> call, Response<List<CatogoryOnMainBanner>> response) {
                 ArrayList<CatogoryOnMainBanner> catogories = (ArrayList<CatogoryOnMainBanner>) response.body();
-                for(int i = 0; i <catogories.size(); i++) {
-                    catogoryOnMainBannerArrayList.add(new CatogoryOnMainBanner(catogories.get(i).getId(), catogories.get(i).getName(), catogories.get(i).getPicture()));
+                    for (int i = 0; i < catogories.size(); i++) {
+                        catogoryOnMainBannerArrayList.add(new CatogoryOnMainBanner(catogories.get(i).getId(), catogories.get(i).getName(), catogories.get(i).getPicture()));
+                    }
+                    recommendChanelAdapter.notifyDataSetChanged();
                 }
-                recommendChanelAdapter.notifyDataSetChanged();
-            }
 
             @Override
             public void onFailure(Call<List<CatogoryOnMainBanner>> call, Throwable t) {

@@ -48,20 +48,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/search"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    android:src="@drawable/ic_search" />
-
-                <ImageView
                     android:id="@+id/option"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="50dp"
                     android:layout_marginTop="0dp"
                     android:src="@drawable/ic_hamburger_menu" />
 
@@ -76,7 +67,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/browse"
                 android:textColor="@color/white"
-                android:textSize="45sp"
+                android:textSize="40sp"
                 android:textStyle="bold" />
 
 
@@ -89,7 +80,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/idrobert"
+                    android:id="@+id/edt_Search"
                     android:layout_width="300dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="20dp"
@@ -103,7 +94,7 @@
                     android:textSize="20sp" />
 
                 <ImageView
-                    android:id="@+id/search2"
+                    android:id="@+id/img_icon_search"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
@@ -174,209 +165,25 @@
             </HorizontalScrollView>
 
             <TextView
-                android:id="@+id/categorie"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
+                android:id="@+id/tv_podcast_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="350dp"
                 android:gravity="center_vertical"
-                android:text="Podcast(2)"
+                android:text="Podcast"
                 android:textColor="@color/grey"
                 android:textSize="20sp" />
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_banner_search"
                 android:layout_width="370dp"
                 android:layout_height="400dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="410dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="340dp"
-                    android:layout_height="140dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="0dp"
-                    android:background="@drawable/pod1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="300dp"
-                        android:layout_height="80dp"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="0dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/textpod1"
-                        android:textColor="@color/white"
-                        android:textSize="30dp" />
-
-                    <LinearLayout
-                        android:layout_width="320dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="200dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="0dp"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="200dp"
-                                android:layout_height="20dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="85dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="0dp"
-                                    android:text="23.05.2019"
-                                    android:textColor="@color/grey"
-                                    android:textSize="12sp" />
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_time" />
-
-                                <TextView
-                                    android:layout_width="80dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="10dp"
-                                    android:text="24:15:05"
-                                    android:textColor="@color/grey"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="200dp"
-                                android:layout_height="20dp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/avt_pod" />
-
-                                <TextView
-                                    android:layout_width="165dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="10dp"
-                                    android:text="Theresa Hawkins"
-                                    android:textColor="@color/white"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="0dp"
-                            android:layout_marginTop="0dp"
-                            android:src="@drawable/ic_play" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="340dp"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/pod2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="300dp"
-                        android:layout_height="80dp"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="0dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/textpod2"
-                        android:textColor="@color/white"
-                        android:textSize="30dp" />
-
-                    <LinearLayout
-                        android:layout_width="320dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="200dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="0dp"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="200dp"
-                                android:layout_height="20dp"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="85dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="0dp"
-                                    android:text="23.05.2019"
-                                    android:textColor="@color/grey"
-                                    android:textSize="12sp" />
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_time" />
-
-                                <TextView
-                                    android:layout_width="80dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="10dp"
-                                    android:text="24:15:05"
-                                    android:textColor="@color/grey"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="200dp"
-                                android:layout_height="20dp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/avt_pod" />
-
-                                <TextView
-                                    android:layout_width="165dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="10dp"
-                                    android:text="Wade Flores"
-                                    android:textColor="@color/white"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="0dp"
-                            android:layout_marginTop="0dp"
-                            android:src="@drawable/ic_play" />
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+            </androidx.recyclerview.widget.RecyclerView>
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -127,24 +127,8 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
         recommendChanelAdapter = new RecommendChanelAdapter(context, chanelOnMainBannerArrayList, this);
         recommendCatogoryAdapter = new RecommendCatogoryAdapter(context, catogoryOnMainBannerArrayList, this);
 
-       /* final int speedScroll = 15000;
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            int count = 0;
-            @Override
-            public void run() {
-                if(count < recommendAdapter.getItemCount()){
-                    recyclerView.scrollToPosition(count++);
-                    handler.postDelayed(this,speedScroll);
-                }
-
-
-            }
-        };
-        handler.postDelayed(runnable,speedScroll);*/
 
         rcv_Multi_Main_Banner.setLayoutManager(linearLayoutManagerPlaylistMainBanner);
-
         rcv_Multi_Main_Banner.setAdapter(recommendPlaylistAdapter);
 
 
@@ -176,7 +160,7 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
     @Override
     public void onRecommendEpClick(int position) {
         EpisodeOnMainBanner ep = episodeOnMainBannerList.get(position);
-        Intent iNewActivity = new Intent(Main.this, Podcast.class);
+        Intent iNewActivity = new Intent(Main.this, PlayEpisode.class);
         iNewActivity.putExtra("Episode", ep);
         startActivity(iNewActivity);
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);

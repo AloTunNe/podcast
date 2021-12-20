@@ -36,15 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity.Podcast"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".Activity.Browse_Authors"
             android:exported="true">
             <intent-filter>
@@ -54,6 +45,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.Hamburger_Menu"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.PlayEpisode"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

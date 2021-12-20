@@ -17,9 +17,8 @@
         <item name="cornerSizeBottomRight">45dp</item>
         <item name="cornerSizeTopLeft">45dp</item>
         <item name="cornerSizeTopRight">45dp</item>-->
-        <item name="android:radius">45dp</item>
-        <item name="cornerSize">20dp</item>
         <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">25dp</item>
     </style>
     <style name="myseekbar" parent="Widget.AppCompat.SeekBar">
         <item name="android:progressBackgroundTint">#ffffff</item>
