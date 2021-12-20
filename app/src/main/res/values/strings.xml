@@ -38,6 +38,10 @@
     <string name="most_follow">Most Follow</string>
     <string name="password_confirm">Confirm password</string>
     <string name="sign_in">Sign in</string>
+    <string name="mary">Mary Beth keane</string>
+    <string name="description">Mary Beth Keane is an American writer of Irish parentage. She is the author of The Walking People, Fever, and Ask Again, Yes. In 2011 she was named one of the National...</string>
+    <string name="summary1">The Big Oxmox advised her not to do so, because there were thousands...</string>
+    <string name="summary2">The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks...</string>
     <string-array name="hamburger_menu_setting">
         <item>Browse</item>
         <item>Subscribed</item>
