@@ -16,6 +16,7 @@
         android:layout_height="200dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         app:shapeAppearanceOverlay="@style/channel_layout" />
     <TextView
         android:id="@+id/tv_channel_name"
@@ -28,7 +29,6 @@
         android:layout_marginStart="5dp"
         android:textSize="20sp"
         android:text="channel name"
-        android:textColor="@color/white"
         android:textStyle="bold"
         />
     <TextView
