@@ -1,5 +1,6 @@
 package com.example.podcast.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,11 +16,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.podcast.Adapter.PodcastPlaylistAdapter;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.EpisodeOnMainBanner;
 import com.example.podcast.Model.PlaylistOnMainBanner;
@@ -46,12 +51,19 @@ public class Podcast extends AppCompatActivity {
     TextView tvTitlePodcast, tvTotalTime, tvCurrentTime, tvAuthor, tvdiscription;
     ImageView imgPodcastBack;
 
+    RecyclerView recyclerView;
+
     ShapeableImageView simgPodcastLayoutTopBackground;
+    PodcastPlaylistAdapter podcastPlaylistAdapter;
+
+    Context context;
+
+    ArrayList<Episode> episodeArrayList;
+    LinearLayoutManager linearLayoutManager;
 
     SeekBar skbar;
-    ArrayList<Episode> listEpisode;
+    Episode episode;
     EpisodeOnMainBanner episodeOnMainBanner;
-    ArrayList<Episode> episodeArrayList;
     int position = 0;
     MediaPlayer mediaPlayer;
 
@@ -61,7 +73,21 @@ public class Podcast extends AppCompatActivity {
         setContentView(R.layout.podcast);
 
         Init();
+        Log.d("bbb: ", episodeOnMainBanner.getIdEpisode());
+
         getDataEpisodeId(episodeOnMainBanner.getIdEpisode());
+        Log.d("bbb: ", episode.getIdEpisode());
+        Log.d("bbb: ", episode.getAuthorEpisode());
+
+
+
+       // getDataEpisodePlaylist(episode.getIdPlaylistEpisode());
+
+        //podcastPlaylistAdapter = new PodcastPlaylistAdapter(context, episodeArrayList);
+        //recyclerView.setAdapter(podcastPlaylistAdapter);
+
+
+
       //  Log.d("bbb: ", episodeArrayList.get(0).getAuthorEpisode());
 
         //SetUI();
@@ -81,9 +107,11 @@ public class Podcast extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
         });
+
         btnPlayPodcast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SetTotalTime();
                 if (mediaPlayer.isPlaying())
                 {
                     mediaPlayer.pause();
@@ -95,7 +123,7 @@ public class Podcast extends AppCompatActivity {
                     btnPlayPodcast.setImageResource(R.drawable.ic_pause);
 
                 }
-                SetTotalTime();
+
                 UpdateTime();
             }
         });
@@ -117,6 +145,7 @@ public class Podcast extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 mediaPlayer.start();
+                btnPlayPodcast.setImageResource(R.drawable.ic_pause);
                 SetTotalTime();
             }
         });
@@ -139,6 +168,7 @@ public class Podcast extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 mediaPlayer.start();
+                btnPlayPodcast.setImageResource(R.drawable.ic_pause);
                 SetTotalTime();
             }
 
@@ -171,9 +201,27 @@ public class Podcast extends AppCompatActivity {
                 SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
                 tvCurrentTime.setText(timeFormat.format(mediaPlayer.getCurrentPosition()));
                 skbar.setProgress(mediaPlayer.getCurrentPosition());
-                handler.postDelayed(this, 500);
+                handler.postDelayed(this, 1000);
+
+                if (mediaPlayer.getCurrentPosition() == mediaPlayer.getDuration())
+                {
+                    btnPlayPodcast.setImageResource(R.drawable.ic_play);
+                    position++;
+                    //InitEpisode();
+                    mediaPlayer.start();
+                    btnPlayPodcast.setImageResource(R.drawable.ic_pause);
+                }
+                if (mediaPlayer.isPlaying())
+                {
+                    btnPlayPodcast.setImageResource(R.drawable.ic_pause);
+                }
+                else
+                {
+                    btnPlayPodcast.setImageResource(R.drawable.ic_play);
+                }
+
             }
-        }, 100);
+        }, 1000);
     }
 
     private void SetTotalTime() {
@@ -183,6 +231,7 @@ public class Podcast extends AppCompatActivity {
 
     }
 
+/*<<<<<<< HEAD
     private void InitEpisode(String link) throws IOException {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -195,7 +244,21 @@ public class Podcast extends AppCompatActivity {
         });
         mediaPlayer.setDataSource(link);
         mediaPlayer.prepare();
+=======
+    private void InitEpisode() {
+        mediaPlayer = MediaPlayer.create(Podcast.this, listEpisode.get(position).getFile());
+        tvTitlePodcast.setText(listEpisode.get(position).getTitleEpisode());
     }
+
+    private void AddEpisode() {
+        listEpisode = new ArrayList<>();
+        listEpisode.add(new Episode("NASCast | 'Reviewer' ăn tiền, không có chuyên môn ", R.raw.nascast));
+        listEpisode.add(new Episode("Wingman | Giao tiếp hướng cho người hướng nội", R.raw.wingman2));
+        listEpisode.add(new Episode("Tự Tình Lúc 0h | Còn thương người cũ", R.raw.tutinhluc0h));
+        listEpisode.add(new Episode("3D Easy | Trường học hay tự học", R.raw.truonghochaytuhoc));
+
+>>>>>>> 9299bec8b3878edf16a7483b667cbbe768f313d3
+    }*/
 
     private void Init() {
         btnPlayPodcast = (ImageButton) findViewById(R.id.btn_play_pcast);
@@ -206,7 +269,9 @@ public class Podcast extends AppCompatActivity {
         tvTotalTime = (TextView) findViewById(R.id.tv_totalTime);
         tvCurrentTime = (TextView) findViewById(R.id.tv_currentTime);
         tvAuthor = (TextView) findViewById(R.id.tv_AuthorName);
-        tvdiscription = (TextView) findViewById(R.id.tv_decription);
+        tvdiscription = (TextView) findViewById(R.id.tv_Discription);
+
+        recyclerView = (RecyclerView) findViewById(R.id.rcv_Episode_Podcast);
 
         episodeArrayList = new ArrayList<>();
 
@@ -217,6 +282,10 @@ public class Podcast extends AppCompatActivity {
         simgPodcastLayoutTopBackground = (ShapeableImageView) findViewById(R.id.simgTopBackground);
 
         episodeOnMainBanner = (EpisodeOnMainBanner) getIntent().getParcelableExtra("Episode");
+
+        context = this;
+        linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false);
+
     }
     private void SetUI() {
 
@@ -247,9 +316,11 @@ public class Podcast extends AppCompatActivity {
             public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
                 ArrayList<Episode> episodes = (ArrayList<Episode>) response.body();
                 Log.d("bbb: ", String.valueOf(episodes.size()));
-                for(int i = 0; i <episodes.size(); i++) {
-                    episodeArrayList.add(new Episode(episodes.get(i).getIdEpisode(), episodes.get(i).getChanelId(), episodes.get(i).getNameEpisode(), episodes.get(i).getDiscriptionEpisode(), episodes.get(i).getLinkEpisode(), episodes.get(i).getPicEpisode(), episodes.get(i).getLikesEpisode(), episodes.get(i).getViewsEpisode(), episodes.get(i).getIdPlaylistEpisode(), episodes.get(i).getAuthorEpisode()));
-                }
+                /*for(int i = 0; i < episodes.size(); i++) {*/
+                int i = 0;
+                   episode = new Episode(episodes.get(i).getIdEpisode(), episodes.get(i).getChanelId(), episodes.get(i).getNameEpisode(), episodes.get(i).getDiscriptionEpisode(), episodes.get(i).getLinkEpisode(), episodes.get(i).getPicEpisode(), episodes.get(i).getLikesEpisode(), episodes.get(i).getViewsEpisode(), episodes.get(i).getIdPlaylistEpisode(), episodes.get(i).getAuthorEpisode());
+
+               // }
             }
 
             @Override
@@ -268,6 +339,7 @@ public class Podcast extends AppCompatActivity {
                 Log.d("bbb: ", String.valueOf(episodes.size()));
                 for(int i = 0; i <episodes.size(); i++) {
                     episodeArrayList.add(new Episode(episodes.get(i).getIdEpisode(), episodes.get(i).getChanelId(), episodes.get(i).getNameEpisode(), episodes.get(i).getDiscriptionEpisode(), episodes.get(i).getLinkEpisode(), episodes.get(i).getPicEpisode(), episodes.get(i).getLikesEpisode(), episodes.get(i).getViewsEpisode(), episodes.get(i).getIdPlaylistEpisode(), episodes.get(i).getAuthorEpisode()));
+                    Log.d("bbb: ", episodeArrayList.get(i).getIdEpisode());
                 }
             }
 

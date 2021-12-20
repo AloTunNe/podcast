@@ -196,6 +196,6 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
     @Override
     public void onRePlaylistClick(int position) {
-        Toast.makeText(this, "onRePlaylistClick: click on item" + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "onRePlaylistClick: click on item" + position, Toast.LENGTH_SHORT).show();
     }
 }
