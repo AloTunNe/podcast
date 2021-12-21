@@ -5,11 +5,13 @@ import android.os.Bundle;
 
 import com.example.podcast.R;
 
-public class Author extends Activity {
+public class ChannelActivity extends Activity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.author);
+        setContentView(R.layout.chanel);
     }
 }
