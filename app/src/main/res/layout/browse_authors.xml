@@ -149,7 +149,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="0dp"
-                        android:src="@drawable/ic_author_on" />
+                        android:src="@drawable/ic_authoroff" />
 
 
 

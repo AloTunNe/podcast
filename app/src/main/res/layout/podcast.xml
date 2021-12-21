@@ -178,31 +178,90 @@
                 app:layout_constraintStart_toEndOf="@id/tv_Author"
                 app:layout_constraintTop_toBottomOf="@+id/tv_currentTime"
                 app:layout_constraintVertical_bias="0.153" />
+            <ImageButton
+                android:id="@+id/imgBtn_Like"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:padding="15dp"
+                android:background="@drawable/ic_likeoff"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_Author"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/scv_Discription"
+                app:layout_constraintHorizontal_bias="0.1"
+                />
+            <TextView
+                android:id="@+id/tv_Like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_Author"
+                app:layout_constraintStart_toEndOf="@+id/imgBtn_Like"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="10dp"
+                app:layout_constraintHorizontal_bias="0.1"
+                android:text="Like"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_Unlike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="40dp"
+                android:padding="10dp"
+                android:text="Like"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintEnd_toStartOf="@+id/imgBtn_Unlike"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_Author" />
+
+            <ImageButton
+                android:id="@+id/imgBtn_Unlike"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="36dp"
+                android:background="@drawable/ic_unlike"
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Author" />
+
+
             <ScrollView
                 android:id="@+id/scv_Discription"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Author"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/tv_Like"
+                android:foregroundGravity="center">
 
                 <TextView
                     android:id="@+id/tv_Discription"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
                     android:text="Decription: "
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.484"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Author" />
+                    />
             </ScrollView>
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -222,16 +281,15 @@
                 android:id="@+id/tv_Episode_Podcast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_totalTime"
                 android:layout_marginTop="200dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
                 android:text="Episodes"
-                android:textSize="25sp"
                 android:textColor="@color/white"
+                android:textSize="25sp"
                 android:textStyle="bold"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_totalTime" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_Episode_Podcast"
                 android:layout_width="match_parent"
