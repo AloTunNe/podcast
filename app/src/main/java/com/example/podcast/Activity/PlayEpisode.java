@@ -67,7 +67,7 @@ public class PlayEpisode extends AppCompatActivity {
 
         Init();
         getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
-        Toast.makeText(context, episodeArrayList.get(0).getNameEpisode(), Toast.LENGTH_LONG);
+        //Toast.makeText(context, episodeArrayList.get(0).getNameEpisode(), Toast.LENGTH_LONG);
         imgButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
