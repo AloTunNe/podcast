@@ -63,4 +63,9 @@ public interface DataService {
     @FormUrlEncoded
     @POST ("SearchPlaylist.php")
     Call<List<Playlist>> SearchPlaylistData(@Field("KeyWord") String keyword);
+
+    @FormUrlEncoded
+    @POST ("getChanelById.php")
+    Call<List<Playlist>> SearchChanelDataById(@Field("KeyWord") String keyword);
+
 }

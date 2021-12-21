@@ -25,6 +25,7 @@ import com.example.podcast.Adapter.RecommendPlaylistAdapter;
 import com.example.podcast.Model.AsyncTaskDownloadReEp;
 import com.example.podcast.Model.CatogoryOnMainBanner;
 import com.example.podcast.Model.ChanelOnMainBanner;
+import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.EpisodeOnMainBanner;
 import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.Model.User;
@@ -168,7 +169,9 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
     public void onRecommendEpClick(int position) {
         EpisodeOnMainBanner ep = episodeOnMainBannerList.get(position);
         Intent iNewActivity = new Intent(Main.this, PlayEpisode.class);
-        iNewActivity.putExtra("Episode", ep);
+        Episode episode = new Episode(ep.getIdEpisode(), null, ep.getName(), null,
+                ep.getLink(), ep.getAvatar(), null, null, null, ep.getAuthor());
+        iNewActivity.putExtra("Episode", episode);
         startActivity(iNewActivity);
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }

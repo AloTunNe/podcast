@@ -9,7 +9,6 @@ import com.google.gson.annotations.SerializedName;
 import java.lang.reflect.ParameterizedType;
 
 public class Chanel implements Parcelable {
-
     @SerializedName("ChanelId")
     @Expose
     private String chanelId;

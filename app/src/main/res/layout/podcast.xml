@@ -254,8 +254,19 @@
                     android:id="@+id/tv_Discription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+<<<<<<< HEAD
                     android:padding="10dp"
+=======
+<<<<<<< HEAD
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="15dp"
+=======
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+>>>>>>> f9a5d0ce6b0be44df2a4d785223094c994fae225
                     android:gravity="center"
+>>>>>>> be283e3f7f29d8b88da19db045822c8a478c5285
                     android:text="Decription: "
                     android:textColor="@color/white"
                     android:textSize="20sp"

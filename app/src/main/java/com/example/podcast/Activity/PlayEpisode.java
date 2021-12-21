@@ -49,10 +49,8 @@ public class PlayEpisode extends AppCompatActivity {
     TextView tvEpisodeName;
     TextView tvAuthorName;
     TextView tvDiscription;
-
-    Episode episode;
     ArrayList<Episode> episodeArrayList ;
-    EpisodeOnMainBanner episodeOnMainBanner;
+    Episode episodeOnMainBanner;
 
     PodcastPlaylistAdapter podcastPlaylistAdapter;
 
@@ -67,12 +65,14 @@ public class PlayEpisode extends AppCompatActivity {
 
         Init();
         getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
+<<<<<<< HEAD
         //Toast.makeText(context, episodeArrayList.get(0).getNameEpisode(), Toast.LENGTH_LONG);
+=======
+>>>>>>> f9a5d0ce6b0be44df2a4d785223094c994fae225
         imgButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iNewActivity = new Intent(PlayEpisode.this, Main.class);
-                startActivity(iNewActivity);
+                finish();
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
         });
@@ -80,7 +80,7 @@ public class PlayEpisode extends AppCompatActivity {
     }
     private void Init() {
         context = this;
-        episodeOnMainBanner = (EpisodeOnMainBanner) getIntent().getParcelableExtra("Episode");
+        episodeOnMainBanner = (Episode) getIntent().getParcelableExtra("Episode");
         imgButtonBack = (ImageView) findViewById(R.id.img_icon_back);
 
         simgBackgroundpisode = (ShapeableImageView) findViewById(R.id.simgTopBackground);
@@ -114,8 +114,30 @@ public class PlayEpisode extends AppCompatActivity {
         });
     }
     private void getDataEpisodeById(String keyword) {
+                DataService dataService = APIService.getService();
+                Call<List<Episode>> callback = dataService.GetEpisodeById(keyword);
+                callback.enqueue(new Callback<List<Episode>>() {
+                    @Override
+                    public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
+                        episodeArrayList = (ArrayList<Episode>) response.body();
+                        for (int i = 0; i < episodeArrayList.size(); i++) {
+                            Log.d("bbb: ", episodeArrayList.get(i).getNameEpisode());
+                        }
+                        SetUi(episodeArrayList.get(0));
+                        getDataEpisodeByPlaylist(episodeArrayList.get(0).getIdPlaylistEpisode());
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Episode>> call, Throwable t) {
+
+                    }
+                });
+
+    }
+
+    private void getDataEpisodeByPlaylist(String keyword) {
             DataService dataService = APIService.getService();
-            Call<List<Episode>> callback = dataService.GetEpisodeById(keyword);
+            Call<List<Episode>> callback = dataService.GetEpisodePlaylist(keyword);
             callback.enqueue(new Callback<List<Episode>>() {
                 @Override
                 public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
@@ -123,8 +145,10 @@ public class PlayEpisode extends AppCompatActivity {
                     for (int i = 0; i < episodeArrayList.size(); i++) {
                         Log.d("bbb: ", episodeArrayList.get(i).getNameEpisode());
                     }
-                    SetUi(episodeArrayList.get(0));
-                    /*getDataEpisodeByPlaylist(episodeArrayList.get(0).getIdPlaylistEpisode());*/
+                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList);
+                    podcastPlaylistAdapter.notifyDataSetChanged();
+                    recyclerView.setLayoutManager(new LinearLayoutManager(PlayEpisode.this, LinearLayoutManager.VERTICAL, false));
+                    recyclerView.setAdapter(podcastPlaylistAdapter);
                 }
 
                 @Override
@@ -132,28 +156,5 @@ public class PlayEpisode extends AppCompatActivity {
 
                 }
             });
-    }
-
-    private void getDataEpisodeByPlaylist(String keyword) {
-        DataService dataService = APIService.getService();
-        Call<List<Episode>> callback = dataService.GetEpisodePlaylist(keyword);
-        callback.enqueue(new Callback<List<Episode>>() {
-            @Override
-            public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
-                episodeArrayList = (ArrayList<Episode>) response.body();
-                for(int i = 0; i < episodeArrayList.size(); i++) {
-                    Log.d("bbb: ", episodeArrayList.get(i).getNameEpisode());
-                }
-                podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList);
-                podcastPlaylistAdapter.notifyDataSetChanged();
-                recyclerView.setLayoutManager(new LinearLayoutManager(PlayEpisode.this, LinearLayoutManager.VERTICAL, false));
-                recyclerView.setAdapter(podcastPlaylistAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<Episode>> call, Throwable t) {
-
-            }
-        });
-    }
+        }
 }
