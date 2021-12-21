@@ -1,7 +1,10 @@
 package com.example.podcast.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +40,15 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkData();
+
+                try {
+                    checkData();
+                }
+                catch (Exception e)
+                {
+                    Log.d(TAG, "onClick: Error " + e.getMessage());
+                    Toast.makeText(Login.this, "Connection error please try again", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {

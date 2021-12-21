@@ -18,19 +18,30 @@ import java.util.List;
 public class SearchPodcastAdapter extends RecyclerView.Adapter<SearchPodcastAdapter.ViewHolder>{
     private List<Episode> reList;
     Context context;
-    public SearchPodcastAdapter(Context context, List<Episode> reList) {
+    private OnPodcastSearchClick mOnPodcastSearchClick;
+    public SearchPodcastAdapter(Context context, List<Episode> reList, OnPodcastSearchClick onPodcastSearchClick) {
         this.context = context;
         this.reList = reList;
+        this.mOnPodcastSearchClick = onPodcastSearchClick;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvEpisodeName;
         TextView tvEpisodeAuthorName;
-        public ViewHolder(View view) {
+        OnPodcastSearchClick onPodcastSearchClick;
+        public ViewHolder(View view, OnPodcastSearchClick onPodcastSearchClick) {
             super(view);
             tvEpisodeName = (TextView) view.findViewById(R.id.tv_Episode_Name);
             tvEpisodeAuthorName = (TextView) view.findViewById(R.id.tv_Episode_Author);
 
+            this.onPodcastSearchClick = onPodcastSearchClick;
+            view.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            onPodcastSearchClick.onPodcastSearchClick(getAdapterPosition());
         }
     }
     @NonNull
@@ -38,7 +49,7 @@ public class SearchPodcastAdapter extends RecyclerView.Adapter<SearchPodcastAdap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.episode_podcast_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnPodcastSearchClick);
     }
 
     @Override
@@ -52,6 +63,10 @@ public class SearchPodcastAdapter extends RecyclerView.Adapter<SearchPodcastAdap
     @Override
     public int getItemCount() {
         return (reList != null ? reList.size():0);
+    }
+
+    public interface OnPodcastSearchClick{
+        void onPodcastSearchClick(int position);
     }
 
 }

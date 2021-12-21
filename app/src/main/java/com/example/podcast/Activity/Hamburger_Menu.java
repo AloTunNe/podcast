@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ public class Hamburger_Menu extends AppCompatActivity {
     private Button btnLogout;
     private TextView tvFollows;
     private TextView getTvFollowsNumber;
+    private LinearLayout llBrowse;
 
 
     @Override
@@ -38,10 +40,11 @@ public class Hamburger_Menu extends AppCompatActivity {
         imgCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iNewActivity = new Intent(Hamburger_Menu.this, Main.class);
+                /*Intent iNewActivity = new Intent(Hamburger_Menu.this, Main.class);
                 iNewActivity.putExtra("User_Login", user);
-                startActivity(iNewActivity);
+                startActivity(iNewActivity);*/
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+                finish();
             }
         });
 
@@ -51,6 +54,16 @@ public class Hamburger_Menu extends AppCompatActivity {
                 Intent iNewActivity = new Intent(Hamburger_Menu.this, Login.class);
                 startActivity(iNewActivity);
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+            }
+        });
+
+        llBrowse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iNewActivity = new Intent(Hamburger_Menu.this, Browse_Podcast.class);
+                iNewActivity.putExtra("User_Login", user);
+                startActivity(iNewActivity);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
     }
@@ -75,6 +88,7 @@ public class Hamburger_Menu extends AppCompatActivity {
         btnLogout = (Button) findViewById(R.id.btn_logout);
         tvFollows = (TextView) findViewById(R.id.tv_Follows);
         getTvFollowsNumber = (TextView) findViewById(R.id.tv_Follows_Number);
+        llBrowse = (LinearLayout) findViewById(R.id.ll_browse);
 
     }
 }
