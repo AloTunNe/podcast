@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,10 +61,11 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
     TextView tvEpisodeName;
     TextView tvAuthorName;
     TextView tvDiscription;
-    ArrayList<Episode> episodeArrayList ;
+
     Episode episodeOnMainBanner;
 
     PodcastPlaylistAdapter podcastPlaylistAdapter;
+    ArrayList<Episode> episodeArrayList;
 
     RecyclerView recyclerView;
 
@@ -88,8 +90,14 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
         }
         //getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
 
-        //Toast.makeText(context, episodeArrayList.get(0).getNameEpisode(), Toast.LENGTH_LONG);
 
+        try {
+            Init();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
+        //Toast.makeText(context, episodeArrayList.get(0).getNameEpisode(), Toast.LENGTH_LONG);
         imgButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,16 +191,14 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
     }
     private void getDataEpisodeById(String keyword) {
                 DataService dataService = APIService.getService();
-                Call<List<Episode>> callback = dataService.GetEpisodeById(keyword);
+                Call<List<Episode>> callback = dataService.SearchEpisodeWithId(keyword);
                 callback.enqueue(new Callback<List<Episode>>() {
                     @Override
                     public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
                         episodeArrayList = (ArrayList<Episode>) response.body();
-                        for (int i = 0; i < episodeArrayList.size(); i++) {
-                            Log.d("bbb: ", episodeArrayList.get(i).getNameEpisode());
-                        }
-                        SetUi(episodeArrayList.get(0));
                         getDataEpisodeByPlaylist(episodeArrayList.get(0).getIdPlaylistEpisode());
+                        SetUi(episodeArrayList.get(0));
+
                     }
 
                     @Override
@@ -205,7 +211,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
 
     private void getDataEpisodeByPlaylist(String keyword) {
             DataService dataService = APIService.getService();
-            Call<List<Episode>> callback = dataService.GetEpisodePlaylist(keyword);
+            Call<List<Episode>> callback = dataService.SearchEpisodeWithIdPlaylist(keyword);
             callback.enqueue(new Callback<List<Episode>>() {
                 @Override
                 public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
@@ -232,6 +238,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
         if (notificationManager != null) {
             notificationManager.createNotificationChannel(channel);
         }
+
     }
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override

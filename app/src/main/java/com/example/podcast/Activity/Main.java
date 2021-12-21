@@ -24,6 +24,7 @@ import com.example.podcast.Adapter.RecommendChanelAdapter;
 import com.example.podcast.Adapter.RecommendPlaylistAdapter;
 import com.example.podcast.Model.AsyncTaskDownloadReEp;
 import com.example.podcast.Model.CatogoryOnMainBanner;
+import com.example.podcast.Model.Chanel;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.EpisodeOnMainBanner;
@@ -184,8 +185,12 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
     @Override
     public void onReChannelClick(int position) {
-        Log.d(TAG, "onReChannelClick: click on item " + position);
-        Toast.makeText(this, "onReChannelClick: click on item " + position, Toast.LENGTH_SHORT).show();
+        ChanelOnMainBanner cn = chanelOnMainBannerArrayList.get(position);
+        Intent iNewActivity = new Intent(Main.this, PlayEpisode.class);
+        Chanel chanel = new Chanel(cn.getId(), null, cn.getChanelName(), cn.getPicture(), null, null, cn.getUserName(), cn.getUserAvatar());
+        iNewActivity.putExtra("Chanel", chanel);
+        startActivity(iNewActivity);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 
     @Override
