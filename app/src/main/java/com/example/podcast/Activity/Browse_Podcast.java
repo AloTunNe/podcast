@@ -22,6 +22,7 @@ import com.example.podcast.Adapter.SearchChanelAdapter;
 import com.example.podcast.Adapter.SearchPlaylistAdapter;
 import com.example.podcast.Adapter.SearchPodcastAdapter;
 import com.example.podcast.Model.Chanel;
+import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.Playlist;
 import com.example.podcast.Model.User;
@@ -238,6 +239,10 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
 
     @Override
     public void onChannelSearchClick(int position) {
-        Log.d(TAG, "onChannelSearchClick: click on item " + position);
+        Chanel chanel = chanelArrayList.get(position);
+        Intent iNewActivity = new Intent(Browse_Podcast.this, ChannelActivity.class);
+        iNewActivity.putExtra("Chanel", chanel);
+        startActivity(iNewActivity);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 }

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <entry key="..\:/Android_Project/App/podcast/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15989583333333332" />
         <entry key="..\:/Android_Project/App/podcast/app/src/main/res/drawable/background_round.xml" value="0.15989583333333332" />
         <entry key="..\:/Android_Project/App/podcast/app/src/main/res/drawable/ic_avt_categories.xml" value="0.15989583333333332" />
@@ -57,6 +58,8 @@
         <entry key="..\:/MyFolder/pcast/podcast/app/src/main/res/layout/podcast.xml" value="0.2330754352030948" />
 >>>>>>> 65392e12710bcee8a769b2ee1fd9a2020e1c9045
 >>>>>>> 265139a33538c30ed9985f0d80a7d36a75688ec6
+=======
+>>>>>>> ef36e96273c4ca991fc8072b41854221d2aecfdd
         <entry key="..\:/Podcast/app/src/main/res/drawable/avt_user.xml" value="0.23489583333333333" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/background_round.xml" value="0.403125" />
         <entry key="..\:/Podcast/app/src/main/res/drawable/bnt_search.xml" value="0.23489583333333333" />
@@ -70,7 +73,12 @@
         <entry key="..\:/Podcast/app/src/main/res/layout/author.xml" value="0.3015625" />
         <entry key="..\:/Podcast/app/src/main/res/layout/browse_authors.xml" value="0.33" />
         <entry key="..\:/Podcast/app/src/main/res/layout/browse_podcasts.xml" value="0.3218390804597701" />
+        <entry key="..\:/Podcast/app/src/main/res/layout/category_main_banner_layout.xml" value="0.38697916666666665" />
         <entry key="..\:/Podcast/app/src/main/res/layout/catogory_main_banner_layout.xml" value="0.38697916666666665" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/Podcast/app/src/main/res/layout/chanel.xml" value="0.3588516746411483" />
+>>>>>>> ef36e96273c4ca991fc8072b41854221d2aecfdd
         <entry key="..\:/Podcast/app/src/main/res/layout/chanel_main_banner_layout.xml" value="0.5" />
         <entry key="..\:/Podcast/app/src/main/res/layout/channel_item_layout.xml" value="0.33" />
         <entry key="..\:/Podcast/app/src/main/res/layout/episode_main_banner_layout.xml" value="0.67" />
