@@ -47,23 +47,7 @@
                     android:textSize="23sp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/search"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    android:src="@drawable/ic_search" />
 
-                <ImageView
-                    android:id="@+id/option"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="0dp"
-                    android:src="@drawable/ic_hamburger_menu" />
 
             </LinearLayout>
 
@@ -149,7 +133,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="0dp"
                         android:layout_marginTop="0dp"
-                        android:src="@drawable/ic_author_on" />
+                        android:src="@drawable/ic_channeloff" />
 
 
 
