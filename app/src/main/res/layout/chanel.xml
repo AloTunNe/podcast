@@ -9,55 +9,53 @@
         android:id="@+id/cstrLayout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/blue_bg"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/backgroundImgChannel"/>
+            app:shapeAppearanceOverlay="@style/backgroundImgChannel" />
 
         <ImageView
             android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/ic_back" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_channel"
             android:layout_width="350dp"
             android:layout_height="80dp"
+            android:layout_marginTop="90dp"
             android:gravity="center_vertical"
             android:text="@string/mary"
             android:textColor="@color/white"
             android:textSize="45sp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="90dp"
-            android:textStyle="bold" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/lnlayout_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/tv_channel"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
-            android:layout_marginTop="20dp"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_channel">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -75,16 +73,17 @@
                 android:layout_marginStart="20dp"
                 android:src="@drawable/ic_tw" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/lnlayout_contact"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
             android:layout_marginTop="20dp"
             android:paddingBottom="20dp"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnlayout_contact">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -113,6 +112,8 @@
         android:text="Description"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cstrLayout_top" />
@@ -124,11 +125,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_descriptionAuthor"
             android:orientation="horizontal"
-            android:paddingLeft="20dp"
+            android:paddingLeft="35dp"
             >
             <Button
                 android:id="@+id/btn_follow"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="60dp"
                 android:background="@drawable/btn_login_shape"
                 android:text="Follow"
