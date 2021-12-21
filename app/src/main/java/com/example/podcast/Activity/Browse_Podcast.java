@@ -1,5 +1,7 @@
 package com.example.podcast.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Browse_Podcast extends AppCompatActivity {
+public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAdapter.OnPodcastSearchClick, SearchPlaylistAdapter.OnPlaylistSearchClick, SearchChanelAdapter.OnChannelSearchClick{
 
     Context context;
 
@@ -71,7 +73,7 @@ public class Browse_Podcast extends AppCompatActivity {
             public void onClick(View view) {
                 if (edtSearch.getText() != null) {
                     getDataEpisodeSearch(edtSearch.getText().toString());
-                    searchPodcastAdapter = new SearchPodcastAdapter(Browse_Podcast.this, episodeArrayList);
+                    searchPodcastAdapter = new SearchPodcastAdapter(Browse_Podcast.this, episodeArrayList, Browse_Podcast.this);
                     searchPodcastAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(searchPodcastAdapter);
@@ -85,7 +87,7 @@ public class Browse_Podcast extends AppCompatActivity {
             public void onClick(View view) {
                 if (edtSearch.getText() != null) {
                     SearchDataChanel(edtSearch.getText().toString());
-                    searchChanelAdapter = new SearchChanelAdapter(Browse_Podcast.this, chanelArrayList);
+                    searchChanelAdapter = new SearchChanelAdapter(Browse_Podcast.this, chanelArrayList, Browse_Podcast.this);
                     searchChanelAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.HORIZONTAL, false));
                     recyclerView.setAdapter(searchChanelAdapter);
@@ -99,7 +101,7 @@ public class Browse_Podcast extends AppCompatActivity {
             public void onClick(View view) {
                 if (edtSearch.getText() != null) {
                     SearchDataPlaylist(edtSearch.getText().toString());
-                    searchPlaylistAdapter = new SearchPlaylistAdapter(Browse_Podcast.this, playlistArrayList);
+                    searchPlaylistAdapter = new SearchPlaylistAdapter(Browse_Podcast.this, playlistArrayList, Browse_Podcast.this);
                     searchPlaylistAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.HORIZONTAL, false));
                     recyclerView.setAdapter(searchPlaylistAdapter);
@@ -113,7 +115,7 @@ public class Browse_Podcast extends AppCompatActivity {
             public void onClick(View view) {
                 if (edtSearch.getText() != null) {
                     getDataEpisodeSearch(edtSearch.getText().toString());
-                    searchPodcastAdapter = new SearchPodcastAdapter(Browse_Podcast.this, episodeArrayList);
+                    searchPodcastAdapter = new SearchPodcastAdapter(Browse_Podcast.this, episodeArrayList, Browse_Podcast.this);
                     searchPodcastAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(searchPodcastAdapter);
@@ -198,4 +200,18 @@ public class Browse_Podcast extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onPodcastSearchClick(int position) {
+        Log.d(TAG, "onPodcastSearchClick: click on item " + position);
+    }
+
+    @Override
+    public void onPlaylistSearchClick(int position) {
+        Log.d(TAG, "onPlaylistSearchClick: click on item " + position);
+    }
+
+    @Override
+    public void onChannelSearchClick(int position) {
+        Log.d(TAG, "onChannelSearchClick: click on item " + position);
+    }
 }

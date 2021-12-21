@@ -26,20 +26,32 @@ import java.util.List;
 public class SearchPlaylistAdapter extends RecyclerView.Adapter<SearchPlaylistAdapter.ViewHolder>{
     private List<Playlist> reList;
     Context context;
-    public SearchPlaylistAdapter(Context context, List<Playlist> reList) {
+    private OnPlaylistSearchClick mOnPlaylistSearchClick;
+    public SearchPlaylistAdapter(Context context, List<Playlist> reList, OnPlaylistSearchClick onPlaylistSearchClick) {
         this.context = context;
         this.reList = reList;
+        this.mOnPlaylistSearchClick = onPlaylistSearchClick;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvPlaylistName;
         TextView tvPlaylistChanelName;
         ShapeableImageView simPlaylistBackground;
-        public ViewHolder(View view) {
+        OnPlaylistSearchClick onPlaylistSearchClick;
+        public ViewHolder(View view, OnPlaylistSearchClick onPlaylistSearchClick) {
             super(view);
             tvPlaylistName = (TextView) view.findViewById(R.id.tv_Playlist_Main_Banner_Name);
             tvPlaylistChanelName = (TextView) view.findViewById(R.id.tv_Playlist_Main_Banner_Chanel);
             simPlaylistBackground = (ShapeableImageView) view.findViewById(R.id.imgPlaylistBackgroundBanner);
+
+            this.onPlaylistSearchClick = onPlaylistSearchClick;
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onPlaylistSearchClick.onPlaylistSearchClick(getAdapterPosition());
+
         }
     }
     @NonNull
@@ -47,7 +59,7 @@ public class SearchPlaylistAdapter extends RecyclerView.Adapter<SearchPlaylistAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.playlist_main_banner_layout, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnPlaylistSearchClick);
     }
 
     @Override
@@ -77,6 +89,10 @@ public class SearchPlaylistAdapter extends RecyclerView.Adapter<SearchPlaylistAd
     @Override
     public int getItemCount() {
         return (reList != null ? reList.size():0);
+    }
+
+    public interface OnPlaylistSearchClick{
+        void onPlaylistSearchClick(int position);
     }
 
 }

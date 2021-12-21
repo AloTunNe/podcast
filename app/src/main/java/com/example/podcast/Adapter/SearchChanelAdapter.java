@@ -25,20 +25,31 @@ import java.util.List;
 public class SearchChanelAdapter extends RecyclerView.Adapter<SearchChanelAdapter.ViewHolder>{
     private List<Chanel> reList;
     Context context;
-    public SearchChanelAdapter(Context context, List<Chanel> reList) {
+    private OnChannelSearchClick mOnChannelSearchClick;
+    public SearchChanelAdapter(Context context, List<Chanel> reList, OnChannelSearchClick onChannelSearchClick) {
         this.context = context;
         this.reList = reList;
+        this.mOnChannelSearchClick = onChannelSearchClick;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvChanelName;
         TextView tvChanelAuthorName;
         ShapeableImageView simgAuthorPic;
-        public ViewHolder(View view) {
+        OnChannelSearchClick onChannelSearchClick;
+        public ViewHolder(View view, OnChannelSearchClick onChannelSearchClick) {
             super(view);
             tvChanelName = (TextView) view.findViewById(R.id.tv_channel_name);
             tvChanelAuthorName = (TextView) view.findViewById(R.id.tv_channel_author_name);
             simgAuthorPic = (ShapeableImageView) view.findViewById(R.id.simg_author_pic);
+
+            this.onChannelSearchClick = onChannelSearchClick;
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onChannelSearchClick.onChannelSearchClick(getAdapterPosition());
         }
     }
     @NonNull
@@ -46,7 +57,7 @@ public class SearchChanelAdapter extends RecyclerView.Adapter<SearchChanelAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.channel_item_layout, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnChannelSearchClick);
     }
 
     @Override
@@ -76,6 +87,10 @@ public class SearchChanelAdapter extends RecyclerView.Adapter<SearchChanelAdapte
     @Override
     public int getItemCount() {
         return (reList != null ? reList.size():0);
+    }
+
+    public interface OnChannelSearchClick{
+        void onChannelSearchClick(int position);
     }
 
 }
