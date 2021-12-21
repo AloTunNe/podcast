@@ -45,6 +45,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
     ImageView imgIconChanel;
     ImageView imgIconPlaylist;
     ImageView imgIconPodcast;
+    ImageView imgOption;
 
 
 
@@ -59,6 +60,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
     ArrayList<Playlist> playlistArrayList;
 
     RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,6 +126,13 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
             }
         });
 
+        imgOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
 
     }
@@ -137,6 +146,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
         imgIconChanel = (ImageView) findViewById(R.id.img_icon_chanel);
         imgIconPlaylist = (ImageView) findViewById(R.id.img_icon_playlist);
         imgIconPodcast = (ImageView) findViewById(R.id.img_icon_pocast);
+        imgOption = (ImageView) findViewById(R.id.option);
 
         tvPodcastNumber = (TextView) findViewById(R.id.tv_podcast_number);
 
@@ -203,6 +213,9 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
     @Override
     public void onPodcastSearchClick(int position) {
         Log.d(TAG, "onPodcastSearchClick: click on item " + position);
+        Intent iNewActivity = new Intent(this, PlayEpisode.class);
+        iNewActivity.putExtra("Episode", episodeArrayList.get(position));
+        startActivity(iNewActivity);
     }
 
     @Override

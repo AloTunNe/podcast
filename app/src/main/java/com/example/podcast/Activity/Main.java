@@ -71,7 +71,14 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
         Init();
         SetUI();
-        new AsyncTaskDownloadReEp(episodeOnMainBannerList, playlistOnMainBannerArrayList, chanelOnMainBannerArrayList, catogoryOnMainBannerArrayList, recommendAdapter, recommendPlaylistAdapter,recommendChanelAdapter,  recommendCatogoryAdapter).execute();
+        try {
+            new AsyncTaskDownloadReEp(episodeOnMainBannerList, playlistOnMainBannerArrayList, chanelOnMainBannerArrayList, catogoryOnMainBannerArrayList, recommendAdapter, recommendPlaylistAdapter,recommendChanelAdapter,  recommendCatogoryAdapter).execute();
+        }
+        catch (Exception e) {
+            Log.d(TAG, "onCreate: error " + e.getMessage());
+            Toast.makeText(this, "Cannot load the UI please login again", Toast.LENGTH_SHORT).show();
+        }
+
 
 
         tvChanels.setOnClickListener(new View.OnClickListener() {
