@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
@@ -16,16 +17,13 @@
         >
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/simg_channel_background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/backgroundImgChannel"/>
+            android:layout_height="283dp"
+            app:shapeAppearanceOverlay="@style/backgroundImgChannel" />
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/img_icon_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +33,7 @@
             android:layout_marginTop="30dp"
             android:src="@drawable/ic_back" />
         <TextView
-            android:id="@+id/tv_channel"
+            android:id="@+id/tv_channel_name"
             android:layout_width="350dp"
             android:layout_height="80dp"
             android:gravity="center_vertical"
@@ -52,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/tv_channel"
+            app:layout_constraintTop_toBottomOf="@+id/tv_channel_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
@@ -91,285 +89,22 @@
                 android:src="@drawable/ic_podcasts" />
 
             <TextView
-                android:id="@+id/tv_pcastNumber"
+                android:id="@+id/tv_pcastnuber"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="0dp"
-<<<<<<< HEAD
-                android:background="@drawable/blue_bg"
-                android:orientation="vertical">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/simg_bg_channel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:shapeAppearanceOverlay="@style/backgroundImgChannel" />
-
-                <ImageView
-                    android:id="@+id/img_icon_back"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="50dp"
-                    android:src="@drawable/ic_back" />
-
-                <TextView
-                    android:id="@+id/tv_channel_name"
-                    android:layout_width="350dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="30dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/mary"
-                    android:textColor="@color/white"
-                    android:textSize="45sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="0dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_fb" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:src="@drawable/ic_ig" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:src="@drawable/ic_tw" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="300dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_podcasts" />
-
-                    <TextView
-                        android:id="@+id/tv_podcast_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="0dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/pod"
-                        android:textColor="@color/white"
-                        android:textSize="23sp" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:layout_marginTop="270dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="370dp"
-                    android:layout_height="120dp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/description"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <LinearLayout
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:layout_width="130dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/btn_login_shape"
-                        android:text="Follow"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_follows"
-                        android:layout_width="170dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="0dp"
-                        android:text="+1.3k follow"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="370dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="0dp"
-                        android:gravity="center_vertical"
-                        android:text="Recent"
-                        android:textColor="@color/blue"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="0dp"
-                        android:gravity="center_vertical"
-                        android:text="Popular"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="0dp"
-                        android:gravity="center_vertical"
-                        android:text="As guest"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="480dp"
-                android:layout_marginTop="510dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="20dp"
-                    android:background="@color/black"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="250dp"
-                        android:layout_height="250dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="-80dp"
-                        android:src="@drawable/ic_play_small" />
-
-                    <LinearLayout
-                        android:layout_width="320dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="-100dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="145dp"
-                                android:layout_height="80dp"
-                                android:layout_marginStart="15dp"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:layout_marginTop="10dp"
-                                    android:text="Episode 1"
-                                    android:textColor="@color/white"
-                                    android:textSize="20sp" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:layout_marginTop="0dp"
-                                    android:text="23 May 2019"
-                                    android:textColor="@color/grey"
-                                    android:textSize="20sp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:layout_marginTop="10dp"
-                                    android:text="10:15:00"
-                                    android:textColor="@color/grey"
-                                    android:textSize="20sp" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:layout_marginTop="0dp"
-                                    android:text="10mb"
-                                    android:textColor="@color/grey"
-                                    android:textSize="20sp" />
-
-                            </LinearLayout>
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
-                                android:src="@drawable/ic_download" />
-
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="0dp"
-                            android:text="@string/summary1"
-                            android:textColor="@color/white"
-                            android:textSize="18sp" />
-
-                    </LinearLayout>
-
-
-=======
                 android:gravity="center_vertical"
                 android:text="@string/pod"
                 android:textColor="@color/white"
                 android:textSize="23sp" />
         </LinearLayout>
->>>>>>> 8be2d292ac124b87d20c6dcf57a1fcb82518a603
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/tv_descriptionAuthor"
+        android:id="@+id/tv_descriptionchanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -385,7 +120,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_descriptionAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/tv_descriptionchanel"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
             >
@@ -422,7 +157,7 @@
         >
 
         <TextView
-            android:id="@+id/tv_Re"
+            android:id="@+id/tv_playlist"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
@@ -433,6 +168,7 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/tv_podcast"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
@@ -444,6 +180,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_playlistbanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

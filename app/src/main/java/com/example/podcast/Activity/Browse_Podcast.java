@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -93,6 +94,9 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     searchChanelAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.HORIZONTAL, false));
                     recyclerView.setAdapter(searchChanelAdapter);
+                    imgIconPodcast.setImageResource(R.drawable.ic_poscastoff);
+                    //imgIconPlaylist.setImageResource(R.drawable.ic_t);
+                    imgIconChanel.setImageResource(R.drawable.ic_channelon);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
             }
@@ -121,6 +125,9 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     searchPodcastAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(searchPodcastAdapter);
+                    imgIconChanel.setImageResource(R.drawable.ic_channeloff);
+                    imgIconPodcast.setImageResource(R.drawable.ic_poscastoff);
+                    imgIconPodcast.setImageResource(R.drawable.ic_poscastoff);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
             }

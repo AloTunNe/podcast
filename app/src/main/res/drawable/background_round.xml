@@ -3,7 +3,7 @@
     <corners android:bottomLeftRadius="10dp"
         android:topRightRadius="10dp"
         android:topLeftRadius="10dp"/>
-    <solid android:color="@color/red_pink"/>
+    <solid android:color="#2196F3"/>
     <padding android:bottom="2dp"
         android:left="2dp"
         android:top="2dp"

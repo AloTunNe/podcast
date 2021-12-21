@@ -186,7 +186,7 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
     @Override
     public void onReChannelClick(int position) {
         ChanelOnMainBanner cn = chanelOnMainBannerArrayList.get(position);
-        Intent iNewActivity = new Intent(Main.this, PlayEpisode.class);
+        Intent iNewActivity = new Intent(Main.this, ChannelActivity.class);
         Chanel chanel = new Chanel(cn.getId(), null, cn.getChanelName(), cn.getPicture(), null, null, cn.getUserName(), cn.getUserAvatar());
         iNewActivity.putExtra("Chanel", chanel);
         startActivity(iNewActivity);
