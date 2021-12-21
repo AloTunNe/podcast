@@ -72,4 +72,10 @@ public interface DataService {
     @POST ("getChanelById.php")
     Call<List<Chanel>> SearchChanelDataById(@Field("KeyWord") String keyword);
 
+    @FormUrlEncoded
+    @POST ("AddUser.php")
+    Call<String> AddUser(@Field("Email") String email, @Field("Password") String password);
+
+
+
 }

@@ -41,8 +41,7 @@ public class Register extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this, Login.class);
-                startActivity(intent);
+                finish();
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
         });
@@ -61,7 +60,7 @@ public class Register extends AppCompatActivity {
                     }
                     if (check == false) Toast.makeText(getApplicationContext(), "Your Email has Created a Account! \n Please try a new Email!", Toast.LENGTH_LONG).show();
                     else {
-
+                        addUser(edtEmail.getText().toString(), edtPassword.getText().toString());
                     }
                 }
                 else {
@@ -93,6 +92,23 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
+
+            }
+        });
+    }
+    private void addUser(String email, String password) {
+        DataService dataService = APIService.getService();
+        Call<String> callback = dataService.AddUser(email, password);
+        callback.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String str = (String) response.body().toString();
+                if (str.compareTo("success") == 0) Toast.makeText(Register.this, "Server not response, try again!", Toast.LENGTH_LONG).show();
+                else Toast.makeText(Register.this, "Your Account is Created, Please login again!", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
 
             }
         });

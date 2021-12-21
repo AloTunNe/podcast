@@ -13,9 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/blue_bg"
-        >
-
+        android:background="@drawable/blue_bg">
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/simg_channel_background"
             android:layout_width="match_parent"
