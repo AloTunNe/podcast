@@ -28,7 +28,7 @@
                     app:shapeAppearanceOverlay="@style/backgroundImgChannel" />
 
                 <ImageView
-                    android:id="@+id/back"
+                    android:id="@+id/img_icon_back"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="20dp"
@@ -36,7 +36,7 @@
                     android:src="@drawable/ic_back" />
 
                 <TextView
-                    android:id="@+id/author"
+                    android:id="@+id/tv_channel_name"
                     android:layout_width="350dp"
                     android:layout_height="80dp"
                     android:layout_marginStart="30dp"
@@ -84,7 +84,7 @@
                         android:src="@drawable/ic_podcasts" />
 
                     <TextView
-                        android:id="@+id/text"
+                        android:id="@+id/tv_podcast_number"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="20dp"
@@ -127,6 +127,7 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/tv_follows"
                         android:layout_width="170dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="10dp"

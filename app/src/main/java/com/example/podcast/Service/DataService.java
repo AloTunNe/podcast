@@ -37,16 +37,16 @@ public interface DataService {
     Call<List<Episode>> getAllDataEpisode();
 
     @FormUrlEncoded
-    @POST("getEpisodeDataWithPlaylist.php")
-    Call<List<Episode>> GetEpisodePlaylist(@Field("KeyWord") String idPlaylist);
-
-    @FormUrlEncoded
-    @POST("getEpisodeDataWithId.php")
-    Call<List<Episode>> GetEpisodeById(@Field("KeyWord") String idEpisode);
+    @POST("SearchEpisodeWithIdPlaylist.php")
+    Call<List<Episode>> SearchEpisodeWithIdPlaylist(@Field("KeyWord") String idPlaylist);
 
     @FormUrlEncoded
     @POST("SearchEpisode.php")
     Call<List<Episode>> SearchEpisode(@Field("KeyWord") String Keyword);
+
+    @FormUrlEncoded
+    @POST("SearchEpisodeWithId.php")
+    Call<List<Episode>> SearchEpisodeWithId(@Field("KeyWord") String Keyword);
 
     @FormUrlEncoded
     @POST ("UpadateEpisodeLikes.php")
@@ -66,6 +66,6 @@ public interface DataService {
 
     @FormUrlEncoded
     @POST ("getChanelById.php")
-    Call<List<Playlist>> SearchChanelDataById(@Field("KeyWord") String keyword);
+    Call<List<Chanel>> SearchChanelDataById(@Field("KeyWord") String keyword);
 
 }

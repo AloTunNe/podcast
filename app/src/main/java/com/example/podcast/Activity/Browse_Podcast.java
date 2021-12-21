@@ -130,6 +130,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
         });
 
@@ -183,7 +184,6 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
             public void onResponse(Call<List<Chanel>> call, Response<List<Chanel>> response) {
                 chanelArrayList = (ArrayList<Chanel>) response.body();
                 for(int i = 0; i < chanelArrayList.size(); i++) {
-                    Log.d("bbb: ", chanelArrayList.get(i).getChanelName());
                 }
             }
 
