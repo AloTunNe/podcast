@@ -20,6 +20,9 @@
             android:id="@+id/simg_channel_background"
             android:layout_width="match_parent"
             android:layout_height="283dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:shapeAppearanceOverlay="@style/backgroundImgChannel" />
 
         <ImageView
@@ -111,49 +114,52 @@
         android:text="Description"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cstrLayout_top" />
-        <LinearLayout
-            android:id="@+id/lnlayout_follow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_descriptionchanel"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            >
-            <Button
-                android:id="@+id/btn_follow"
-                android:layout_width="130dp"
-                android:layout_height="60dp"
-                android:background="@drawable/btn_login_shape"
-                android:text="Follow"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/tv_follow"
-                android:layout_width="173dp"
-                android:layout_height="60dp"
-                android:text="+1.3k follow"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/lnlayout_option"
-            android:layout_width="370dp"
-            android:layout_height="50dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lnlayout_follow"
+    <LinearLayout
+        android:id="@+id/lnlayout_follow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_descriptionchanel"
+        android:orientation="horizontal"
+        android:paddingLeft="35dp"
+        >
+        <Button
+            android:id="@+id/btn_follow"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:background="@drawable/btn_login_shape"
+            android:text="Follow"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_follow"
+            android:layout_width="173dp"
+            android:layout_height="60dp"
+            android:text="+1.3k follow"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lnlayout_option"
+        android:layout_width="370dp"
+        android:layout_height="50dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lnlayout_follow"
         >
 
         <TextView
