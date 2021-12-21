@@ -6,12 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.support.v4.media.session.MediaSessionCompat;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
+import androidx.media.app.NotificationCompat.MediaStyle;
 import com.example.podcast.R;
 import com.example.podcast.Service.NotificationActionService;
 
@@ -73,13 +72,14 @@ public class NotificationPlay {
                 .addAction(R.drawable.ic_baseline_skip_previous_24, "Previous", pendingIntentPrevious)
                 .addAction(R.drawable.ic_play, "Play", pendingIntentPlay)
                 .addAction(R.drawable.ic_baseline_skip_next_24, "Next", pendingIntentNext)
-                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
-                    .setShowActionsInCompactView(0, 1, 2)
-                    .setMediaSession(mediaSessionCompat.getSessionToken()))
+                //.setStyle(new MediaStyle()
+                    //.setShowActionsInCompactView(0, 1, 2)
+                    //.setMediaSession(mediaSessionCompat.getSessionToken()))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .build();
 
         notificationManagerCompat.notify(123, notification);
+
     }
     public static Bitmap getBitmapFromURL(String src) {
         try {

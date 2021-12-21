@@ -82,22 +82,12 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.podcast);
 
-
-        try {
-            Init();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        //getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
-
-
         try {
             Init();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
-        //Toast.makeText(context, episodeArrayList.get(0).getNameEpisode(), Toast.LENGTH_LONG);
         imgButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,11 +99,12 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
             registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
-            startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
+            startService(new Intent(context, OnClearFromRecentService.class));
         }
         ibPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getBaseContext();
                 if (isPlaying) {
                     mediaPlayer.pause();
                     onTrackPause();
@@ -266,20 +257,20 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
     @Override
     public void onTrackPrevious() {
         position--;
-        NotificationPlay.createNotification(this, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
 
     }
 
     @Override
     public void onTrackPlay() {
-        NotificationPlay.createNotification(this, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
         ibPlay.setImageResource(R.drawable.ic_pause);
         isPlaying = true;
     }
 
     @Override
     public void onTrackPause() {
-        NotificationPlay.createNotification(this, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
         ibPlay.setImageResource(R.drawable.ic_play);
         isPlaying = false;
 
@@ -288,7 +279,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
     @Override
     public void onTrackNext() {
         position++;
-        NotificationPlay.createNotification(this, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
     }
 
     @Override
