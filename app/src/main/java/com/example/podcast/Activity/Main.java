@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -64,6 +65,9 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
     RecyclerView recyclerView;
     RecyclerView rcv_Multi_Main_Banner;
+
+    public static boolean isGlobalPlaying = false;
+    public static MediaPlayer mediaPlayer;
 
 
     @Override

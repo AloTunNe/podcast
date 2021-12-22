@@ -49,7 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PlayEpisode extends AppCompatActivity implements Playable {
+public class PlayEpisode extends AppCompatActivity implements Playable, PodcastPlaylistAdapter.OnPodcastPlaylistClick {
 
     Context context;
 
@@ -73,7 +73,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
     boolean isPlaying = false;
 
     public NotificationManager notificationManager;
-    private MediaPlayer mediaPlayer;
+    //private MediaPlayer mediaPlayer;
 
 
 
@@ -104,13 +104,14 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
         ibPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getBaseContext();
+                if(Main.isGlobalPlaying && Main.mediaPlayer!=null) {Main.mediaPlayer.release();Main.mediaPlayer = null;}
                 if (isPlaying) {
-                    mediaPlayer.pause();
+                    Main.isGlobalPlaying = true;
+                    Main.mediaPlayer.pause();
                     onTrackPause();
                 }
                 else {
-                    mediaPlayer.start();
+                    Main.mediaPlayer.start();
                     onTrackPlay();
 
                 }
@@ -136,23 +137,23 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
         episodeArrayList = new ArrayList<>();
         episodeArrayList.add(episodeOnMainBanner);
         URL url = new URL(episodeOnMainBanner.getLinkEpisode());
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        Main.mediaPlayer = new MediaPlayer();
+        Main.mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+        Main.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        mediaPlayer.setAudioAttributes(
+        Main.mediaPlayer.setAudioAttributes(
                 new AudioAttributes.Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build()
         );
         try {
-            mediaPlayer.setDataSource(String.valueOf(url));
+            Main.mediaPlayer.setDataSource(String.valueOf(url));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            mediaPlayer.prepare(); // might take long! (for buffering, etc)
+            Main.mediaPlayer.prepare(); // might take long! (for buffering, etc)
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -210,7 +211,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
                     for (int i = 0; i < episodeArrayList.size(); i++) {
                         Log.d("bbb: ", episodeArrayList.get(i).getNameEpisode());
                     }
-                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList);
+                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList, PlayEpisode.this);
                     podcastPlaylistAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(PlayEpisode.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(podcastPlaylistAdapter);
@@ -243,8 +244,10 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
                 case NotificationPlay.ACTION_PLAY:
                     if (isPlaying) {
                         onTrackPause();
+                        Main.mediaPlayer.pause();
                     } else {
                         onTrackPlay();
+                        Main.mediaPlayer.start();
                     }
                     break;
                 case NotificationPlay.ACTION_NEXT:
@@ -285,12 +288,24 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        Main.isGlobalPlaying = false;
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.cancelAll();
-        }
+        }*/
 
-        unregisterReceiver(broadcastReceiver);
-        mediaPlayer.release();
-        mediaPlayer = null;
+        //unregisterReceiver(broadcastReceiver);
+        //mediaPlayer.release();
+        //mediaPlayer = null;
+    }
+
+    @Override
+    public void onPodcastPlaylistClick(int pos) {
+        Main.isGlobalPlaying = false;
+        Main.mediaPlayer.release();
+        Main.mediaPlayer = null;
+        Episode ep = episodeArrayList.get(pos);
+        Intent iNewActivity = new Intent(PlayEpisode.this, PlayEpisode.class);
+        iNewActivity.putExtra("Episode", ep);
+        startActivity(iNewActivity);
     }
 }
