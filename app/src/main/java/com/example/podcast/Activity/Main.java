@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -64,6 +65,9 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
     RecyclerView recyclerView;
     RecyclerView rcv_Multi_Main_Banner;
+
+    public static boolean isGlobalPlaying = false;
+    public static MediaPlayer mediaPlayer;
 
 
     @Override
@@ -186,7 +190,7 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
     @Override
     public void onReChannelClick(int position) {
         ChanelOnMainBanner cn = chanelOnMainBannerArrayList.get(position);
-        Intent iNewActivity = new Intent(Main.this, PlayEpisode.class);
+        Intent iNewActivity = new Intent(Main.this, ChannelActivity.class);
         Chanel chanel = new Chanel(cn.getId(), null, cn.getChanelName(), cn.getPicture(), null, null, cn.getUserName(), cn.getUserAvatar());
         iNewActivity.putExtra("Chanel", chanel);
         startActivity(iNewActivity);

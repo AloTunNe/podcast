@@ -40,8 +40,7 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:gravity="end"
-                        android:layout_marginTop="9dp"
-                        >
+                        android:layout_marginTop="9dp">
                         <ImageView
                             android:layout_width="38dp"
                             android:layout_height="38dp"

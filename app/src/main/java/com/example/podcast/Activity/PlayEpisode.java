@@ -1,17 +1,25 @@
 package com.example.podcast.Activity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,19 +28,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.podcast.Adapter.PodcastPlaylistAdapter;
-import com.example.podcast.Adapter.SearchPodcastAdapter;
 import com.example.podcast.Model.Episode;
-import com.example.podcast.Model.EpisodeOnMainBanner;
-import com.example.podcast.Model.User;
+import com.example.podcast.Model.NotificationPlay;
+import com.example.podcast.Playable;
 import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
 import com.example.podcast.Service.DataService;
+import com.example.podcast.Service.OnClearFromRecentService;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import org.w3c.dom.Text;
-
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,10 +49,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PlayEpisode extends AppCompatActivity {
+public class PlayEpisode extends AppCompatActivity implements Playable, PodcastPlaylistAdapter.OnPodcastPlaylistClick {
+
     Context context;
 
     ImageView imgButtonBack;
+    ImageButton ibPlay;
 
     ShapeableImageView simgBackgroundpisode;
 
@@ -58,26 +69,25 @@ public class PlayEpisode extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
+    int position = 0;
+    boolean isPlaying = false;
+
+    public NotificationManager notificationManager;
+    //private MediaPlayer mediaPlayer;
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.podcast);
 
-
-
-
-        Init();
+        try {
+            Init();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
-<<<<<<< HEAD
-
-
-
-=======
-<<<<<<< HEAD
-        //Toast.makeText(context, episodeArrayList.get(0).getNameEpisode(), Toast.LENGTH_LONG);
-=======
->>>>>>> f9a5d0ce6b0be44df2a4d785223094c994fae225
->>>>>>> 8be2d292ac124b87d20c6dcf57a1fcb82518a603
         imgButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,9 +96,34 @@ public class PlayEpisode extends AppCompatActivity {
             }
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+            registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
+            startService(new Intent(context, OnClearFromRecentService.class));
+        }
+        ibPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Main.isGlobalPlaying && Main.mediaPlayer!=null) {Main.mediaPlayer.release();Main.mediaPlayer = null;}
+                if (isPlaying) {
+                    Main.isGlobalPlaying = true;
+                    Main.mediaPlayer.pause();
+                    onTrackPause();
+                }
+                else {
+                    Main.mediaPlayer.start();
+                    onTrackPlay();
+
+                }
+            }
+        });
+
     }
-    private void Init() {
+
+
+    private void Init() throws MalformedURLException {
         context = this;
+        ibPlay = (ImageButton) findViewById(R.id.btn_play_pcast);
         episodeOnMainBanner = (Episode) getIntent().getParcelableExtra("Episode");
         imgButtonBack = (ImageView) findViewById(R.id.img_icon_back);
 
@@ -99,6 +134,30 @@ public class PlayEpisode extends AppCompatActivity {
         tvDiscription = (TextView) findViewById(R.id.tv_Discription);
 
         recyclerView = (RecyclerView) findViewById(R.id.rcv_Episode_Podcast);
+        episodeArrayList = new ArrayList<>();
+        episodeArrayList.add(episodeOnMainBanner);
+        URL url = new URL(episodeOnMainBanner.getLinkEpisode());
+        Main.mediaPlayer = new MediaPlayer();
+        Main.mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+        Main.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        Main.mediaPlayer.setAudioAttributes(
+                new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+        );
+        try {
+            Main.mediaPlayer.setDataSource(String.valueOf(url));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            Main.mediaPlayer.prepare(); // might take long! (for buffering, etc)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -152,7 +211,7 @@ public class PlayEpisode extends AppCompatActivity {
                     for (int i = 0; i < episodeArrayList.size(); i++) {
                         Log.d("bbb: ", episodeArrayList.get(i).getNameEpisode());
                     }
-                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList);
+                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList, PlayEpisode.this);
                     podcastPlaylistAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(PlayEpisode.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(podcastPlaylistAdapter);
@@ -163,8 +222,90 @@ public class PlayEpisode extends AppCompatActivity {
 
                 }
             });
+    }
+    private void createChannel() {
+        NotificationChannel channel = new NotificationChannel(NotificationPlay.CHANNEL_ID, "Our project", NotificationManager.IMPORTANCE_HIGH);
+
+        notificationManager = getSystemService(NotificationManager.class);
+        if (notificationManager != null) {
+            notificationManager.createNotificationChannel(channel);
         }
 
+    }
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("actionName");
 
+            switch (action) {
+                case NotificationPlay.ACTION_PREVIOUS:
+                    onTrackPrevious();
+                    break;
+                case NotificationPlay.ACTION_PLAY:
+                    if (isPlaying) {
+                        onTrackPause();
+                        Main.mediaPlayer.pause();
+                    } else {
+                        onTrackPlay();
+                        Main.mediaPlayer.start();
+                    }
+                    break;
+                case NotificationPlay.ACTION_NEXT:
+                    onTrackNext();
+                    break;
+            }
+        }
+    };
 
+    @Override
+    public void onTrackPrevious() {
+        position--;
+        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+
+    }
+
+    @Override
+    public void onTrackPlay() {
+        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+        ibPlay.setImageResource(R.drawable.ic_pause);
+        isPlaying = true;
+    }
+
+    @Override
+    public void onTrackPause() {
+        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+        ibPlay.setImageResource(R.drawable.ic_play);
+        isPlaying = false;
+
+    }
+
+    @Override
+    public void onTrackNext() {
+        position++;
+        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Main.isGlobalPlaying = false;
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.cancelAll();
+        }*/
+
+        //unregisterReceiver(broadcastReceiver);
+        //mediaPlayer.release();
+        //mediaPlayer = null;
+    }
+
+    @Override
+    public void onPodcastPlaylistClick(int pos) {
+        Main.isGlobalPlaying = false;
+        Main.mediaPlayer.release();
+        Main.mediaPlayer = null;
+        Episode ep = episodeArrayList.get(pos);
+        Intent iNewActivity = new Intent(PlayEpisode.this, PlayEpisode.class);
+        iNewActivity.putExtra("Episode", ep);
+        startActivity(iNewActivity);
+    }
 }

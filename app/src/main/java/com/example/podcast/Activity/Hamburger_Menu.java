@@ -70,13 +70,6 @@ public class Hamburger_Menu extends AppCompatActivity {
 
     private void SetUI() {
         tvHelloUser.setText("Hello \n" + user.getUserName());
-        /*getTvFollowsNumber.setText(user.get);*/
-        /*Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(),R.drawable.avt_user);
-        Bitmap circularBitmap = ImageConverter.getRoundedCornerBitmap(bitmap, 100);
-
-        ImageView circularImageView = (ImageView) findViewById(R.id.img_Avatar_User);
-        circularImageView.setImageBitmap(circularBitmap);*/
-
         Picasso.with(this).load(user.getUserAvatar()).into(imgAvatarUser);
     }
 

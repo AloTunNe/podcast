@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.podcast.Adapter.SearchChanelAdapter;
 import com.example.podcast.Adapter.SearchPlaylistAdapter;
 import com.example.podcast.Adapter.SearchPodcastAdapter;
 import com.example.podcast.Model.Chanel;
+import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.Playlist;
 import com.example.podcast.Model.User;
@@ -79,6 +81,9 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     searchPodcastAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(searchPodcastAdapter);
+                    imgIconChanel.setImageResource(R.drawable.ic_channeloff);
+                    imgIconPlaylist.setImageResource(R.drawable.ic_poscastoff);
+                    imgIconPodcast.setImageResource(R.drawable.ic_pod_on);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
             }
@@ -93,6 +98,9 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     searchChanelAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.HORIZONTAL, false));
                     recyclerView.setAdapter(searchChanelAdapter);
+                    imgIconPodcast.setImageResource(R.drawable.ic_poscastoff);
+                    imgIconPlaylist.setImageResource(R.drawable.ic_playlistoff);
+                    imgIconChanel.setImageResource(R.drawable.ic_channelon);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
             }
@@ -107,6 +115,9 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     searchPlaylistAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.HORIZONTAL, false));
                     recyclerView.setAdapter(searchPlaylistAdapter);
+                    imgIconChanel.setImageResource(R.drawable.ic_channeloff);
+                    imgIconPodcast.setImageResource(R.drawable.ic_poscastoff);
+                    imgIconPlaylist.setImageResource(R.drawable.ic_playliston);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
             }
@@ -121,6 +132,9 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     searchPodcastAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(searchPodcastAdapter);
+                    imgIconChanel.setImageResource(R.drawable.ic_channeloff);
+                    imgIconPlaylist.setImageResource(R.drawable.ic_poscastoff);
+                    imgIconPodcast.setImageResource(R.drawable.ic_pod_on);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
             }
@@ -225,6 +239,10 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
 
     @Override
     public void onChannelSearchClick(int position) {
-        Log.d(TAG, "onChannelSearchClick: click on item " + position);
+        Chanel chanel = chanelArrayList.get(position);
+        Intent iNewActivity = new Intent(Browse_Podcast.this, ChannelActivity.class);
+        iNewActivity.putExtra("Chanel", chanel);
+        startActivity(iNewActivity);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 }
