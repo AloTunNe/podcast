@@ -1,5 +1,7 @@
 package com.example.podcast.Activity;
 
+import static com.example.podcast.Activity.Main.mediaPlayer;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -14,11 +16,14 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +47,7 @@ import com.squareup.picasso.Target;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,14 +60,14 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     Context context;
 
     ImageView imgButtonBack;
-    ImageButton ibPlay;
+    ImageButton ibPlay, ibPrev, ibNext, ibFastRewind, ibFastForward;
 
     ShapeableImageView simgBackgroundpisode;
 
-    TextView tvEpisodeName;
+    TextView tvEpisodeName, tvTotalTime, tvTimeCurrent;
     TextView tvAuthorName;
     TextView tvDiscription;
-
+    SeekBar seekBar;
     Episode episodeOnMainBanner;
 
     PodcastPlaylistAdapter podcastPlaylistAdapter;
@@ -81,6 +87,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.podcast);
+
 
         try {
             Init();
@@ -104,20 +111,76 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         ibPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Main.isGlobalPlaying && Main.mediaPlayer!=null) {Main.mediaPlayer.release();Main.mediaPlayer = null;}
+                if(Main.isGlobalPlaying && mediaPlayer!=null) {
+                    mediaPlayer.release();
+                    mediaPlayer = null;}
                 if (isPlaying) {
                     Main.isGlobalPlaying = true;
-                    Main.mediaPlayer.pause();
+                    mediaPlayer.pause();
                     onTrackPause();
                 }
                 else {
-                    Main.mediaPlayer.start();
+                    mediaPlayer.start();
                     onTrackPlay();
 
                 }
+                setTotalTime();
+                UpdateTime();
+            }
+        });
+        ibNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTrackNext();
+                mediaPlayer.release();
+                onTrackPlay();
+            }
+        });
+        ibPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTrackPrevious();
+                onTrackPlay();
+            }
+        });
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mediaPlayer.seekTo(seekBar.getProgress());
             }
         });
 
+
+    }
+
+
+    private void UpdateTime() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
+                tvTimeCurrent.setText(timeFormat.format(mediaPlayer.getCurrentPosition()));
+                seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                handler.postDelayed(this, 100);
+            }
+        }, 100);
+    }
+
+    private void setTotalTime() {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
+        tvTotalTime.setText(timeFormat.format(mediaPlayer.getDuration()));
+        seekBar.setMax(mediaPlayer.getDuration());
     }
 
 
@@ -126,34 +189,41 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         ibPlay = (ImageButton) findViewById(R.id.btn_play_pcast);
         episodeOnMainBanner = (Episode) getIntent().getParcelableExtra("Episode");
         imgButtonBack = (ImageView) findViewById(R.id.img_icon_back);
+        ibNext = (ImageButton) findViewById(R.id.btn_next);
+        ibPrev = (ImageButton) findViewById(R.id.btn_prev);
+        ibFastForward = (ImageButton) findViewById(R.id.btn_fastForward);
+        ibFastRewind = (ImageButton) findViewById(R.id.btn_fastRewind);
+
 
         simgBackgroundpisode = (ShapeableImageView) findViewById(R.id.simgTopBackground);
 
         tvEpisodeName = (TextView) findViewById(R.id.tv_Episode);
         tvAuthorName = (TextView) findViewById(R.id.tv_AuthorName);
         tvDiscription = (TextView) findViewById(R.id.tv_Discription);
-
+        tvTotalTime = (TextView) findViewById(R.id.tv_totalTime);
+        tvTimeCurrent = (TextView) findViewById(R.id.tv_currentTime);
+        seekBar = (SeekBar) findViewById(R.id.skbar);
         recyclerView = (RecyclerView) findViewById(R.id.rcv_Episode_Podcast);
         episodeArrayList = new ArrayList<>();
         episodeArrayList.add(episodeOnMainBanner);
         URL url = new URL(episodeOnMainBanner.getLinkEpisode());
-        Main.mediaPlayer = new MediaPlayer();
-        Main.mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
-        Main.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        Main.mediaPlayer.setAudioAttributes(
+        mediaPlayer.setAudioAttributes(
                 new AudioAttributes.Builder()
                         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build()
         );
         try {
-            Main.mediaPlayer.setDataSource(String.valueOf(url));
+            mediaPlayer.setDataSource(String.valueOf(url));
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            Main.mediaPlayer.prepare(); // might take long! (for buffering, etc)
+            mediaPlayer.prepare(); // might take long! (for buffering, etc)
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -244,10 +314,10 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                 case NotificationPlay.ACTION_PLAY:
                     if (isPlaying) {
                         onTrackPause();
-                        Main.mediaPlayer.pause();
+                        mediaPlayer.pause();
                     } else {
                         onTrackPlay();
-                        Main.mediaPlayer.start();
+                        mediaPlayer.start();
                     }
                     break;
                 case NotificationPlay.ACTION_NEXT:
@@ -301,8 +371,8 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     @Override
     public void onPodcastPlaylistClick(int pos) {
         Main.isGlobalPlaying = false;
-        Main.mediaPlayer.release();
-        Main.mediaPlayer = null;
+        mediaPlayer.release();
+        mediaPlayer = null;
         Episode ep = episodeArrayList.get(pos);
         Intent iNewActivity = new Intent(PlayEpisode.this, PlayEpisode.class);
         iNewActivity.putExtra("Episode", ep);
