@@ -32,7 +32,7 @@ dependencies {
     //add library
     implementation "androidx.media:media:1.2.0"
     // adding facebook sdk
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
 
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
