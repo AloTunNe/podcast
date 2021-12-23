@@ -2,6 +2,16 @@ package com.example.podcast.Activity;
 
 import static android.content.ContentValues.TAG;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.appevents.AppEventsLogger;
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +27,10 @@ import com.example.podcast.Model.User;
 import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
 import com.example.podcast.Service.DataService;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +45,45 @@ public class Login extends AppCompatActivity {
     EditText edtInputPassword;
     User user;
     Button btnRegister;
+    CallbackManager callbackManager;
+    LoginButton loginButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.btn_login_fb);
+        loginButton.setReadPermissions("email");
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "======Facebook login success======");
+                Log.d(TAG, "Facebook Access Token: " + loginResult.getAccessToken().getToken());
+                Toast.makeText(Login.this, "Login Facebook success.", Toast.LENGTH_SHORT).show();
+
+
+                getFbInfo();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(Login.this, "Login Facebook cancelled.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e(TAG, "======Facebook login error======");
+                Log.e(TAG, "Error: " + error.toString());
+                Toast.makeText(Login.this, "Login Facebook error.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         Init();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,5 +151,39 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void getFbInfo() {
+        if (AccessToken.getCurrentAccessToken() != null) {
+            GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(final JSONObject me, GraphResponse response) {
+                            if (me != null) {
+                                Log.i("Login: ", me.optString("name"));
+                                Log.i("ID: ", me.optString("id"));
+
+                                Toast.makeText(Login.this, "Name: " + me.optString("name"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, "ID: " + me.optString("id"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Login success!", Toast.LENGTH_SHORT).show();
+                                Intent iNewActivity = new Intent(Login.this, Main.class);
+                                user = new User(me.optString("id"), me.optString("name"), null, null, null, null);
+                                iNewActivity.putExtra("User_Login", user);
+                                startActivity(iNewActivity);
+                                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                            }
+                        }
+                    });
+
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,link");
+            request.setParameters(parameters);
+            request.executeAsync();
+        }
     }
 }
