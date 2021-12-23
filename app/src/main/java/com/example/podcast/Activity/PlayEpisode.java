@@ -143,6 +143,13 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                 onTrackPlay();
             }
         });
+        ibFastForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimeFastForward();
+
+            }
+        });
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -163,6 +170,20 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
 
     }
 
+    private void TimeFastForward()
+    {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
+
+                tvTimeCurrent.setText(timeFormat.format(mediaPlayer.getCurrentPosition() + 10000));
+                seekBar.setProgress(mediaPlayer.getCurrentPosition() + 10000);
+                handler.postDelayed(this, 100);
+            }
+        }, 100);
+    }
 
     private void UpdateTime() {
         Handler handler = new Handler();
@@ -176,6 +197,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             }
         }, 100);
     }
+
 
     private void setTotalTime() {
         SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
