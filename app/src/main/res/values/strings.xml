@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Podcast</string>
+    <string name="app_name">Pcast</string>
     <string name="login">Login</string>
     <string name="facebook_app_id">918672262099161</string> <string name="fb_login_protocol_scheme">fb918672262099161</string>
 
