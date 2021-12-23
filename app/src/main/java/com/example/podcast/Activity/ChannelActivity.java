@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -24,6 +25,7 @@ import com.example.podcast.Adapter.SearchPlaylistAdapter;
 import com.example.podcast.Adapter.SearchPodcastAdapter;
 import com.example.podcast.Model.Chanel;
 import com.example.podcast.Model.Playlist;
+import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
 import com.example.podcast.Service.DataService;
@@ -59,6 +61,7 @@ public class ChannelActivity extends AppCompatActivity implements SearchPlaylist
 
     Chanel chanel;
     ArrayList<Chanel> chanelArrayList;
+    ArrayList<Playlist> playlistArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +148,7 @@ public class ChannelActivity extends AppCompatActivity implements SearchPlaylist
         callback.enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
-                ArrayList<Playlist> playlistArrayList = (ArrayList<Playlist>) response.body();
+                playlistArrayList = (ArrayList<Playlist>) response.body();
                 SearchPlaylistAdapter searchPlaylistAdapter = new SearchPlaylistAdapter(context, playlistArrayList, (SearchPlaylistAdapter.OnPlaylistSearchClick) context);
                 searchPlaylistAdapter.notifyDataSetChanged();
                 recyclerView.setLayoutManager(new LinearLayoutManager(ChannelActivity.this, LinearLayoutManager.HORIZONTAL, false));
@@ -159,6 +162,10 @@ public class ChannelActivity extends AppCompatActivity implements SearchPlaylist
         });
     }
     public void onPlaylistSearchClick(int position) {
-        Log.d(TAG, "onPlaylistSearchClick: click on item " + position);
+        Playlist playlist = playlistArrayList.get(position);
+        Intent iNewActivity = new Intent(ChannelActivity.this, PlaylistActivity.class);
+        iNewActivity.putExtra("Playlist", playlist);
+        startActivity(iNewActivity);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 }

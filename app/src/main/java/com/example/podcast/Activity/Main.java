@@ -30,6 +30,7 @@ import com.example.podcast.Model.Chanel;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.EpisodeOnMainBanner;
+import com.example.podcast.Model.Playlist;
 import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.Model.User;
 import com.example.podcast.R;
@@ -201,6 +202,11 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
     @Override
     public void onRePlaylistClick(int position) {
-        Toast.makeText(context, "onRePlaylistClick: click on item" + position, Toast.LENGTH_SHORT).show();
+        PlaylistOnMainBanner playlist = playlistOnMainBannerArrayList.get(position);
+        Intent iNewActivity = new Intent(Main.this, PlaylistActivity.class);
+        Playlist p = new Playlist(playlist.getId(), "" , playlist.getPicture(), playlist.getName(), playlist.getChanel());
+        iNewActivity.putExtra("Playlist", p);
+        startActivity(iNewActivity);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 }

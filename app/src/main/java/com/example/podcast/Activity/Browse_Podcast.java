@@ -26,6 +26,7 @@ import com.example.podcast.Model.Chanel;
 import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.Playlist;
+import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.Model.User;
 import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
@@ -86,7 +87,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(searchPodcastAdapter);
                     imgIconChanel.setImageResource(R.drawable.ic_channeloff);
-                    imgIconPlaylist.setImageResource(R.drawable.ic_poscastoff);
+                    imgIconPlaylist.setImageResource(R.drawable.ic_playlistoff);
                     imgIconPodcast.setImageResource(R.drawable.ic_pod_on);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
@@ -239,7 +240,11 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
 
     @Override
     public void onPlaylistSearchClick(int position) {
-        Log.d(TAG, "onPlaylistSearchClick: click on item " + position);
+        Playlist playlist = playlistArrayList.get(position);
+        Intent iNewActivity = new Intent(Browse_Podcast.this, PlaylistActivity.class);
+        iNewActivity.putExtra("Playlist", playlist);
+        startActivity(iNewActivity);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 
     @Override
