@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,7 +62,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
 
     ImageView imgButtonBack;
     ImageButton ibPlay, ibPrev, ibNext, ibFastRewind, ibFastForward;
-
+    ImageButton imgbtnLike;
     ShapeableImageView simgBackgroundpisode;
 
     TextView tvEpisodeName, tvTotalTime, tvTimeCurrent;
@@ -69,6 +70,8 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     TextView tvDiscription;
     SeekBar seekBar;
     Episode episodeOnMainBanner;
+
+    int like;
 
     PodcastPlaylistAdapter podcastPlaylistAdapter;
     ArrayList<Episode> episodeArrayList;
@@ -87,14 +90,29 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.podcast);
-
-
         try {
             Init();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        Log.d("bbb: ", imgbtnLike.getBackground().toString());
+        upDateViews("1", episodeOnMainBanner.getIdEpisode());
         getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
+        imgbtnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(like == 0) {
+                    upDateLike("1", episodeOnMainBanner.getIdEpisode());
+                    imgbtnLike.setImageResource(R.drawable.ic_likeon);
+                    like = 1;
+                } else {
+                    upDateLike("-1", episodeOnMainBanner.getIdEpisode());
+                    imgbtnLike.setImageResource(R.drawable.ic_likeoff);
+                    like  = 0;
+                }
+
+            }
+        });
         imgButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -208,9 +226,13 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
 
     private void Init() throws MalformedURLException {
         context = this;
+
+        like = 0;
+
         ibPlay = (ImageButton) findViewById(R.id.btn_play_pcast);
         episodeOnMainBanner = (Episode) getIntent().getParcelableExtra("Episode");
         imgButtonBack = (ImageView) findViewById(R.id.img_icon_back);
+        imgbtnLike = (ImageButton) findViewById(R.id.imgBtn_Like);
         ibNext = (ImageButton) findViewById(R.id.btn_next);
         ibPrev = (ImageButton) findViewById(R.id.btn_prev);
         ibFastForward = (ImageButton) findViewById(R.id.btn_fastForward);
@@ -301,7 +323,6 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                 public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
                     episodeArrayList = (ArrayList<Episode>) response.body();
                     for (int i = 0; i < episodeArrayList.size(); i++) {
-                        Log.d("bbb: ", episodeArrayList.get(i).getNameEpisode());
                     }
                     podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList, PlayEpisode.this);
                     podcastPlaylistAdapter.notifyDataSetChanged();
@@ -314,6 +335,40 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
 
                 }
             });
+    }
+    private void upDateLike(String likes, String episodeId) {
+        DataService dataService = APIService.getService();
+        Call<String> callback = dataService.UpdateEpisodeLikes(likes, episodeId);
+        callback.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String res = (String) response.body();
+                if (res.compareTo("Success") == 0) Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
+                else upDateLike(likes, episodeId);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+    private void upDateViews(String views, String episodeId) {
+        DataService dataService = APIService.getService();
+        Call<String> callback = dataService.UpdateEpisodeViews(views, episodeId);
+        callback.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String res = (String) response.body();
+                if (res.compareTo("Success") == 0) Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
+                else upDateViews(views, episodeId);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
     private void createChannel() {
         NotificationChannel channel = new NotificationChannel(NotificationPlay.CHANNEL_ID, "Our project", NotificationManager.IMPORTANCE_HIGH);

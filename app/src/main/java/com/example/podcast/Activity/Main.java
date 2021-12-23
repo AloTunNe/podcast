@@ -2,6 +2,7 @@ package com.example.podcast.Activity;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -88,6 +89,7 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
 
         tvChanels.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 recommendChanelAdapter.notifyDataSetChanged();
