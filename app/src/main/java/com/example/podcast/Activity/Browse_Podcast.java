@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,9 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
 
 
 
+
+
+
     TextView tvPodcastNumber;
 
     SearchPodcastAdapter searchPodcastAdapter;
@@ -75,7 +79,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
         imgIconsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edtSearch.getText() != null) {
+                if (edtSearch.getText().toString().compareTo("") != 0) {
                     getDataEpisodeSearch(edtSearch.getText().toString());
                     searchPodcastAdapter = new SearchPodcastAdapter(Browse_Podcast.this, episodeArrayList, Browse_Podcast.this);
                     searchPodcastAdapter.notifyDataSetChanged();
@@ -92,7 +96,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
         imgIconChanel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edtSearch.getText() != null) {
+                if (edtSearch.getText().toString().compareTo("") != 0) {
                     SearchDataChanel(edtSearch.getText().toString());
                     searchChanelAdapter = new SearchChanelAdapter(Browse_Podcast.this, chanelArrayList, Browse_Podcast.this);
                     searchChanelAdapter.notifyDataSetChanged();
@@ -109,7 +113,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
         imgIconPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edtSearch.getText() != null) {
+                if (edtSearch.getText().toString().compareTo("") != 0) {
                     SearchDataPlaylist(edtSearch.getText().toString());
                     searchPlaylistAdapter = new SearchPlaylistAdapter(Browse_Podcast.this, playlistArrayList, Browse_Podcast.this);
                     searchPlaylistAdapter.notifyDataSetChanged();
@@ -126,7 +130,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
         imgIconPodcast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edtSearch.getText() != null) {
+                if (edtSearch.getText().toString().compareTo("") != 0) {
                     getDataEpisodeSearch(edtSearch.getText().toString());
                     searchPodcastAdapter = new SearchPodcastAdapter(Browse_Podcast.this, episodeArrayList, Browse_Podcast.this);
                     searchPodcastAdapter.notifyDataSetChanged();
@@ -162,6 +166,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
         imgIconPlaylist = (ImageView) findViewById(R.id.img_icon_playlist);
         imgIconPodcast = (ImageView) findViewById(R.id.img_icon_pocast);
         imgOption = (ImageView) findViewById(R.id.option);
+
 
         tvPodcastNumber = (TextView) findViewById(R.id.tv_podcast_number);
 

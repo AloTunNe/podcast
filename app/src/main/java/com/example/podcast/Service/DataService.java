@@ -49,11 +49,11 @@ public interface DataService {
     Call<List<Episode>> SearchEpisodeWithId(@Field("KeyWord") String Keyword);
 
     @FormUrlEncoded
-    @POST ("UpadateEpisodeLikes.php")
+    @POST ("UpdateEpisodeLikes.php")
     Call<String> UpdateEpisodeLikes(@Field("Likes") String Like, @Field("IdEpisode") String IdEpisode);
 
     @FormUrlEncoded
-    @POST ("UpadateEpisodeListens.php")
+    @POST ("UpdateEpisodeListens.php")
     Call<String> UpdateEpisodeViews(@Field("Views") String View, @Field("IdEpisode") String IdEpisode);
 
     @FormUrlEncoded

@@ -1,5 +1,7 @@
 package com.example.podcast.Activity;
 
+import static com.example.podcast.Activity.Main.mediaPlayer;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -14,12 +16,16 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +48,7 @@ import com.squareup.picasso.Target;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,20 +56,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PlayEpisode extends AppCompatActivity implements Playable {
+public class PlayEpisode extends AppCompatActivity implements Playable, PodcastPlaylistAdapter.OnPodcastPlaylistClick {
 
     Context context;
 
     ImageView imgButtonBack;
-    ImageButton ibPlay;
-
+    ImageButton ibPlay, ibPrev, ibNext, ibFastRewind, ibFastForward;
+    ImageButton imgbtnLike;
     ShapeableImageView simgBackgroundpisode;
 
-    TextView tvEpisodeName;
+    TextView tvEpisodeName, tvTotalTime, tvTimeCurrent;
     TextView tvAuthorName;
     TextView tvDiscription;
-
+    SeekBar seekBar;
     Episode episodeOnMainBanner;
+
+    int like;
 
     PodcastPlaylistAdapter podcastPlaylistAdapter;
     ArrayList<Episode> episodeArrayList;
@@ -73,7 +82,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
     boolean isPlaying = false;
 
     public NotificationManager notificationManager;
-    private MediaPlayer mediaPlayer;
+    //private MediaPlayer mediaPlayer;
 
 
 
@@ -81,13 +90,29 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.podcast);
-
         try {
             Init();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        Log.d("bbb: ", imgbtnLike.getBackground().toString());
+        upDateViews("1", episodeOnMainBanner.getIdEpisode());
         getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
+        imgbtnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(like == 0) {
+                    upDateLike("1", episodeOnMainBanner.getIdEpisode());
+                    imgbtnLike.setImageResource(R.drawable.ic_likeon);
+                    like = 1;
+                } else {
+                    upDateLike("-1", episodeOnMainBanner.getIdEpisode());
+                    imgbtnLike.setImageResource(R.drawable.ic_likeoff);
+                    like  = 0;
+                }
+
+            }
+        });
         imgButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,8 +129,11 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
         ibPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getBaseContext();
+                if(Main.isGlobalPlaying && mediaPlayer!=null) {
+                    mediaPlayer.release();
+                    mediaPlayer = null;}
                 if (isPlaying) {
+                    Main.isGlobalPlaying = true;
                     mediaPlayer.pause();
                     onTrackPause();
                 }
@@ -114,24 +142,89 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
                     onTrackPlay();
 
                 }
+                setTotalTime();
+                UpdateTime();
+            }
+        });
+        ibNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTrackNext();
+                mediaPlayer.release();
+                onTrackPlay();
+            }
+        });
+        ibPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTrackPrevious();
+                onTrackPlay();
+            }
+        });
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mediaPlayer.seekTo(seekBar.getProgress());
             }
         });
 
+
+    }
+
+
+    private void UpdateTime() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
+                tvTimeCurrent.setText(timeFormat.format(mediaPlayer.getCurrentPosition()));
+                seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                handler.postDelayed(this, 100);
+            }
+        }, 100);
+    }
+
+    private void setTotalTime() {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
+        tvTotalTime.setText(timeFormat.format(mediaPlayer.getDuration()));
+        seekBar.setMax(mediaPlayer.getDuration());
     }
 
 
     private void Init() throws MalformedURLException {
         context = this;
+
+        like = 0;
+
         ibPlay = (ImageButton) findViewById(R.id.btn_play_pcast);
         episodeOnMainBanner = (Episode) getIntent().getParcelableExtra("Episode");
         imgButtonBack = (ImageView) findViewById(R.id.img_icon_back);
+        imgbtnLike = (ImageButton) findViewById(R.id.imgBtn_Like);
+        ibNext = (ImageButton) findViewById(R.id.btn_next);
+        ibPrev = (ImageButton) findViewById(R.id.btn_prev);
+        ibFastForward = (ImageButton) findViewById(R.id.btn_fastForward);
+        ibFastRewind = (ImageButton) findViewById(R.id.btn_fastRewind);
+
 
         simgBackgroundpisode = (ShapeableImageView) findViewById(R.id.simgTopBackground);
 
         tvEpisodeName = (TextView) findViewById(R.id.tv_Episode);
         tvAuthorName = (TextView) findViewById(R.id.tv_AuthorName);
         tvDiscription = (TextView) findViewById(R.id.tv_Discription);
-
+        tvTotalTime = (TextView) findViewById(R.id.tv_totalTime);
+        tvTimeCurrent = (TextView) findViewById(R.id.tv_currentTime);
+        seekBar = (SeekBar) findViewById(R.id.skbar);
         recyclerView = (RecyclerView) findViewById(R.id.rcv_Episode_Podcast);
         episodeArrayList = new ArrayList<>();
         episodeArrayList.add(episodeOnMainBanner);
@@ -208,9 +301,8 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
                 public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
                     episodeArrayList = (ArrayList<Episode>) response.body();
                     for (int i = 0; i < episodeArrayList.size(); i++) {
-                        Log.d("bbb: ", episodeArrayList.get(i).getNameEpisode());
                     }
-                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList);
+                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList, PlayEpisode.this);
                     podcastPlaylistAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(PlayEpisode.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(podcastPlaylistAdapter);
@@ -221,6 +313,40 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
 
                 }
             });
+    }
+    private void upDateLike(String likes, String episodeId) {
+        DataService dataService = APIService.getService();
+        Call<String> callback = dataService.UpdateEpisodeLikes(likes, episodeId);
+        callback.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String res = (String) response.body();
+                if (res.compareTo("Success") == 0) Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
+                else upDateLike(likes, episodeId);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+    private void upDateViews(String views, String episodeId) {
+        DataService dataService = APIService.getService();
+        Call<String> callback = dataService.UpdateEpisodeViews(views, episodeId);
+        callback.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String res = (String) response.body();
+                if (res.compareTo("Success") == 0) Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
+                else upDateViews(views, episodeId);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
     private void createChannel() {
         NotificationChannel channel = new NotificationChannel(NotificationPlay.CHANNEL_ID, "Our project", NotificationManager.IMPORTANCE_HIGH);
@@ -243,8 +369,10 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
                 case NotificationPlay.ACTION_PLAY:
                     if (isPlaying) {
                         onTrackPause();
+                        mediaPlayer.pause();
                     } else {
                         onTrackPlay();
+                        mediaPlayer.start();
                     }
                     break;
                 case NotificationPlay.ACTION_NEXT:
@@ -285,12 +413,24 @@ public class PlayEpisode extends AppCompatActivity implements Playable {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        Main.isGlobalPlaying = false;
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.cancelAll();
-        }
+        }*/
 
-        unregisterReceiver(broadcastReceiver);
+        //unregisterReceiver(broadcastReceiver);
+        //mediaPlayer.release();
+        //mediaPlayer = null;
+    }
+
+    @Override
+    public void onPodcastPlaylistClick(int pos) {
+        Main.isGlobalPlaying = false;
         mediaPlayer.release();
         mediaPlayer = null;
+        Episode ep = episodeArrayList.get(pos);
+        Intent iNewActivity = new Intent(PlayEpisode.this, PlayEpisode.class);
+        iNewActivity.putExtra("Episode", ep);
+        startActivity(iNewActivity);
     }
 }

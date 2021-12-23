@@ -70,28 +70,45 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_Episode"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <ImageButton
+                android:id="@+id/btn_fastForward"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="160dp"
+                android:layout_marginEnd="104dp"
+                android:background="@drawable/ic_baseline_fast_forward_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/btn_prev"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="160dp"
                 android:background="@drawable/ic_baseline_skip_previous_24"
-                app:layout_constraintEnd_toStartOf="@+id/btn_play_pcast"
-                app:layout_constraintHorizontal_bias="0.9"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageButton
+                android:id="@+id/btn_fastRewind"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="104dp"
+                android:layout_marginTop="160dp"
+                android:background="@drawable/ic_baseline_fast_rewind_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/btn_next"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="160dp"
+                android:layout_marginEnd="36dp"
                 android:background="@drawable/ic_baseline_skip_next_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintStart_toEndOf="@+id/btn_play_pcast"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -215,7 +232,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="40dp"
                 android:padding="10dp"
-                android:text="Like"
+                android:text="UnLike"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
