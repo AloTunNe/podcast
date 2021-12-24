@@ -130,10 +130,15 @@ public class ChannelActivity extends AppCompatActivity implements SearchPlaylist
             @Override
             public void onResponse(Call<List<Chanel>> call, Response<List<Chanel>> response) {
                 chanelArrayList = (ArrayList<Chanel>) response.body();
-                Log.d("bbb: ", chanelArrayList.get(0).getChanelDiscription());
-                chanel = new Chanel(chanelArrayList.get(0));
-                SetUi();
-                SearchPlaylistByChanelId(chanel.getChanelId());
+                if (chanelArrayList.isEmpty()) {
+                    SearchChanelById(keyword);
+                }
+                else {
+                    chanel = new Chanel(chanelArrayList.get(0));
+                    SetUi();
+                    SearchPlaylistByChanelId(chanel.getChanelId());
+                }
+
             }
 
             @Override

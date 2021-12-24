@@ -95,9 +95,9 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        Log.d("bbb: ", imgbtnLike.getBackground().toString());
         upDateViews("1", episodeOnMainBanner.getIdEpisode());
         getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
+        SetUi(episodeOnMainBanner);
         imgbtnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -274,11 +274,16 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
 
 
     }
-
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(this,Main.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+    }
     private void SetUi(Episode ep) {
         tvEpisodeName.setText(ep.getNameEpisode());
         tvAuthorName.setText(ep.getAuthorEpisode());
-        tvDiscription.setText(ep.getDiscriptionEpisode());
         Picasso.with(context).load(ep.getPicEpisode()).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -302,8 +307,8 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                     @Override
                     public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
                         episodeArrayList = (ArrayList<Episode>) response.body();
+                        tvDiscription.setText(episodeArrayList.get(0).getDiscriptionEpisode());
                         getDataEpisodeByPlaylist(episodeArrayList.get(0).getIdPlaylistEpisode());
-                        SetUi(episodeArrayList.get(0));
 
                     }
 
@@ -316,25 +321,23 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     }
 
     private void getDataEpisodeByPlaylist(String keyword) {
-            DataService dataService = APIService.getService();
-            Call<List<Episode>> callback = dataService.SearchEpisodeWithIdPlaylist(keyword);
-            callback.enqueue(new Callback<List<Episode>>() {
-                @Override
-                public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
-                    episodeArrayList = (ArrayList<Episode>) response.body();
-                    for (int i = 0; i < episodeArrayList.size(); i++) {
-                    }
-                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList, PlayEpisode.this);
-                    podcastPlaylistAdapter.notifyDataSetChanged();
-                    recyclerView.setLayoutManager(new LinearLayoutManager(PlayEpisode.this, LinearLayoutManager.VERTICAL, false));
-                    recyclerView.setAdapter(podcastPlaylistAdapter);
-                }
+        DataService dataService = APIService.getService();
+        Call<List<Episode>> callback = dataService.SearchEpisodeWithIdPlaylist(keyword);
+        callback.enqueue(new Callback<List<Episode>>() {
+            @Override
+            public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
+                episodeArrayList = (ArrayList<Episode>) response.body();
+                podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList, PlayEpisode.this);
+                podcastPlaylistAdapter.notifyDataSetChanged();
+                recyclerView.setLayoutManager(new LinearLayoutManager(PlayEpisode.this, LinearLayoutManager.VERTICAL, false));
+                recyclerView.setAdapter(podcastPlaylistAdapter);
+            }
 
-                @Override
-                public void onFailure(Call<List<Episode>> call, Throwable t) {
+            @Override
+            public void onFailure(Call<List<Episode>> call, Throwable t) {
 
-                }
-            });
+            }
+        });
     }
     private void upDateLike(String likes, String episodeId) {
         DataService dataService = APIService.getService();
@@ -344,7 +347,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             public void onResponse(Call<String> call, Response<String> response) {
                 String res = (String) response.body();
                 if (res.compareTo("Success") == 0) Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
-                else upDateLike(likes, episodeId);
+                //else upDateLike(likes, episodeId);
             }
 
             @Override
@@ -361,7 +364,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             public void onResponse(Call<String> call, Response<String> response) {
                 String res = (String) response.body();
                 if (res.compareTo("Success") == 0) Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
-                else upDateViews(views, episodeId);
+                //else upDateViews(views, episodeId);
             }
 
             @Override

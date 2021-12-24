@@ -134,6 +134,14 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(this,Main.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        finish();
+    }
     private void SetUI() {
         recommendAdapter = new RecommendAdapter(this, episodeOnMainBannerList, this);
         recyclerView.setLayoutManager(linearLayoutManager);

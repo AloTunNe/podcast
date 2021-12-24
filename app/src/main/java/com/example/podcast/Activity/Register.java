@@ -103,8 +103,8 @@ public class Register extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String str = (String) response.body().toString();
-                if (str.compareTo("success") == 0) Toast.makeText(Register.this, "Server not response, try again!", Toast.LENGTH_LONG).show();
-                else Toast.makeText(Register.this, "Your Account is Created, Please login again!", Toast.LENGTH_LONG).show();
+                if (str.compareTo("Success") == 0) Toast.makeText(Register.this, "Your Account is Created, Please login again!", Toast.LENGTH_LONG).show();
+                else  Toast.makeText(Register.this, "Server not response, try again!", Toast.LENGTH_LONG).show();
             }
 
             @Override

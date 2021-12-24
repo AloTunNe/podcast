@@ -108,7 +108,14 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(this,Login.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        finish();
+    }
     private void Init() {
         btnLogin = (Button) findViewById(R.id.btn_login);
         edtInputEmail  = (EditText) findViewById(R.id.email_input);

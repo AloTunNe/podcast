@@ -87,7 +87,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(searchPodcastAdapter);
                     imgIconChanel.setImageResource(R.drawable.ic_channeloff);
-                    imgIconPlaylist.setImageResource(R.drawable.ic_playlistoff);
+                    imgIconPlaylist.setImageResource(R.drawable.ic_playlistoff  );
                     imgIconPodcast.setImageResource(R.drawable.ic_pod_on);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
@@ -138,7 +138,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
                     recyclerView.setAdapter(searchPodcastAdapter);
                     imgIconChanel.setImageResource(R.drawable.ic_channeloff);
-                    imgIconPlaylist.setImageResource(R.drawable.ic_poscastoff);
+                    imgIconPlaylist.setImageResource(R.drawable.ic_playlistoff);
                     imgIconPodcast.setImageResource(R.drawable.ic_pod_on);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
