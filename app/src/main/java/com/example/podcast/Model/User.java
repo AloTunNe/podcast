@@ -26,6 +26,9 @@ public class User implements Parcelable {
     @SerializedName("UserOwner")
     @Expose
     private String userOwner;
+    @SerializedName("FbId")
+    @Expose
+    private String fbId;
 
     protected User(Parcel in) {
         id = in.readString();
@@ -34,17 +37,27 @@ public class User implements Parcelable {
         userPassword = in.readString();
         userAvatar = in.readString();
         userOwner = in.readString();
+        fbId = in.readString();
     }
 
-    public User(String id, String userName, String userEmail, String userPassword, String userAvatar, String userOwner) {
+    public User(String id, String userName, String userEmail, String userPassword, String userAvatar, String userOwner, String fbId) {
         this.id = id;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userAvatar = userAvatar;
         this.userOwner = userOwner;
+        this.fbId = fbId;
     }
-
+    public User(User u) {
+        this.id = id;
+        this.userName = u.getUserName();
+        this.userEmail =u.getUserEmail();
+        this.userPassword = u.getUserPassword();
+        this.userAvatar = u.getUserAvatar();
+        this.userOwner =u.getUserOwner();
+        this.fbId = u.getFbId();
+    }
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel in) {
@@ -105,6 +118,14 @@ public class User implements Parcelable {
         this.userOwner = userOwner;
     }
 
+    public String getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(String fbId) {
+        this.fbId = fbId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -118,5 +139,6 @@ public class User implements Parcelable {
         parcel.writeString(userPassword);
         parcel.writeString(userAvatar);
         parcel.writeString(userOwner);
+        parcel.writeString(fbId);
     }
 }

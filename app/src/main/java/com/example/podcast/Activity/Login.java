@@ -140,7 +140,8 @@ public class Login extends AppCompatActivity {
                     for(int i = 0; i < users.size(); i++) {
                         if (users.get(i).getUserEmail().compareTo(inputEmail) == 0 && users.get(i).getUserPassword().compareTo(inputPassword) == 0) {
                             check = true;
-                            user = new User(users.get(i).getId(), users.get(i).getUserName(), users.get(i).getUserEmail(), users.get(i).getUserPassword(), users.get(i).getUserAvatar(), users.get(i).getUserOwner());
+                            user = new User(users.get(i));
+                            break;
                         }
                     }
                     if (check) {
@@ -185,7 +186,7 @@ public class Login extends AppCompatActivity {
                                 Toast.makeText(Login.this, "ID: " + me.optString("id"), Toast.LENGTH_SHORT).show();
                                 Toast.makeText(getApplicationContext(), "Login success!", Toast.LENGTH_SHORT).show();
                                 Intent iNewActivity = new Intent(Login.this, Main.class);
-                                user = new User(me.optString("id"), me.optString("name"), null, null, null, null);
+                                user = new User(me.optString("id"), me.optString("name"), null, null, null, null, null);
                                 iNewActivity.putExtra("User_Login", user);
                                 startActivity(iNewActivity);
                                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
