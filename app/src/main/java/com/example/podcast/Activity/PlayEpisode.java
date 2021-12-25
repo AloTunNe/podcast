@@ -1,5 +1,6 @@
 package com.example.podcast.Activity;
 
+import static android.content.ContentValues.TAG;
 import static com.example.podcast.Activity.Main.mediaPlayer;
 
 import android.app.NotificationChannel;
@@ -282,6 +283,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         startActivity(i);
     }
     private void SetUi(Episode ep) {
+
         tvEpisodeName.setText(ep.getNameEpisode());
         tvAuthorName.setText(ep.getAuthorEpisode());
         Picasso.with(context).load(ep.getPicEpisode()).into(new Target() {
@@ -306,9 +308,16 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                 callback.enqueue(new Callback<List<Episode>>() {
                     @Override
                     public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
-                        episodeArrayList = (ArrayList<Episode>) response.body();
-                        tvDiscription.setText(episodeArrayList.get(0).getDiscriptionEpisode());
-                        getDataEpisodeByPlaylist(episodeArrayList.get(0).getIdPlaylistEpisode());
+                        ArrayList<Episode> episodes = (ArrayList<Episode>) response.body();
+                        try {
+                            Episode episode = new Episode(episodes.get(0));
+                            tvDiscription.setText(episode.getDiscriptionEpisode());
+                            getDataEpisodeByPlaylist(episode.getIdPlaylistEpisode());
+                        } catch (Exception e) {
+                            Log.d(TAG, "onResponse: " + e.getMessage());
+                            getDataEpisodeById(keyword);
+                        }
+
 
                     }
 
@@ -326,11 +335,20 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         callback.enqueue(new Callback<List<Episode>>() {
             @Override
             public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
-                episodeArrayList = (ArrayList<Episode>) response.body();
-                podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList, PlayEpisode.this);
-                podcastPlaylistAdapter.notifyDataSetChanged();
-                recyclerView.setLayoutManager(new LinearLayoutManager(PlayEpisode.this, LinearLayoutManager.VERTICAL, false));
-                recyclerView.setAdapter(podcastPlaylistAdapter);
+                ArrayList<Episode> episodes = (ArrayList<Episode>) response.body();
+                try {
+                    for (int i = 0; i<episodes.size(); i++) {
+                        episodeArrayList.add(episodes.get(i));
+                    }
+                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlayEpisode.this, episodeArrayList, PlayEpisode.this);
+                    podcastPlaylistAdapter.notifyDataSetChanged();
+                    recyclerView.setLayoutManager(new LinearLayoutManager(PlayEpisode.this, LinearLayoutManager.VERTICAL, false));
+                    recyclerView.setAdapter(podcastPlaylistAdapter);
+                } catch (Exception e) {
+                    Log.d(TAG, "onResponse: " + e.getMessage());
+                    getDataEpisodeByPlaylist(keyword);
+                }
+
             }
 
             @Override
@@ -346,8 +364,14 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String res = (String) response.body();
-                if (res.compareTo("Success") == 0) Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
-                //else upDateLike(likes, episodeId);
+                try {
+                    if (res.compareTo("Success") == 0) Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
+                    //else upDateLike(likes, episodeId);
+                } catch (Exception e) {
+                    Log.d(TAG, "onResponse: " + e.getMessage());
+                    upDateViews(likes, episodeId);
+                }
+
             }
 
             @Override
@@ -363,8 +387,14 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String res = (String) response.body();
-                if (res.compareTo("Success") == 0) Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
-                //else upDateViews(views, episodeId);
+                try {
+                    if (res.compareTo("Success") == 0)
+                        Toast.makeText(PlayEpisode.this, "Success", Toast.LENGTH_SHORT).show();
+                    //else upDateViews(views, episodeId);
+                } catch (Exception e) {
+                    Log.d(TAG, "onResponse: " + e.getMessage());
+                    upDateViews(views, episodeId);
+                }
             }
 
             @Override

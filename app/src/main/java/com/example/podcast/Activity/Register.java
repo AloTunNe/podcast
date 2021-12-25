@@ -1,5 +1,7 @@
 package com.example.podcast.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -79,7 +81,7 @@ public class Register extends AppCompatActivity {
         edtPassword = (EditText) findViewById(R.id.password_hint);
         edtConfirmPassword = (EditText) findViewById(R.id.password_confirm);
 
-
+        userArrayList = new ArrayList<>();
     }
     private void getDataUser() {
         DataService dataService = APIService.getService();
@@ -87,7 +89,15 @@ public class Register extends AppCompatActivity {
         callback.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                userArrayList = (ArrayList<User>) response.body();
+                ArrayList<User> users = (ArrayList<User>) response.body();
+                try {
+                    for(int i = 0; i <users.size(); i++) {
+                        userArrayList.add(users.get(i));
+                    }
+                } catch (Exception e) {
+                    Log.d(TAG, "onResponse: " + e.getMessage());
+                    getDataUser();
+                }
             }
 
             @Override
@@ -103,8 +113,14 @@ public class Register extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String str = (String) response.body().toString();
-                if (str.compareTo("Success") == 0) Toast.makeText(Register.this, "Your Account is Created, Please login again!", Toast.LENGTH_LONG).show();
-                else  Toast.makeText(Register.this, "Server not response, try again!", Toast.LENGTH_LONG).show();
+                try {
+                    if (str.compareTo("Success") == 0) Toast.makeText(Register.this, "Your Account is Created, Please login again!", Toast.LENGTH_LONG).show();
+                    else  Toast.makeText(Register.this, "Server not response, try again!", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Log.d(TAG, "onResponse: " + e.getMessage());
+                    addUser(email, password);
+                }
+
             }
 
             @Override

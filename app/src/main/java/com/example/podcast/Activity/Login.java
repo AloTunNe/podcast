@@ -117,6 +117,7 @@ public class Login extends AppCompatActivity {
         finish();
     }
     private void Init() {
+
         btnLogin = (Button) findViewById(R.id.btn_login);
         edtInputEmail  = (EditText) findViewById(R.id.email_input);
         edtInputPassword = (EditText) findViewById(R.id.password_input);
@@ -130,26 +131,31 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 ArrayList<User> users = (ArrayList<User>) response.body();
-                boolean check = false;
-                String inputEmail;
-                String inputPassword;
-                inputEmail = edtInputEmail.getText().toString();
-                inputPassword = edtInputPassword.getText().toString();
+                try {
+                    boolean check = false;
+                    String inputEmail;
+                    String inputPassword;
+                    inputEmail = edtInputEmail.getText().toString();
+                    inputPassword = edtInputPassword.getText().toString();
                     for(int i = 0; i < users.size(); i++) {
-                    if (users.get(i).getUserEmail().compareTo(inputEmail) == 0 && users.get(i).getUserPassword().compareTo(inputPassword) == 0) {
-                        check = true;
-                        user = new User(users.get(i).getId(), users.get(i).getUserName(), users.get(i).getUserEmail(), users.get(i).getUserPassword(), users.get(i).getUserAvatar(), users.get(i).getUserOwner());
+                        if (users.get(i).getUserEmail().compareTo(inputEmail) == 0 && users.get(i).getUserPassword().compareTo(inputPassword) == 0) {
+                            check = true;
+                            user = new User(users.get(i).getId(), users.get(i).getUserName(), users.get(i).getUserEmail(), users.get(i).getUserPassword(), users.get(i).getUserAvatar(), users.get(i).getUserOwner());
+                        }
                     }
-                }
-                if (check) {
-                    Toast.makeText(getApplicationContext(), "Login success!", Toast.LENGTH_SHORT).show();
-                    Intent iNewActivity = new Intent(Login.this, Main.class);
-                    iNewActivity.putExtra("User_Login", user);
-                    startActivity(iNewActivity);
-                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Email or Password Incorrect!", Toast.LENGTH_SHORT).show();
+                    if (check) {
+                        Toast.makeText(getApplicationContext(), "Login success!", Toast.LENGTH_SHORT).show();
+                        Intent iNewActivity = new Intent(Login.this, Main.class);
+                        iNewActivity.putExtra("User_Login", user);
+                        startActivity(iNewActivity);
+                        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Email or Password Incorrect!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception ex) {
+                    Log.d(TAG, "onResponse: " + ex.getMessage());
+                    checkData();
                 }
             }
 

@@ -83,6 +83,7 @@ public class ChannelActivity extends AppCompatActivity implements SearchPlaylist
     }
 
     private void SetUi() {
+
         tvChannelName.setText(chanel.getChanelName());
         tvDiscription.setText(chanel.getChanelDiscription());
         tvFollows.setText(chanel.getChanelFollows());
@@ -109,6 +110,9 @@ public class ChannelActivity extends AppCompatActivity implements SearchPlaylist
 
         context = ChannelActivity.this;
 
+        playlistArrayList = new ArrayList<>();
+        chanelArrayList = new ArrayList<>();
+
         tvChannelName = (TextView) findViewById(R.id.tv_channel_name);
         tvPodcastNumber = (TextView) findViewById(R.id.tv_pcastnuber);
         tvFollows = (TextView) findViewById(R.id.tv_follow);
@@ -130,13 +134,13 @@ public class ChannelActivity extends AppCompatActivity implements SearchPlaylist
             @Override
             public void onResponse(Call<List<Chanel>> call, Response<List<Chanel>> response) {
                 chanelArrayList = (ArrayList<Chanel>) response.body();
-                if (chanelArrayList.isEmpty()) {
-                    SearchChanelById(keyword);
-                }
-                else {
+                try {
                     chanel = new Chanel(chanelArrayList.get(0));
                     SetUi();
                     SearchPlaylistByChanelId(chanel.getChanelId());
+                } catch (Exception e) {
+                    Log.d(TAG, "onResponse: " + e.getMessage());
+                    SearchChanelById(keyword);
                 }
 
             }
@@ -153,11 +157,23 @@ public class ChannelActivity extends AppCompatActivity implements SearchPlaylist
         callback.enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
-                playlistArrayList = (ArrayList<Playlist>) response.body();
-                SearchPlaylistAdapter searchPlaylistAdapter = new SearchPlaylistAdapter(context, playlistArrayList, (SearchPlaylistAdapter.OnPlaylistSearchClick) context);
-                searchPlaylistAdapter.notifyDataSetChanged();
-                recyclerView.setLayoutManager(new LinearLayoutManager(ChannelActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                recyclerView.setAdapter(searchPlaylistAdapter);
+                ArrayList<Playlist> playlists = (ArrayList<Playlist>) response.body();
+                try {
+                    if (playlists.size() != 0) {
+                        for(int i = 0; i<playlists.size(); i++) {
+                            playlistArrayList.add(playlists.get(i));
+                        }
+                        SearchPlaylistAdapter searchPlaylistAdapter = new SearchPlaylistAdapter(context, playlistArrayList, (SearchPlaylistAdapter.OnPlaylistSearchClick) context);
+                        searchPlaylistAdapter.notifyDataSetChanged();
+                        recyclerView.setLayoutManager(new LinearLayoutManager(ChannelActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        recyclerView.setAdapter(searchPlaylistAdapter);
+                    }
+
+                } catch (Exception e) {
+                    Log.d(TAG, "onResponse: " + e.getMessage());
+                    SearchPlaylistByChanelId(keyword);
+                }
+
             }
 
             @Override

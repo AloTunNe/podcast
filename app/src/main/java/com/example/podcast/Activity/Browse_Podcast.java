@@ -34,6 +34,7 @@ import com.example.podcast.Service.DataService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,11 +52,6 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
     ImageView imgIconPodcast;
     ImageView imgOption;
 
-
-
-
-
-
     TextView tvPodcastNumber;
 
     SearchPodcastAdapter searchPodcastAdapter;
@@ -67,7 +63,6 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
     ArrayList<Playlist> playlistArrayList;
 
     RecyclerView recyclerView;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,6 +77,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
             public void onClick(View view) {
                 if (edtSearch.getText().toString().compareTo("") != 0) {
                     getDataEpisodeSearch(edtSearch.getText().toString());
+                    if (episodeArrayList.size() == 0) Toast.makeText(Browse_Podcast.this, "Non result about this keyword!", Toast.LENGTH_SHORT).show();
                     searchPodcastAdapter = new SearchPodcastAdapter(Browse_Podcast.this, episodeArrayList, Browse_Podcast.this);
                     searchPodcastAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
@@ -99,6 +95,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
             public void onClick(View view) {
                 if (edtSearch.getText().toString().compareTo("") != 0) {
                     SearchDataChanel(edtSearch.getText().toString());
+                    if (chanelArrayList.size() == 0) Toast.makeText(Browse_Podcast.this, "Non result about this keyword!", Toast.LENGTH_SHORT).show();
                     searchChanelAdapter = new SearchChanelAdapter(Browse_Podcast.this, chanelArrayList, Browse_Podcast.this);
                     searchChanelAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.HORIZONTAL, false));
@@ -116,6 +113,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
             public void onClick(View view) {
                 if (edtSearch.getText().toString().compareTo("") != 0) {
                     SearchDataPlaylist(edtSearch.getText().toString());
+                    if (playlistArrayList.size() == 0) Toast.makeText(Browse_Podcast.this, "Non result about this keyword!", Toast.LENGTH_SHORT).show();
                     searchPlaylistAdapter = new SearchPlaylistAdapter(Browse_Podcast.this, playlistArrayList, Browse_Podcast.this);
                     searchPlaylistAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.HORIZONTAL, false));
@@ -133,6 +131,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
             public void onClick(View view) {
                 if (edtSearch.getText().toString().compareTo("") != 0) {
                     getDataEpisodeSearch(edtSearch.getText().toString());
+                    if (episodeArrayList.size() == 0) Toast.makeText(Browse_Podcast.this, "Non result about this keyword!", Toast.LENGTH_SHORT).show();
                     searchPodcastAdapter = new SearchPodcastAdapter(Browse_Podcast.this, episodeArrayList, Browse_Podcast.this);
                     searchPodcastAdapter.notifyDataSetChanged();
                     recyclerView.setLayoutManager(new LinearLayoutManager(Browse_Podcast.this, LinearLayoutManager.VERTICAL, false));
@@ -142,6 +141,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                     imgIconPodcast.setImageResource(R.drawable.ic_pod_on);
                 }
                 else Toast.makeText(context, "Please write Keyword to Search!", Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -153,11 +153,13 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
             }
         });
 
-
-
     }
     private void Init() {
         context = this;
+
+        chanelArrayList = new ArrayList<>();
+        episodeArrayList = new ArrayList<>();
+        playlistArrayList = new ArrayList<>();
 
         edtSearch = (EditText) findViewById(R.id.edt_Search);
 
@@ -187,7 +189,21 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
         callback.enqueue(new Callback<List<Episode>>() {
             @Override
             public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
-               episodeArrayList = (ArrayList<Episode>) response.body();
+               ArrayList<Episode> episodes = (ArrayList<Episode>) response.body();
+               try {
+                   if (episodes.size() != 0) {
+                       episodeArrayList.clear();
+                       for (int i = 0; i<episodes.size(); i++) {
+                           episodeArrayList.add(episodes.get(i));
+                       }
+                   }
+
+               } catch (Exception e) {
+                   Log.d(TAG, "onResponse: " + e.getMessage());
+                   if (episodeArrayList.isEmpty()) {
+                       getDataEpisodeSearch(keyword);
+                   };
+               }
             }
 
             @Override
@@ -202,9 +218,21 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
         callback.enqueue(new Callback<List<Chanel>>() {
             @Override
             public void onResponse(Call<List<Chanel>> call, Response<List<Chanel>> response) {
-                chanelArrayList = (ArrayList<Chanel>) response.body();
-                for(int i = 0; i < chanelArrayList.size(); i++) {
-                }
+                ArrayList<Chanel> chanels = (ArrayList<Chanel>) response.body();
+                try {
+                    if (chanels.size() != 0) {
+                        chanelArrayList.clear();
+                        for (int i = 0; i < chanels.size(); i++) {
+                            chanelArrayList.add(chanels.get(i));
+                        }
+                    }
+
+                } catch (Exception ex) {
+                    Log.d(TAG, "onResponse: " + ex.getMessage().toString());
+                    if (chanelArrayList.isEmpty()) {
+                        SearchDataChanel(keyword);
+                    }
+                    }
             }
 
             @Override
@@ -219,7 +247,18 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
         callback.enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
-                playlistArrayList = (ArrayList<Playlist>) response.body();
+                ArrayList<Playlist> playlists = (ArrayList<Playlist>) response.body();
+                try {
+                    playlistArrayList.clear();
+                    for(int i = 0; i<playlists.size(); i++) {
+                        playlistArrayList.add(playlists.get(i));
+                    }
+                } catch (Exception e) {
+                    Log.d(TAG, "onResponse: " + e.getMessage());
+                    if (playlistArrayList.isEmpty()) {
+                        SearchDataPlaylist(keyword);
+                    }
+                }
             }
 
             @Override
@@ -228,7 +267,6 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
             }
         });
     }
-
 
     @Override
     public void onPodcastSearchClick(int position) {

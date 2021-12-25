@@ -1,5 +1,6 @@
 package com.example.podcast.Activity;
 
+import static android.content.ContentValues.TAG;
 import static com.example.podcast.Activity.Main.mediaPlayer;
 
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -72,6 +74,8 @@ public class PlaylistActivity extends AppCompatActivity implements PodcastPlayli
     private void Init() {
         playlist = (Playlist) getIntent().getParcelableExtra("Playlist");
 
+        episodeArrayList = new ArrayList<>();
+
         simgPlaylistBackground = (ShapeableImageView) findViewById(R.id.simg_playlist_background);
 
         tvPlaylistName = (TextView) findViewById(R.id.tv_playlist_name);
@@ -85,6 +89,8 @@ public class PlaylistActivity extends AppCompatActivity implements PodcastPlayli
 
     }
     private void SetUI() {
+        episodeArrayList = new ArrayList<>();
+
         Picasso.with(PlaylistActivity.this).load(playlist.getPicPlaylist()).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -110,13 +116,20 @@ public class PlaylistActivity extends AppCompatActivity implements PodcastPlayli
             @Override
             public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
                 episodeArrayList = (ArrayList<Episode>) response.body();
-                if (episodeArrayList.size() != 0) {
-                    podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlaylistActivity.this, episodeArrayList, PlaylistActivity.this);
-                    podcastPlaylistAdapter.notifyDataSetChanged();
-                    recyclerView.setLayoutManager(new LinearLayoutManager(PlaylistActivity.this, LinearLayoutManager.VERTICAL, false));
-                    recyclerView.setAdapter(podcastPlaylistAdapter);
-                    tvPodcastNuber.setText("Podcasts: " + episodeArrayList.size());
+                try {
+                    if (episodeArrayList.size() != 0) {
+                        podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlaylistActivity.this, episodeArrayList, PlaylistActivity.this);
+                        podcastPlaylistAdapter.notifyDataSetChanged();
+                        recyclerView.setLayoutManager(new LinearLayoutManager(PlaylistActivity.this, LinearLayoutManager.VERTICAL, false));
+                        recyclerView.setAdapter(podcastPlaylistAdapter);
+                        tvPodcastNuber.setText("Podcasts: " + episodeArrayList.size());
+                    }
+                } catch (Exception e) {
+                    Log.d(TAG, "onResponse: " + e.getMessage());
+                    getEpisodeByIdPlaylist(id);
                 }
+
+
 
             }
 
