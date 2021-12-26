@@ -2,6 +2,7 @@ package com.example.podcast.Activity;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -272,8 +273,23 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
     public void onPodcastSearchClick(int position) {
         Log.d(TAG, "onPodcastSearchClick: click on item " + position);
         Intent iNewActivity = new Intent(this, PlayEpisode.class);
-        iNewActivity.putExtra("Episode", episodeArrayList.get(position));
+        Episode ep = episodeArrayList.get(position);
+        iNewActivity.putExtra("Episode", ep);
+        if(Main.hasStartPlaying) {
+            if (PlayEpisode.episodeOnMainBanner.getNameEpisode() != ep.getNameEpisode()) {
+                PlayEpisode.mediaPlayer.pause();
+                PlayEpisode.isPlaying = false;
+                PlayEpisode.mediaPlayer.release();
+                PlayEpisode.mediaPlayer = null;
+                NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancelAll();
+            }
+            else {
+                iNewActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            }
+        }
         startActivity(iNewActivity);
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 
     @Override

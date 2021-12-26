@@ -27,6 +27,7 @@ import com.example.podcast.Model.User;
 import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
 import com.example.podcast.Service.DataService;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -56,9 +57,27 @@ public class Login extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.btn_login_fb);
-        loginButton.setReadPermissions("email");
+        //loginButton.setReadPermissions("email");
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                    }
+                });
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "======Facebook login success======");
@@ -108,6 +127,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -1,7 +1,6 @@
 package com.example.podcast.Activity;
 
 import static android.content.ContentValues.TAG;
-import static com.example.podcast.Activity.Main.mediaPlayer;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -70,7 +69,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     TextView tvAuthorName;
     TextView tvDiscription;
     SeekBar seekBar;
-    Episode episodeOnMainBanner;
+    public static Episode episodeOnMainBanner;
 
     int like;
 
@@ -80,10 +79,10 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     RecyclerView recyclerView;
 
     int position = 0;
-    boolean isPlaying = false;
+    public static boolean isPlaying = false;
 
     public NotificationManager notificationManager;
-    //private MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
 
 
 
@@ -96,6 +95,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        Main.hasStartPlaying = true;
         upDateViews("1", episodeOnMainBanner.getIdEpisode());
         getDataEpisodeById(episodeOnMainBanner.getIdEpisode());
         SetUi(episodeOnMainBanner);
@@ -117,7 +117,10 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         imgButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(PlayEpisode.this, Main.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                intent.putExtra("User_Login", Main.user);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
         });
@@ -130,11 +133,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         ibPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Main.isGlobalPlaying && mediaPlayer!=null) {
-                    mediaPlayer.release();
-                    mediaPlayer = null;}
                 if (isPlaying) {
-                    Main.isGlobalPlaying = true;
                     mediaPlayer.pause();
                     onTrackPause();
                 }
@@ -144,14 +143,13 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
 
                 }
                 setTotalTime();
-                UpdateTime();
+                //UpdateTime();
             }
         });
         ibNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onTrackNext();
-                mediaPlayer.release();
                 onTrackPlay();
             }
         });
@@ -429,7 +427,47 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     @Override
     public void onTrackPrevious() {
         position--;
-        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.cancelAll();
+        }
+
+        unregisterReceiver(broadcastReceiver);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+            registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
+            startService(new Intent(context, OnClearFromRecentService.class));
+        }
+        mediaPlayer.release();
+        mediaPlayer = null;
+        Episode ep = episodeArrayList.get(position);
+        SetUi(ep);
+        URL url = null;
+        try {
+            url = new URL(ep.getLinkEpisode());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        mediaPlayer.setAudioAttributes(
+                new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+        );
+        try {
+            mediaPlayer.setDataSource(String.valueOf(url));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            mediaPlayer.prepare(); // might take long! (for buffering, etc)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        NotificationPlay.createNotification(context, ep, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
 
     }
 
@@ -437,6 +475,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     public void onTrackPlay() {
         NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
         ibPlay.setImageResource(R.drawable.ic_pause);
+        mediaPlayer.start();
         isPlaying = true;
     }
 
@@ -444,6 +483,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     public void onTrackPause() {
         NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
         ibPlay.setImageResource(R.drawable.ic_play);
+        mediaPlayer.pause();
         isPlaying = false;
 
     }
@@ -451,25 +491,68 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     @Override
     public void onTrackNext() {
         position++;
-        NotificationPlay.createNotification(context, episodeOnMainBanner, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.cancelAll();
+        }
+
+        unregisterReceiver(broadcastReceiver);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+            registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
+            startService(new Intent(context, OnClearFromRecentService.class));
+        }
+        mediaPlayer.release();
+        mediaPlayer = null;
+        Episode ep = episodeArrayList.get(position);
+        SetUi(ep);
+        URL url = null;
+        try {
+            url = new URL(ep.getLinkEpisode());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        mediaPlayer.setAudioAttributes(
+                new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+        );
+        try {
+            mediaPlayer.setDataSource(String.valueOf(url));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            mediaPlayer.prepare(); // might take long! (for buffering, etc)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        NotificationPlay.createNotification(context, ep, R.drawable.ic_podcast, position, episodeArrayList.size() - 1);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Main.isGlobalPlaying = false;
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.cancelAll();
-        }*/
+        }
 
-        //unregisterReceiver(broadcastReceiver);
-        //mediaPlayer.release();
-        //mediaPlayer = null;
+        unregisterReceiver(broadcastReceiver);
+        mediaPlayer.release();
+        mediaPlayer = null;*/
     }
 
     @Override
     public void onPodcastPlaylistClick(int pos) {
-        Main.isGlobalPlaying = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.cancelAll();
+        }
+
+        unregisterReceiver(broadcastReceiver);
         mediaPlayer.release();
         mediaPlayer = null;
         Episode ep = episodeArrayList.get(pos);
