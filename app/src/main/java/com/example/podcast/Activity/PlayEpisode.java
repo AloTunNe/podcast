@@ -142,15 +142,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                     onTrackPlay();
 
                 }
-                /*if (mediaPlayer.isPlaying())
-                {
-                    mediaPlayer.stop();
-                    ibPlay.setImageResource(R.drawable.ic_play);
-                }
-                else {
-                    mediaPlayer.start();
-                    ibPlay.setImageResource(R.drawable.ic_pause);
-                }*/
+
                 setTotalTime();
                 //UpdateTime();
             }
@@ -160,6 +152,8 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             public void onClick(View v) {
                 onTrackNext();
                 onTrackPlay();
+                setTotalTime();
+                UpdateTime();
             }
         });
         ibPrev.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +161,8 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             public void onClick(View v) {
                 onTrackPrevious();
                 onTrackPlay();
+                setTotalTime();
+                UpdateTime();
             }
         });
         ibFastForward.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +185,12 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 mediaPlayer.seekTo(seekBar.getProgress());
+            }
+        });
+        mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+            @Override
+            public void onBufferingUpdate(MediaPlayer mediaPlayer, int percent) {
+                seekBar.setSecondaryProgress(percent);
             }
         });
     }
