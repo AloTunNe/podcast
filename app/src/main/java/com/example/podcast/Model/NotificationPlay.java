@@ -10,7 +10,6 @@ import android.support.v4.media.session.MediaSessionCompat;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.media.app.NotificationCompat.MediaStyle;
 import com.example.podcast.R;
 import com.example.podcast.Service.NotificationActionService;
 

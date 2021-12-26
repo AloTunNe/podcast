@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,9 +23,9 @@ import com.squareup.picasso.Target;
 import java.util.List;
 
 public class RecommendPlaylistAdapter extends RecyclerView.Adapter<RecommendPlaylistAdapter.ViewHolder>{
-    private List<PlaylistOnMainBanner> reList;
-    private Context context;
-    private OnRePlaylistClick mOnRePlaylistClick;
+    private final List<PlaylistOnMainBanner> reList;
+    private final Context context;
+    private final OnRePlaylistClick mOnRePlaylistClick;
     public RecommendPlaylistAdapter(Context context, List<PlaylistOnMainBanner> reList, OnRePlaylistClick onRePlaylistClick) {
         this.context = context;
         this.reList = reList;

@@ -12,13 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchPodcastAdapter extends RecyclerView.Adapter<SearchPodcastAdapter.ViewHolder>{
-    private List<Episode> reList;
+    private final List<Episode> reList;
     Context context;
-    private OnPodcastSearchClick mOnPodcastSearchClick;
+    private final OnPodcastSearchClick mOnPodcastSearchClick;
     public SearchPodcastAdapter(Context context, List<Episode> reList, OnPodcastSearchClick onPodcastSearchClick) {
         this.context = context;
         this.reList = reList;

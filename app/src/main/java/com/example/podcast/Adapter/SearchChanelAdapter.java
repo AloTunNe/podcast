@@ -13,19 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.podcast.Model.Chanel;
-import com.example.podcast.Model.Episode;
 import com.example.podcast.R;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchChanelAdapter extends RecyclerView.Adapter<SearchChanelAdapter.ViewHolder>{
-    private List<Chanel> reList;
+    private final List<Chanel> reList;
     Context context;
-    private OnChannelSearchClick mOnChannelSearchClick;
+    private final OnChannelSearchClick mOnChannelSearchClick;
     public SearchChanelAdapter(Context context, List<Chanel> reList, OnChannelSearchClick onChannelSearchClick) {
         this.context = context;
         this.reList = reList;

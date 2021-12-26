@@ -14,7 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;

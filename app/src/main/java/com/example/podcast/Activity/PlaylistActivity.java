@@ -18,10 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.podcast.Adapter.PodcastPlaylistAdapter;
-import com.example.podcast.Adapter.RecommendAdapter;
-import com.example.podcast.Adapter.RecommendPlaylistAdapter;
 import com.example.podcast.Model.Episode;
-import com.example.podcast.Model.EpisodeOnMainBanner;
 import com.example.podcast.Model.Playlist;
 import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
@@ -30,7 +27,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import org.w3c.dom.Text;
+
 
 import java.util.ArrayList;
 import java.util.List;
