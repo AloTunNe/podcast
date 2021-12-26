@@ -139,7 +139,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PlayEpisode.this, Main.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 intent.putExtra("User_Login", Main.user);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
@@ -228,8 +228,13 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             @Override
             public void run() {
                 SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
-                tvTimeCurrent.setText(timeFormat.format(mediaPlayer.getCurrentPosition()));
-                seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                try {
+                    tvTimeCurrent.setText(timeFormat.format(mediaPlayer.getCurrentPosition()));
+                    seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                }
+                catch (Exception e) {
+                    Log.d(TAG, "run: " + e.getMessage());
+                }
                 handler.postDelayed(this, 100);
             }
         }, 100);
@@ -541,7 +546,8 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     @Override
     public void onPodcastPlaylistClick(int pos) {
         notificationManager.cancelAll();
-
+        mediaPlayer.pause();
+        isPlaying = false;
         unregisterReceiver(broadcastReceiver);
         mediaPlayer.release();
         mediaPlayer = null;
