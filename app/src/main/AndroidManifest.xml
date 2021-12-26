@@ -18,7 +18,6 @@
 
         <activity
             android:name=".Activity.Login"
-            android:noHistory="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

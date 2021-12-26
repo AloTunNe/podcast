@@ -117,6 +117,7 @@ public class PlaylistActivity extends AppCompatActivity implements PodcastPlayli
             public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
                 episodeArrayList = (ArrayList<Episode>) response.body();
                 try {
+                    episodeArrayList.clear();
                     if (episodeArrayList.size() != 0) {
                         podcastPlaylistAdapter = new PodcastPlaylistAdapter(PlaylistActivity.this, episodeArrayList, PlaylistActivity.this);
                         podcastPlaylistAdapter.notifyDataSetChanged();

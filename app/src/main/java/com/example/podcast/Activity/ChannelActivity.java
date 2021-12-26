@@ -160,6 +160,7 @@ public class ChannelActivity extends AppCompatActivity implements SearchPlaylist
                 ArrayList<Playlist> playlists = (ArrayList<Playlist>) response.body();
                 try {
                     if (playlists.size() != 0) {
+                        playlistArrayList.clear();
                         for(int i = 0; i<playlists.size(); i++) {
                             playlistArrayList.add(playlists.get(i));
                         }
