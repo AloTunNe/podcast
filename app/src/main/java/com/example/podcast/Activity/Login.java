@@ -27,6 +27,7 @@ import com.example.podcast.Model.User;
 import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
 import com.example.podcast.Service.DataService;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -40,7 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
-    Button btnLogin;
+    Button btnLogin, btnLoginFb;
     EditText edtInputEmail;
     EditText edtInputPassword;
     User user;
@@ -58,9 +59,27 @@ public class Login extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.btn_login_fb);
-        loginButton.setReadPermissions("email");
+        //loginButton.setReadPermissions("email");
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                    }
+                });
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "======Facebook login success======");
@@ -110,6 +129,7 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -119,7 +139,7 @@ public class Login extends AppCompatActivity {
         finish();
     }
     private void Init() {
-
+        btnLoginFb = (Button) findViewById(R.id.btn_login_fb);
         btnLogin = (Button) findViewById(R.id.btn_login);
         edtInputEmail  = (EditText) findViewById(R.id.email_input);
         edtInputPassword = (EditText) findViewById(R.id.password_input);

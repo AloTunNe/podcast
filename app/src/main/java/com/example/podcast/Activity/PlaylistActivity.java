@@ -1,7 +1,6 @@
 package com.example.podcast.Activity;
 
 import static android.content.ContentValues.TAG;
-import static com.example.podcast.Activity.Main.mediaPlayer;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

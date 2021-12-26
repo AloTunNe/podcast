@@ -3,7 +3,10 @@ package com.example.podcast.Activity;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -50,7 +53,7 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
     TextView tvCatogories;
     ImageView img_Humburger_Menu;
     ImageView imgIconSearch;
-    User user;
+    public static User user;
     Context context;
     ArrayList<EpisodeOnMainBanner> episodeOnMainBannerList;
     ArrayList<PlaylistOnMainBanner> playlistOnMainBannerArrayList;
@@ -67,9 +70,10 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
 
     RecyclerView recyclerView;
     RecyclerView rcv_Multi_Main_Banner;
+    public static boolean hasStartPlaying = false;
 
-    public static boolean isGlobalPlaying = false;
-    public static MediaPlayer mediaPlayer;
+    //public static boolean isGlobalPlaying = false;
+    //public static MediaPlayer mediaPlayer;
 
 
     @Override
@@ -188,6 +192,18 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
         Episode episode = new Episode(ep.getIdEpisode(), null, ep.getName(), null,
                 ep.getLink(), ep.getAvatar(), null, null, null, ep.getAuthor());
         iNewActivity.putExtra("Episode", episode);
+        if(hasStartPlaying) {
+            if (PlayEpisode.episodeOnMainBanner.getNameEpisode() != ep.getName()) {
+                PlayEpisode.mediaPlayer.pause();
+                PlayEpisode.isPlaying = false;
+                PlayEpisode.mediaPlayer.release();
+                PlayEpisode.mediaPlayer = null;
+                PlayEpisode.notificationManager.cancelAll();
+            }
+            else {
+                iNewActivity.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            }
+        }
         startActivity(iNewActivity);
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
