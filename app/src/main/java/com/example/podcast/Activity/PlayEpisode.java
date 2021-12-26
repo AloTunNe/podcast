@@ -185,8 +185,6 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                 mediaPlayer.seekTo(seekBar.getProgress());
             }
         });
-
-
     }
 
     private void TimeFastForward()
@@ -217,13 +215,11 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         }, 100);
     }
 
-
     private void setTotalTime() {
         SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
         tvTotalTime.setText(timeFormat.format(mediaPlayer.getDuration()));
         seekBar.setMax(mediaPlayer.getDuration());
     }
-
 
     private void Init() throws MalformedURLException {
         context = this;
@@ -238,7 +234,6 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         ibPrev = (ImageButton) findViewById(R.id.btn_prev);
         ibFastForward = (ImageButton) findViewById(R.id.btn_fastForward);
         ibFastRewind = (ImageButton) findViewById(R.id.btn_fastRewind);
-
 
         simgBackgroundpisode = (ShapeableImageView) findViewById(R.id.simgTopBackground);
 
@@ -273,7 +268,6 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             e.printStackTrace();
         }
 
-
     }
     public void onBackPressed() {
         super.onBackPressed();
@@ -295,7 +289,6 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             public void onBitmapFailed(Drawable errorDrawable) {
 
             }
-
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {
 
@@ -317,10 +310,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                             Log.d(TAG, "onResponse: " + e.getMessage());
                             getDataEpisodeById(keyword);
                         }
-
-
                     }
-
                     @Override
                     public void onFailure(Call<List<Episode>> call, Throwable t) {
 
@@ -337,6 +327,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             public void onResponse(Call<List<Episode>> call, Response<List<Episode>> response) {
                 ArrayList<Episode> episodes = (ArrayList<Episode>) response.body();
                 try {
+                    episodeArrayList.clear();
                     for (int i = 0; i<episodes.size(); i++) {
                         episodeArrayList.add(episodes.get(i));
                     }
@@ -348,9 +339,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                     Log.d(TAG, "onResponse: " + e.getMessage());
                     getDataEpisodeByPlaylist(keyword);
                 }
-
             }
-
             @Override
             public void onFailure(Call<List<Episode>> call, Throwable t) {
 
