@@ -75,7 +75,7 @@ public class NotificationPlay {
                 //.setStyle(new MediaStyle()
                     //.setShowActionsInCompactView(0, 1, 2)
                     //.setMediaSession(mediaSessionCompat.getSessionToken()))
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
 
         notificationManagerCompat.notify(123, notification);
