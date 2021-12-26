@@ -281,8 +281,7 @@ public class Browse_Podcast extends AppCompatActivity implements SearchPodcastAd
                 PlayEpisode.isPlaying = false;
                 PlayEpisode.mediaPlayer.release();
                 PlayEpisode.mediaPlayer = null;
-                NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.cancelAll();
+                PlayEpisode.notificationManager.cancelAll();
             }
             else {
                 iNewActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

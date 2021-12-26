@@ -139,6 +139,7 @@
                     android:background="@drawable/btn_login_shape"
                     android:elevation="10dp"
                     android:text="@string/login"
+                    android:textStyle="bold"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -172,13 +173,15 @@
                 <com.facebook.login.widget.LoginButton
                     android:id="@+id/btn_login_fb"
                     android:layout_width="300dp"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="@color/white"
                     android:text="@string/login_with_facebook"
                     android:background="@drawable/btn_fb_shape"
                     android:layout_marginStart="40dp"
                     android:textAllCaps="false"
+                    style="@style/login_fb"
+                    android:scaleType="centerInside"
                     />
 
             </LinearLayout>
@@ -198,6 +201,7 @@
                     android:textColor="@color/white"
                     android:layout_marginStart="40dp"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     android:background="@drawable/btn_register_shape"
                     android:textAllCaps="false"
                     />

@@ -34,14 +34,13 @@
 
             <ImageView
                 android:id="@+id/img_icon_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/ic_back"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/ic_back_round"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:layout_editor_absoluteY="-14dp" />
 
             <TextView
                 android:id="@+id/tv_Episode"
@@ -224,36 +223,7 @@
 
                 />
 
-            <TextView
-                android:id="@+id/tv_Unlike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="40dp"
-                android:padding="10dp"
-                android:text="UnLike"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintEnd_toStartOf="@+id/imgBtn_Unlike"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_Author" />
 
-
-            <ImageButton
-                android:id="@+id/imgBtn_Unlike"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="36dp"
-                android:background="@drawable/ic_unlike"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.981"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Author" />
 
             <ScrollView
                 android:id="@+id/scv_Discription"

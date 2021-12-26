@@ -91,6 +91,7 @@ public class Register extends AppCompatActivity {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 ArrayList<User> users = (ArrayList<User>) response.body();
                 try {
+                    userArrayList.clear();
                     for(int i = 0; i <users.size(); i++) {
                         userArrayList.add(users.get(i));
                     }

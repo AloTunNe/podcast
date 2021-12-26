@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -197,11 +198,10 @@ public class Main extends AppCompatActivity implements RecommendAdapter.OnRecomm
                 PlayEpisode.isPlaying = false;
                 PlayEpisode.mediaPlayer.release();
                 PlayEpisode.mediaPlayer = null;
-                NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.cancelAll();
+                PlayEpisode.notificationManager.cancelAll();
             }
             else {
-                iNewActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                iNewActivity.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             }
         }
         startActivity(iNewActivity);

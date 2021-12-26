@@ -72,7 +72,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     public static Episode episodeOnMainBanner;
 
     int like;
-
+    int unlike;
     PodcastPlaylistAdapter podcastPlaylistAdapter;
     ArrayList<Episode> episodeArrayList;
 
@@ -81,9 +81,8 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     int position = 0;
     public static boolean isPlaying = false;
 
-    public NotificationManager notificationManager;
+    public static NotificationManager notificationManager;
     public static MediaPlayer mediaPlayer;
-
 
 
     @Override
@@ -109,11 +108,12 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                 } else {
                     upDateLike("-1", episodeOnMainBanner.getIdEpisode());
                     imgbtnLike.setImageResource(R.drawable.ic_likeoff);
-                    like  = 0;
+                    like = 0;
                 }
 
             }
         });
+
         imgButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,6 +142,15 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                     onTrackPlay();
 
                 }
+                /*if (mediaPlayer.isPlaying())
+                {
+                    mediaPlayer.stop();
+                    ibPlay.setImageResource(R.drawable.ic_play);
+                }
+                else {
+                    mediaPlayer.start();
+                    ibPlay.setImageResource(R.drawable.ic_pause);
+                }*/
                 setTotalTime();
                 //UpdateTime();
             }
@@ -163,7 +172,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         ibFastForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimeFastForward();
+
 
             }
         });
@@ -172,7 +181,6 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -183,21 +191,6 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                 mediaPlayer.seekTo(seekBar.getProgress());
             }
         });
-    }
-
-    private void TimeFastForward()
-    {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
-
-                tvTimeCurrent.setText(timeFormat.format(mediaPlayer.getCurrentPosition() + 10000));
-                seekBar.setProgress(mediaPlayer.getCurrentPosition() + 10000);
-                handler.postDelayed(this, 100);
-            }
-        }, 100);
     }
 
     private void UpdateTime() {
@@ -399,7 +392,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         }
 
     }
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getExtras().getString("actionName");
@@ -545,6 +538,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         mediaPlayer.release();
         mediaPlayer = null;*/
     }
+
 
     @Override
     public void onPodcastPlaylistClick(int pos) {

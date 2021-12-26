@@ -9,7 +9,7 @@
             android:id="@+id/relativeLayout"
             android:layout_width="380dp"
             android:layout_height="720dp"
-            android:background="@drawable/second_background"
+            android:background="@drawable/second_bg_register"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" >
@@ -148,7 +148,6 @@
                                             android:layout_width="300dp"
                                             android:layout_height="65dp"
                                             android:layout_marginStart="30dp"
-                                            android:contentDescription="@string/password_hint"
                                             android:src="@drawable/text_input" />
 
                                         <EditText
@@ -159,7 +158,6 @@
                                             android:layout_marginTop="-2dp"
                                             android:autofillHints="password"
                                             android:background="@null"
-                                            android:hint="@string/password_hint"
                                             android:inputType="textPassword"
                                             android:textColor="@color/white"
                                             android:textColorHint="@color/grey"
@@ -231,9 +229,7 @@
                             android:orientation="vertical">
 
                         </LinearLayout>
--->
-
-                        <Button
+-->                        <Button
                             android:id="@+id/btn_register"
                             android:layout_width="300dp"
                             android:layout_height="60dp"
