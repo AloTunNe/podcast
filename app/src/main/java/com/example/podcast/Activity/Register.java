@@ -62,7 +62,7 @@ public class Register extends AppCompatActivity {
                     }
                     if (check == false) Toast.makeText(getApplicationContext(), "Your Email has Created a Account! \n Please try a new Email!", Toast.LENGTH_LONG).show();
                     else {
-                        addUser(edtEmail.getText().toString(), edtPassword.getText().toString());
+                        addUser(edtEmail.getText().toString(), edtPassword.getText().toString(), "");
                     }
                 }
                 else {
@@ -91,6 +91,7 @@ public class Register extends AppCompatActivity {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 ArrayList<User> users = (ArrayList<User>) response.body();
                 try {
+                    userArrayList.clear();
                     for(int i = 0; i <users.size(); i++) {
                         userArrayList.add(users.get(i));
                     }
@@ -106,9 +107,9 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-    private void addUser(String email, String password) {
+    private void addUser(String email, String password, String fbid) {
         DataService dataService = APIService.getService();
-        Call<String> callback = dataService.AddUser(email, password);
+        Call<String> callback = dataService.AddUser(email, password, fbid);
         callback.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -118,7 +119,7 @@ public class Register extends AppCompatActivity {
                     else  Toast.makeText(Register.this, "Server not response, try again!", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Log.d(TAG, "onResponse: " + e.getMessage());
-                    addUser(email, password);
+                    addUser(email, password, fbid);
                 }
 
             }

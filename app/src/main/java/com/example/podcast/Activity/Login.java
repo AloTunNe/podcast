@@ -48,6 +48,8 @@ public class Login extends AppCompatActivity {
     CallbackManager callbackManager;
     LoginButton loginButton;
 
+    ArrayList<User> userArrayList;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +124,8 @@ public class Login extends AppCompatActivity {
         edtInputEmail  = (EditText) findViewById(R.id.email_input);
         edtInputPassword = (EditText) findViewById(R.id.password_input);
         btnRegister = (Button) findViewById(R.id.btn_register);
+
+        userArrayList = new ArrayList<>();
     }
 
     private void checkData() {
@@ -132,13 +136,17 @@ public class Login extends AppCompatActivity {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 ArrayList<User> users = (ArrayList<User>) response.body();
                 try {
+                    userArrayList.clear();
+                    for (int i = 0; i < users.size(); i++) {
+                        userArrayList.add(users.get(i));
+                    }
                     boolean check = false;
                     String inputEmail;
                     String inputPassword;
                     inputEmail = edtInputEmail.getText().toString();
                     inputPassword = edtInputPassword.getText().toString();
-                    for(int i = 0; i < users.size(); i++) {
-                        if (users.get(i).getUserEmail().compareTo(inputEmail) == 0 && users.get(i).getUserPassword().compareTo(inputPassword) == 0) {
+                    for(int i = 0; i < userArrayList.size(); i++) {
+                        if (userArrayList.get(i).getUserEmail().compareTo(inputEmail) == 0 && userArrayList.get(i).getUserPassword().compareTo(inputPassword) == 0) {
                             check = true;
                             user = new User(users.get(i));
                             break;

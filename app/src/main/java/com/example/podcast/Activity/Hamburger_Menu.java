@@ -1,10 +1,13 @@
 package com.example.podcast.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,11 +43,8 @@ public class Hamburger_Menu extends AppCompatActivity {
         imgCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent iNewActivity = new Intent(Hamburger_Menu.this, Main.class);
-                iNewActivity.putExtra("User_Login", user);
-                startActivity(iNewActivity);*/
-                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                 finish();
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
         });
 
@@ -69,12 +69,20 @@ public class Hamburger_Menu extends AppCompatActivity {
     }
 
     private void SetUI() {
-        tvHelloUser.setText("Hello \n" + user.getUserName());
-        Picasso.with(this).load(user.getUserAvatar()).into(imgAvatarUser);
+        try {
+            tvHelloUser.setText("Hello \n" + user.getUserName());
+            Picasso.with(this).load(user.getUserAvatar()).into(imgAvatarUser);
+        } catch (Exception e) {
+            Log.d(TAG, "SetUI: " +  e.getMessage());
+            user = (User) getIntent().getParcelableExtra("User_Login");
+        }
+
+
     }
 
     private void Init() {
         user = (User) getIntent().getParcelableExtra("User_Login");
+
         imgCloseBtn = (ImageView) findViewById(R.id.img_Closebtn);
         tvHelloUser = (TextView) findViewById(R.id.tv_Hello_User);
         imgAvatarUser = (ImageView) findViewById(R.id.img_Avatar_User);
@@ -82,6 +90,5 @@ public class Hamburger_Menu extends AppCompatActivity {
         tvFollows = (TextView) findViewById(R.id.tv_Follows);
         getTvFollowsNumber = (TextView) findViewById(R.id.tv_Follows_Number);
         llBrowse = (LinearLayout) findViewById(R.id.ll_browse);
-
     }
 }

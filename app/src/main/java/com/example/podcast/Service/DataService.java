@@ -74,7 +74,7 @@ public interface DataService {
 
     @FormUrlEncoded
     @POST ("AddUser.php")
-    Call<String> AddUser(@Field("Email") String email, @Field("Password") String password);
+    Call<String> AddUser(@Field("Email") String email, @Field("Password") String password, @Field("FbId") String fbid);
 
 
 
