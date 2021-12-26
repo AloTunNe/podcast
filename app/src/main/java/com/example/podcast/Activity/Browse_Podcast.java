@@ -4,12 +4,10 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,18 +21,14 @@ import com.example.podcast.Adapter.SearchChanelAdapter;
 import com.example.podcast.Adapter.SearchPlaylistAdapter;
 import com.example.podcast.Adapter.SearchPodcastAdapter;
 import com.example.podcast.Model.Chanel;
-import com.example.podcast.Model.ChanelOnMainBanner;
 import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.Playlist;
-import com.example.podcast.Model.PlaylistOnMainBanner;
-import com.example.podcast.Model.User;
 import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
 import com.example.podcast.Service.DataService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
