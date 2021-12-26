@@ -40,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
-    Button btnLogin;
+    Button btnLogin, btnLoginFb;
     EditText edtInputEmail;
     EditText edtInputPassword;
     User user;
@@ -117,7 +117,7 @@ public class Login extends AppCompatActivity {
         finish();
     }
     private void Init() {
-
+        btnLoginFb = (Button) findViewById(R.id.btn_login_fb);
         btnLogin = (Button) findViewById(R.id.btn_login);
         edtInputEmail  = (EditText) findViewById(R.id.email_input);
         edtInputPassword = (EditText) findViewById(R.id.password_input);
