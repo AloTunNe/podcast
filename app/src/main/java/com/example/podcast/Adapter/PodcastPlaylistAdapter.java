@@ -1,26 +1,19 @@
 package com.example.podcast.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.podcast.Model.Episode;
-import com.example.podcast.Model.EpisodeOnMainBanner;
-import com.example.podcast.R;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.util.ArrayList;
+import com.example.podcast.R;
+
 import java.util.List;
 
 public class PodcastPlaylistAdapter extends RecyclerView.Adapter<PodcastPlaylistAdapter.ViewHolder>{

@@ -3,15 +3,9 @@ package com.example.podcast.Activity;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,15 +31,10 @@ import com.example.podcast.Model.Playlist;
 import com.example.podcast.Model.PlaylistOnMainBanner;
 import com.example.podcast.Model.User;
 import com.example.podcast.R;
-import com.example.podcast.Service.APIService;
-import com.example.podcast.Service.DataService;
+
 
 import java.util.ArrayList;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Main extends AppCompatActivity implements RecommendAdapter.OnRecommendEpClick, RecommendCatogoryAdapter.OnCategoryClick, RecommendChanelAdapter.OnReChannelClick, RecommendPlaylistAdapter.OnRePlaylistClick{
     TextView tvChanels;

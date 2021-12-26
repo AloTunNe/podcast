@@ -2,9 +2,10 @@ package com.example.podcast.Activity;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.NotificationManager;
+
 import android.content.Context;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;

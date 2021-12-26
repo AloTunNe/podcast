@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.ParameterizedType;
 
 public class Chanel implements Parcelable {
     @SerializedName("ChanelId")

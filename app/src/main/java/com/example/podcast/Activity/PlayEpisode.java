@@ -14,7 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -26,7 +26,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -71,7 +70,6 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     public static Episode episodeOnMainBanner;
 
     int like;
-    int unlike;
     PodcastPlaylistAdapter podcastPlaylistAdapter;
     ArrayList<Episode> episodeArrayList;
 
@@ -82,12 +80,36 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
 
     public static NotificationManager notificationManager;
     public static MediaPlayer mediaPlayer;
-
+    BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.podcast);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getExtras().getString("actionName");
+
+                switch (action) {
+                    case NotificationPlay.ACTION_PREVIOUS:
+                        onTrackPrevious();
+                        break;
+                    case NotificationPlay.ACTION_PLAY:
+                        if (isPlaying) {
+                            onTrackPause();
+                            mediaPlayer.pause();
+                        } else {
+                            onTrackPlay();
+                            mediaPlayer.start();
+                        }
+                        break;
+                    case NotificationPlay.ACTION_NEXT:
+                        onTrackNext();
+                        break;
+                }
+            }
+        };
         try {
             Init();
         } catch (MalformedURLException e) {
@@ -117,18 +139,16 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PlayEpisode.this, Main.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 intent.putExtra("User_Login", Main.user);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createChannel();
-            registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
-            startService(new Intent(context, OnClearFromRecentService.class));
-        }
+        createChannel();
+        registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
+        startService(new Intent(context, OnClearFromRecentService.class));
         ibPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,12 +163,16 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                 }
 
                 setTotalTime();
-                //UpdateTime();
+                UpdateTime();
             }
         });
         ibNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (position == episodeArrayList.size() - 1)
+                {
+                    position = -1;
+                }
                 onTrackNext();
                 onTrackPlay();
                 setTotalTime();
@@ -158,6 +182,10 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         ibPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (position == 0)
+                {
+                    position = episodeArrayList.size();
+                }
                 onTrackPrevious();
                 onTrackPlay();
                 setTotalTime();
@@ -200,8 +228,13 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
             @Override
             public void run() {
                 SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
-                tvTimeCurrent.setText(timeFormat.format(mediaPlayer.getCurrentPosition()));
-                seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                try {
+                    tvTimeCurrent.setText(timeFormat.format(mediaPlayer.getCurrentPosition()));
+                    seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                }
+                catch (Exception e) {
+                    Log.d(TAG, "run: " + e.getMessage());
+                }
                 handler.postDelayed(this, 100);
             }
         }, 100);
@@ -385,7 +418,7 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         });
     }
     private void createChannel() {
-        NotificationChannel channel = new NotificationChannel(NotificationPlay.CHANNEL_ID, "Our project", NotificationManager.IMPORTANCE_HIGH);
+        NotificationChannel channel = new NotificationChannel(NotificationPlay.CHANNEL_ID, "Our project", NotificationManager.IMPORTANCE_LOW);
 
         notificationManager = getSystemService(NotificationManager.class);
         if (notificationManager != null) {
@@ -393,44 +426,17 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         }
 
     }
-    public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getExtras().getString("actionName");
 
-            switch (action) {
-                case NotificationPlay.ACTION_PREVIOUS:
-                    onTrackPrevious();
-                    break;
-                case NotificationPlay.ACTION_PLAY:
-                    if (isPlaying) {
-                        onTrackPause();
-                        mediaPlayer.pause();
-                    } else {
-                        onTrackPlay();
-                        mediaPlayer.start();
-                    }
-                    break;
-                case NotificationPlay.ACTION_NEXT:
-                    onTrackNext();
-                    break;
-            }
-        }
-    };
 
     @Override
     public void onTrackPrevious() {
         position--;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.cancelAll();
-        }
+        notificationManager.cancelAll();
 
         unregisterReceiver(broadcastReceiver);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createChannel();
-            registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
-            startService(new Intent(context, OnClearFromRecentService.class));
-        }
+        createChannel();
+        registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
+        startService(new Intent(context, OnClearFromRecentService.class));
         mediaPlayer.release();
         mediaPlayer = null;
         Episode ep = episodeArrayList.get(position);
@@ -485,16 +491,12 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
     @Override
     public void onTrackNext() {
         position++;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.cancelAll();
-        }
+        notificationManager.cancelAll();
 
         unregisterReceiver(broadcastReceiver);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createChannel();
-            registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
-            startService(new Intent(context, OnClearFromRecentService.class));
-        }
+        createChannel();
+        registerReceiver(broadcastReceiver, new IntentFilter("TRACK_TRACK"));
+        startService(new Intent(context, OnClearFromRecentService.class));
         mediaPlayer.release();
         mediaPlayer = null;
         Episode ep = episodeArrayList.get(position);
@@ -543,10 +545,9 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
 
     @Override
     public void onPodcastPlaylistClick(int pos) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.cancelAll();
-        }
-
+        notificationManager.cancelAll();
+        mediaPlayer.pause();
+        isPlaying = false;
         unregisterReceiver(broadcastReceiver);
         mediaPlayer.release();
         mediaPlayer = null;

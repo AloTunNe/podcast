@@ -12,21 +12,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.podcast.Model.Chanel;
-import com.example.podcast.Model.Episode;
 import com.example.podcast.Model.Playlist;
 import com.example.podcast.R;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class SearchPlaylistAdapter extends RecyclerView.Adapter<SearchPlaylistAdapter.ViewHolder>{
-    private List<Playlist> reList;
+    private final List<Playlist> reList;
     Context context;
-    private OnPlaylistSearchClick mOnPlaylistSearchClick;
+    private final OnPlaylistSearchClick mOnPlaylistSearchClick;
     public SearchPlaylistAdapter(Context context, List<Playlist> reList, OnPlaylistSearchClick onPlaylistSearchClick) {
         this.context = context;
         this.reList = reList;

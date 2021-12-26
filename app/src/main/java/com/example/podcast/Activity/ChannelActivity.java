@@ -2,7 +2,7 @@ package com.example.podcast.Activity;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,20 +12,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.podcast.Adapter.RecommendPlaylistAdapter;
+
 import com.example.podcast.Adapter.SearchPlaylistAdapter;
-import com.example.podcast.Adapter.SearchPodcastAdapter;
+
 import com.example.podcast.Model.Chanel;
 import com.example.podcast.Model.Playlist;
-import com.example.podcast.Model.PlaylistOnMainBanner;
+
 import com.example.podcast.R;
 import com.example.podcast.Service.APIService;
 import com.example.podcast.Service.DataService;
@@ -33,7 +33,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -22,9 +22,9 @@ import com.squareup.picasso.Target;
 import java.util.List;
 
 public class RecommendCatogoryAdapter extends RecyclerView.Adapter<RecommendCatogoryAdapter.ViewHolder>{
-    private List<CatogoryOnMainBanner> reList;
-    private Context context;
-    private OnCategoryClick mOnCategoryClick;
+    private final List<CatogoryOnMainBanner> reList;
+    private final Context context;
+    private final OnCategoryClick mOnCategoryClick;
     public RecommendCatogoryAdapter(Context context, List<CatogoryOnMainBanner> reList, OnCategoryClick onCategoryClick) {
         this.context = context;
         this.reList = reList;

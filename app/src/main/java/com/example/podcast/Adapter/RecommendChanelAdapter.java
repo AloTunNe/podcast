@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.podcast.Model.ChanelOnMainBanner;
-import com.example.podcast.Model.PlaylistOnMainBanner;
+
 import com.example.podcast.R;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
@@ -24,9 +24,9 @@ import com.squareup.picasso.Target;
 import java.util.List;
 
 public class RecommendChanelAdapter extends RecyclerView.Adapter<RecommendChanelAdapter.ViewHolder>{
-    private List<ChanelOnMainBanner> reList;
-    private Context context;
-    private OnReChannelClick mOnReChannelClick;
+    private final List<ChanelOnMainBanner> reList;
+    private final Context context;
+    private final OnReChannelClick mOnReChannelClick;
     public RecommendChanelAdapter(Context context, List<ChanelOnMainBanner> reList, OnReChannelClick onReChannelClick) {
         this.context = context;
         this.reList = reList;

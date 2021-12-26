@@ -10,7 +10,6 @@ import android.support.v4.media.session.MediaSessionCompat;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.media.app.NotificationCompat.MediaStyle;
 import com.example.podcast.R;
 import com.example.podcast.Service.NotificationActionService;
 
@@ -75,7 +74,7 @@ public class NotificationPlay {
                 //.setStyle(new MediaStyle()
                     //.setShowActionsInCompactView(0, 1, 2)
                     //.setMediaSession(mediaSessionCompat.getSessionToken()))
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
 
         notificationManagerCompat.notify(123, notification);
@@ -95,4 +94,6 @@ public class NotificationPlay {
             return null;
         }
     }
+
+
 }
