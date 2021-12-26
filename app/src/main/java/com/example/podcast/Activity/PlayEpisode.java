@@ -144,12 +144,16 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
                 }
 
                 setTotalTime();
-                //UpdateTime();
+                UpdateTime();
             }
         });
         ibNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (position == episodeArrayList.size() - 1)
+                {
+                    position = -1;
+                }
                 onTrackNext();
                 onTrackPlay();
                 setTotalTime();
@@ -159,6 +163,10 @@ public class PlayEpisode extends AppCompatActivity implements Playable, PodcastP
         ibPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (position == 0)
+                {
+                    position = episodeArrayList.size();
+                }
                 onTrackPrevious();
                 onTrackPlay();
                 setTotalTime();

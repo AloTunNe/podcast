@@ -72,7 +72,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
         holder.tvEpisodeMainBannerName.setText(ep.getName());
         holder.tvEpisodeMainBannerAuthor.setText(ep.getAuthor());
         holder.tvEpisodeMainBannerViews.setText("Views: " + ep.getListens());
+
         Picasso.with(context).load(ep.getAuthorAVT()).into(holder.imgEpisodeMainBannerAvatar);
+
         Picasso.with(context).load(ep.getAvatar()).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
