@@ -32,10 +32,10 @@
         <item name="cornerSizeBottomLeft">20dp</item>
     </style>
     <style name="login_fb">
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
-        <item name="android:paddingStart">50dp</item>
-        <!--<item name="android:gravity">center</item>-->
+        <item name="android:paddingTop">19dp</item>
+        <item name="android:paddingBottom">19dp</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:button">@drawable/btn_fb_shape</item>
     </style>
 </resources>
